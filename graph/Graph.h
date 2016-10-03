@@ -54,7 +54,7 @@
 /**
  *
  */
-template <class NodeType, class EdgeType> class GRAPH_EXPORT Graph {
+template <class NodeType, class EdgeType> class Graph {
 
 	// Restrict this template for using only types derived from Node and edge Interfaces
 	BOOST_STATIC_ASSERT((boost::is_base_of<Node, NodeType>::value));

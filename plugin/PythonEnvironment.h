@@ -59,12 +59,14 @@ protected:
 	std::string getPythonClassNAme(const std::string & path) throw (std::invalid_argument);
 	std::string getDirectoryPath(const std::string & path) throw (std::invalid_argument);
 
+    static PythonEnvironment* m_pInstance;
+
 private:
 	PythonEnvironment();
     PythonEnvironment(const PythonEnvironment&) {}
     PythonEnvironment& operator=(const PythonEnvironment& py) {return PythonEnvironment(py);}
 
-    static PythonEnvironment *m_pInstance;
+
 };
 
 struct CommandSenderWrap : CommandSender, boost::python::wrapper<CommandSender>

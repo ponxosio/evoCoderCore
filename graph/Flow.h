@@ -24,7 +24,7 @@
 
 #include "evocodercore_global.h"
 
-template<class EdgeType> class FLOW_EXPORT Flow {
+template<class EdgeType> class  Flow {
 	// Restrict this template for using only types derived from edge Interfaces
 	BOOST_STATIC_ASSERT((boost::is_base_of<Edge, EdgeType>::value));
 

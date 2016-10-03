@@ -1,7 +1,5 @@
 #include "PythonEnvironment.h"
 
-PythonEnvironment *PythonEnvironment::m_pInstance = NULL;
-
 BOOST_PYTHON_MODULE(communicationsMod)
 {
 	boost::python::class_<CommandSenderWrap, boost::noncopyable>("CommandSender", boost::python::no_init)
@@ -31,6 +29,8 @@ BOOST_PYTHON_MODULE(communicationsMod)
 		.def("disconnect", &FileSender::disconnect)
 		;
 }
+
+PythonEnvironment* PythonEnvironment::m_pInstance = NULL;
 
 PythonEnvironment* PythonEnvironment::GetInstance() {
     if (!m_pInstance)

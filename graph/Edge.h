@@ -27,7 +27,7 @@
 /**
  * Interface with the minimum operations that all directed Edges must have
  */
-class EDGE_EXPORT Edge {
+class  Edge {
 
 public:
 	//All derived clases must implement this two Constructor!!
