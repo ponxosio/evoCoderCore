@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class EXTRACTORPLUGIN_EXPORT ExtractorPlugin :
+class /*EXTRACTORPLUGIN_EXPORT*/ ExtractorPlugin :
     public Extractor, public SelfConfiguringPlugin
 {
 public:

@@ -28,7 +28,7 @@
 
 #include "evocodercore_global.h"
 
-class PYTHONENVIRONMENT_EXPORT PythonEnvironment
+class /*PYTHONENVIRONMENT_EXPORT*/ PythonEnvironment
 {
 public:
 	static PythonEnvironment* GetInstance() {

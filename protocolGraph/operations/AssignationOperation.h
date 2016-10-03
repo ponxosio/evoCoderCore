@@ -32,7 +32,7 @@
 /**
  * Implements a variable assignation, for example "t = 3 + d*2"
  */
-class ASSIGNATIONOPERATION_EXPORT AssignationOperation: public OperationNode {
+class /*ASSIGNATIONOPERATION_EXPORT*/ AssignationOperation: public OperationNode {
 public:
 	//methods of node
 	AssignationOperation();

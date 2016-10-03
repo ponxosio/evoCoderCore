@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class DIVERGENTSWITCH_EXPORT DivergentSwitch: public ExecutableContainerNode {
+class /*DIVERGENTSWITCH_EXPORT*/ DivergentSwitch: public ExecutableContainerNode {
 public:
 	//methods of being node
 	DivergentSwitch();

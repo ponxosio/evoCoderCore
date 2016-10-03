@@ -34,7 +34,7 @@ typedef Graph<ContainerNode, Edge>::SubGraphElem SubGraphSketch;
 typedef Graph<ExecutableContainerNode, Edge>::SubGraphElem SubGraphMachine;
 typedef std::priority_queue<Flow<Edge>, vector<Flow<Edge>>,FlowPtrComparator<Edge>> FlowsHeap;
 
-class MAPPINGENGINE_EXPORT MappingEngine {
+class /*MAPPINGENGINE_EXPORT*/ MappingEngine {
 public:
 	MappingEngine(MachineGraph* sketch, std::shared_ptr<ExecutableMachineGraph> machine);
 	virtual ~MappingEngine();

@@ -17,7 +17,7 @@
 
 #include "evocodercore_global.h"
 
-class TAUTOLOGY_EXPORT Tautology: public ComparisonOperable {
+class /*TAUTOLOGY_EXPORT*/ Tautology: public ComparisonOperable {
 public:
 	Tautology() {
 		this->negation = false;

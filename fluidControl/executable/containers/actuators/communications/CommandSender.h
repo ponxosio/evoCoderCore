@@ -13,7 +13,7 @@
 
 #include "evocodercore_global.h"
 
-class COMMANDSENDER_EXPORT CommandSender {
+class /*COMMANDSENDER_EXPORT*/ CommandSender {
 public:
 	CommandSender() {}
 	CommandSender(const CommandSender & cs) {}

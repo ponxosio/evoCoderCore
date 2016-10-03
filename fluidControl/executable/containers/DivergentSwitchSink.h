@@ -27,7 +27,7 @@
 
 #include "evocodercore_global.h"
 
-class DIVERGENTSWITCHSINK_EXPORT DivergentSwitchSink : public ExecutableContainerNode {
+class /*DIVERGENTSWITCHSINK_EXPORT*/ DivergentSwitchSink : public ExecutableContainerNode {
 public:
 	//methods of being node
 	DivergentSwitchSink();

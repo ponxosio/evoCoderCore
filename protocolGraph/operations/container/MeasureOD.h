@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class MEASUREOD_EXPORT MeasureOD: public ContainerOperation {
+class /*MEASUREOD_EXPORT*/ MeasureOD: public ContainerOperation {
 public:
 	// Node methods
 	MeasureOD();

@@ -14,7 +14,7 @@
 class PathSearcherIterator;
 class PathManager;
 
-class IDSEARCHER_EXPORT IdSearcher : public SearcherInterface
+class /*IDSEARCHER_EXPORT*/ IdSearcher : public SearcherInterface
 {
 public:
 	IdSearcher(int idInicio, PathManager* manager, int idDestination) throw (std::invalid_argument);

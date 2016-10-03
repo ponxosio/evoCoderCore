@@ -14,7 +14,7 @@
 class PathSearcherIterator;
 class PathManager;
 
-class TYPESEARCHER_EXPORT TypeSearcher : public SearcherInterface
+class /*TYPESEARCHER_EXPORT*/ TypeSearcher : public SearcherInterface
 {
 public:
 	TypeSearcher(const ExecutableMachineGraph::ExecutableContainerNodeVector & pendingNodes,

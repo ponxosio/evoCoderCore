@@ -23,7 +23,7 @@
 
 #include "evocodercore_global.h"
 
-class FILESENDER_EXPORT FileSender: public CommandSender {
+class /*FILESENDER_EXPORT*/ FileSender: public CommandSender {
 public:
 	FileSender();
 	FileSender(const FileSender & fs);

@@ -31,7 +31,7 @@
  *
  * Also has methods to serialize and deserialize the object in order to store it at the disk.
  */
-class VARIABLETABLE_EXPORT VariableTable {
+class /*VARIABLETABLE_EXPORT*/ VariableTable {
 public:
 	VariableTable();
 	virtual ~VariableTable();

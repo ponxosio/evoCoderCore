@@ -40,7 +40,7 @@ using namespace std;
 /**
  * Class only eith static methods that do miscelaneus staff
  */
-class UTILS_EXPORT Utils {
+class /*UTILS_EXPORT*/ Utils {
 
 public:
 	/**

@@ -30,7 +30,7 @@
 
 #include "evocodercore_global.h"
 
-class DIVERGENODE_EXPORT DivergeNode: public OperationNode {
+class /*DIVERGENODE_EXPORT*/ DivergeNode: public OperationNode {
 public:
 	//Methods for Node
 	DivergeNode();

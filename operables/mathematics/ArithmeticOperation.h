@@ -45,7 +45,7 @@ enum ArithmeticOperator {
 /**
  * Class that represents an arithmetic operation between two MathematicVariable s, operator available are + - * \
  */
-class ARITHMETICOPERATION_EXPORT ArithmeticOperation: public MathematicOperable {
+class /*ARITHMETICOPERATION_EXPORT*/ ArithmeticOperation: public MathematicOperable {
 public:
 
 	ArithmeticOperation();

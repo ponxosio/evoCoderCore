@@ -28,7 +28,7 @@
 /**
  * Represents a variable stored in the VariableTable.
  */
-class VARIABLEENTRY_EXPORT VariableEntry: public MathematicOperable {
+class /*VARIABLEENTRY_EXPORT*/ VariableEntry: public MathematicOperable {
 public:
 	VariableEntry();
 	VariableEntry(const std::string & name);

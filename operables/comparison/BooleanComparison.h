@@ -38,7 +38,7 @@ enum BooleanOperator {
 /**
  * Class that represent a boolean operation between simple comparisons, for example: (t > 3) && (t < 5)
  */
-class BOOLEANCOMPARISON_EXPORT BooleanComparison: public ComparisonOperable {
+class /*BOOLEANCOMPARISON_EXPORT*/ BooleanComparison: public ComparisonOperable {
 public:
 	BooleanComparison() {
 		this->left = std::shared_ptr<ComparisonOperable>();

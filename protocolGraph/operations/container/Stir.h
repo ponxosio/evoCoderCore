@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class STIR_EXPORT Stir: public ContainerOperation {
+class /*STIR_EXPORT*/ Stir: public ContainerOperation {
 public:
 	// Node methods
 	Stir();

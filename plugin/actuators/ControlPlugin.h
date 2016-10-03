@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class CONTROLPLUGIN_EXPORT ControlPlugin :
+class /*CONTROLPLUGIN_EXPORT*/ ControlPlugin :
     public Control, public SelfConfiguringPlugin
 {
 public:

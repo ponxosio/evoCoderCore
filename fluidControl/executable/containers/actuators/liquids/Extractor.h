@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class EXTRACTOR_EXPORT Extractor: public Instructable {
+class /*EXTRACTOR_EXPORT*/ Extractor: public Instructable {
 public:
 	Extractor() {
 		this->communications = -1;

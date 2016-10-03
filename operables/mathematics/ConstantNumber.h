@@ -24,7 +24,7 @@
 /**
  * Represents a constant number.
  */
-class CONSTANTNUMBER_EXPORT ConstantNumber: public MathematicOperable {
+class /*CONSTANTNUMBER_EXPORT*/ ConstantNumber: public MathematicOperable {
 public:
 	ConstantNumber();
 	ConstantNumber(int value);

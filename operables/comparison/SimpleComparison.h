@@ -44,7 +44,7 @@ enum ComparisonOperator {
 /**
  * Class that represents a simple comparison between two variables, for example "a > 3"
  */
-class SIMPLECOMPARISON_EXPORT SimpleComparison: public ComparisonOperable {
+class /*SIMPLECOMPARISON_EXPORT*/ SimpleComparison: public ComparisonOperable {
 public:
 	SimpleComparison() {
 		this->left = std::shared_ptr<MathematicOperable>();

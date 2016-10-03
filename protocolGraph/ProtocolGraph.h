@@ -33,7 +33,7 @@
 
 #include "evocodercore_global.h"
 
-class PROTOCOLGRAPH_EXPORT ProtocolGraph {
+class /*PROTOCOLGRAPH_EXPORT*/ ProtocolGraph {
 public:
 
 	//TYPE DEFS

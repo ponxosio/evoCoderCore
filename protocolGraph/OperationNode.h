@@ -23,7 +23,7 @@
 /**
  * Interface that implements a node that can be executed
  */
-class OPERATIONNODE_EXPORT OperationNode: public Node {
+class /*OPERATIONNODE_EXPORT*/ OperationNode: public Node {
 public:
 	OperationNode() :
 		Node() 

@@ -24,7 +24,7 @@
 
 #include "evocodercore_global.h"
 
-class CONTAINERSUTILS_EXPORT ContainersUtils {
+class /*CONTAINERSUTILS_EXPORT*/ ContainersUtils {
 
 public:
 	/**

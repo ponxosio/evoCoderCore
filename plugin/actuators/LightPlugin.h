@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class LIGHTPLUGIN_EXPORT LightPlugin :
+class /*LIGHTPLUGIN_EXPORT*/ LightPlugin :
     public Light, public SelfConfiguringPlugin
 {
 public:

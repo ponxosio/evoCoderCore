@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class LIGHT_EXPORT Light: public Instructable {
+class /*LIGHT_EXPORT*/ Light: public Instructable {
 public:
 	Light() {
 		this->communications = -1;

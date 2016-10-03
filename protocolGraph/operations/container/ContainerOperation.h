@@ -26,7 +26,7 @@
 /**
  * Interface that represents all the operations that can be made over the machine containers
  */
-class CONTAINEROPERATION_EXPORT ContainerOperation: public OperationNode {
+class /*CONTAINEROPERATION_EXPORT*/ ContainerOperation: public OperationNode {
 public:
 	ContainerOperation() : OperationNode() {}
 	ContainerOperation(const ContainerOperation & obj) : OperationNode(obj) {}

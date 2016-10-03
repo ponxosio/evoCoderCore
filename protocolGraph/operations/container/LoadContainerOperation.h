@@ -19,7 +19,7 @@
 
 #include "evocodercore_global.h"
 
-class LOADCONTAINEROPERATION_EXPORT LoadContainerOperation: public ContainerOperation {
+class /*LOADCONTAINEROPERATION_EXPORT*/ LoadContainerOperation: public ContainerOperation {
 public:
 	//methods for node
 	LoadContainerOperation();

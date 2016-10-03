@@ -25,7 +25,7 @@
 
 #include "evocodercore_global.h"
 
-class BIOBLOCKSJSONREADER_EXPORT BioBlocksJSONReader
+class /*BIOBLOCKSJSONREADER_EXPORT*/ BioBlocksJSONReader
 {
 public:
 

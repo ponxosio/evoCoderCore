@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class SELFCONFIGURINGPLUGIN_EXPORT SelfConfiguringPlugin
+class /*SELFCONFIGURINGPLUGIN_EXPORT*/ SelfConfiguringPlugin
 {
 public:
     static std::vector<std::pair<std::string,std::string>> getParamsType(const std::string & pluginType) throw (std::runtime_error);

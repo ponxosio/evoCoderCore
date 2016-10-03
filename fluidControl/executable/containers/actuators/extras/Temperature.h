@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class TEMPERATURE_EXPORT Temperature: public Instructable {
+class /*TEMPERATURE_EXPORT*/ Temperature: public Instructable {
 public:
 	Temperature() {
 		this->communications = -1;

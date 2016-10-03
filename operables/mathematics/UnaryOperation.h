@@ -32,7 +32,7 @@ enum UnaryOperator {
 	floor  
 };
 }
-class UNARYOPERATION_EXPORT UnaryOperation: public MathematicOperable {
+class /*UNARYOPERATION_EXPORT*/ UnaryOperation: public MathematicOperable {
 public:
 	UnaryOperation();
 	UnaryOperation(std::shared_ptr<MathematicOperable> variable,

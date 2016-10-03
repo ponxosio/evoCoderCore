@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class SINKCONTAINER_EXPORT SinkContainer: public ExecutableContainerNode {
+class /*SINKCONTAINER_EXPORT*/ SinkContainer: public ExecutableContainerNode {
 public:
 	//methods of being node
 	SinkContainer();

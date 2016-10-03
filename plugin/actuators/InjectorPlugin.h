@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class INJECTORPLUGIN_EXPORT InjectorPlugin :
+class /*INJECTORPLUGIN_EXPORT*/ InjectorPlugin :
     public Injector, public SelfConfiguringPlugin
 {
 public:

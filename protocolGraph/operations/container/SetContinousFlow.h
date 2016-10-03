@@ -21,7 +21,7 @@
 
 #include "evocodercore_global.h"
 
-class SETCONTINOUSFLOW_EXPORT SetContinousFlow: public ContainerOperation {
+class /*SETCONTINOUSFLOW_EXPORT*/ SetContinousFlow: public ContainerOperation {
 public:
 	// Node methods
 	SetContinousFlow();

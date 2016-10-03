@@ -24,7 +24,7 @@
 
 #include "evocodercore_global.h"
 
-class CONVERGENTSWITCHINLET_EXPORT ConvergentSwitchInlet: public ExecutableContainerNode {
+class /*CONVERGENTSWITCHINLET_EXPORT*/ ConvergentSwitchInlet: public ExecutableContainerNode {
 public:
 	//methods of being node
 	ConvergentSwitchInlet();

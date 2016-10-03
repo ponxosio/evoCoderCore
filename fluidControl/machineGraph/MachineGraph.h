@@ -28,7 +28,7 @@
 #include "evocodercore_global.h"
 
 
-class MACHINEGRAPH_EXPORT MachineGraph {
+class /*MACHINEGRAPH_EXPORT*/ MachineGraph {
 public:
 	
 	//Type defs

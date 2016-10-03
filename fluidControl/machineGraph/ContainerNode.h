@@ -29,7 +29,7 @@
 
 #include "evocodercore_global.h"
 
-class CONTAINERNODE_EXPORT ContainerNode: public Node {
+class /*CONTAINERNODE_EXPORT*/ ContainerNode: public Node {
 
 public:
 	//Obligatory constructors if is dereived from NODE

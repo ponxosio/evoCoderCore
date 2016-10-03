@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class INJECTOR_EXPORT Injector: public Instructable {
+class /*INJECTOR_EXPORT*/ Injector: public Instructable {
 public:
 	Injector() {
 		this->communications = -1;

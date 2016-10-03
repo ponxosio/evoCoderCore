@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class GETVOLUME_EXPORT GetVolume: public ContainerOperation {
+class /*GETVOLUME_EXPORT*/ GetVolume: public ContainerOperation {
 public:
 	// Node methods
 	GetVolume();

@@ -15,7 +15,7 @@
 /**
  * Interface that represents all comparation operations
  */
-class COMPARISONOPERABLE_EXPORT ComparisonOperable {
+class /*COMPARISONOPERABLE_EXPORT*/ ComparisonOperable {
 public:
 	ComparisonOperable(){}
 	virtual ~ComparisonOperable(){}

@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class MIX_EXPORT Mix: public ContainerOperation {
+class /*MIX_EXPORT*/ Mix: public ContainerOperation {
 public:
 	// Node methods
 	Mix();

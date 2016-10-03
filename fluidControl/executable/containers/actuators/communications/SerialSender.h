@@ -27,7 +27,7 @@
 /**
  * Class that makes the serial communication
  */
-class SERIALSENDER_EXPORT SerialSender : public CommandSender {
+class /*SERIALSENDER_EXPORT*/ SerialSender : public CommandSender {
 public:
 	/**
 	 * @param device name of the port to communicate to (ex. \\\\.\\COM3)

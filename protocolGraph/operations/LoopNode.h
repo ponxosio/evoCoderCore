@@ -34,7 +34,7 @@
 /**
  * Implements a flow control operation, if or while
  */
-class LOOPNODE_EXPORT LoopNode: public OperationNode {
+class /*LOOPNODE_EXPORT*/ LoopNode: public OperationNode {
 public:
 	//Methods for Node
 	LoopNode();

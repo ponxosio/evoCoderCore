@@ -9,7 +9,7 @@
 
 #include "evocodercore_global.h"
 
-class SEARCHERINTERFACE_EXPORT SearcherInterface
+class /*SEARCHERINTERFACE_EXPORT*/ SearcherInterface
 {
 public:
 	virtual ~SearcherInterface() {}

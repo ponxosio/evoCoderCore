@@ -17,7 +17,7 @@
 /**
  * Interface that represents a variable in a comparison operation:
  */
-class MATHEMATICOPERABLE_EXPORT MathematicOperable {
+class /*MATHEMATICOPERABLE_EXPORT*/ MathematicOperable {
 public:
 	MathematicOperable(){}
 	virtual ~MathematicOperable(){}

@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class ODSENSORPLUGIN_EXPORT ODSensorPlugin :
+class /*ODSENSORPLUGIN_EXPORT*/ ODSensorPlugin :
     public ODSensor, public SelfConfiguringPlugin
 {
 public:

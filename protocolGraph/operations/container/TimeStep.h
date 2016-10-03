@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class TIMESTEP_EXPORT TimeStep: public ContainerOperation {
+class /*TIMESTEP_EXPORT*/ TimeStep: public ContainerOperation {
 public:
 	// Node methods
 	TimeStep();

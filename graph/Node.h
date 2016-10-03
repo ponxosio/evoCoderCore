@@ -26,7 +26,7 @@
 /**
  * Minimum operations a all node must have, Base for all Node types to derive
  */
-class NODE_EXPORT Node {
+class /*NODE_EXPORT*/ Node {
 
 public:
 	//All derived clases must implement this two Constructor!!

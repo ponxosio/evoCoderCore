@@ -9,7 +9,7 @@
 
 #include "evocodercore_global.h"
 
-class CONTINUOUSFLOWENGINE_EXPORT ContinuousFlowEngine
+class /*CONTINUOUSFLOWENGINE_EXPORT*/ ContinuousFlowEngine
 {
 public:
 	ContinuousFlowEngine();

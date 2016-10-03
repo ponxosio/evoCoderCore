@@ -13,7 +13,7 @@
 class PathSearcherIterator;
 class PathManager;
 
-class PATHSEARCHER_EXPORT PathSearcher
+class /*PATHSEARCHER_EXPORT*/ PathSearcher
 {
 public:
 	PathSearcher(int idInicio, std::shared_ptr<ExecutableMachineGraph> machine, PathManager* manager, bool reverse) throw (std::invalid_argument);

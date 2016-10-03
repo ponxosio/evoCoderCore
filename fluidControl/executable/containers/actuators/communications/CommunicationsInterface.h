@@ -15,7 +15,7 @@
 
 #include "evocodercore_global.h"
 
-class COMMUNICATIONSINTERFACE_EXPORT CommunicationsInterface {
+class /*COMMUNICATIONSINTERFACE_EXPORT*/ CommunicationsInterface {
 public:
 	static CommunicationsInterface* GetInstance() {
 		if (!m_pInstance)

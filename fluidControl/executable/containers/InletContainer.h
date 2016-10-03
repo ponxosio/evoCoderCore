@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class INLETCONTAINER_EXPORT InletContainer: public ExecutableContainerNode {
+class /*INLETCONTAINER_EXPORT*/ InletContainer: public ExecutableContainerNode {
 public:
 	//methods of being node
 	InletContainer();

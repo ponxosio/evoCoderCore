@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class APPLYTEMPERATURE_EXPORT ApplyTemperature: public ContainerOperation {
+class /*APPLYTEMPERATURE_EXPORT*/ ApplyTemperature: public ContainerOperation {
 public:
 	// Node methods
 	ApplyTemperature();

@@ -96,7 +96,7 @@ typedef enum AddOnsType_ {
 } AddOnsType;
 
 
-class CONTAINERNODETYPE_EXPORT ContainerNodeType {
+class /*CONTAINERNODETYPE_EXPORT*/ ContainerNodeType {
 public:
 	static MovementType fromIntToMovementType(int movement);
 

@@ -20,7 +20,7 @@
 
 #include "evocodercore_global.h"
 
-class TRANSFER_EXPORT Transfer: public ContainerOperation {
+class /*TRANSFER_EXPORT*/ Transfer: public ContainerOperation {
 public:
 	//Node methods
 	Transfer();

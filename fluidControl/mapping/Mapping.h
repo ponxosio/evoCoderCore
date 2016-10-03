@@ -40,7 +40,7 @@ enum MappingOperation {
 };
 }
 
-class MAPPING_EXPORT Mapping {
+class /*MAPPING_EXPORT*/ Mapping {
 public:
 	Mapping() {}
 	Mapping(std::shared_ptr<ExecutableMachineGraph> machine, const std::string & name, const std::vector<int> & communicationInterface);

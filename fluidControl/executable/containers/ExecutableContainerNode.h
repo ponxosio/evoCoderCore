@@ -25,7 +25,7 @@
 
 #include "evocodercore_global.h"
 
-class EXECUTABLECONTAINERNODE_EXPORT ExecutableContainerNode: public ContainerNode {
+class /*EXECUTABLECONTAINERNODE_EXPORT*/ ExecutableContainerNode: public ContainerNode {
 public:
 	//Obligatory methods if is derived from NODE
 	ExecutableContainerNode() :

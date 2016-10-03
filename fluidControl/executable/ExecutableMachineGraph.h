@@ -41,7 +41,7 @@
 
 #include "evocodercore_global.h"
 
-class EXECUTABLEMACHINEGRAPH_EXPORT ExecutableMachineGraph {
+class /*EXECUTABLEMACHINEGRAPH_EXPORT*/ ExecutableMachineGraph {
 public:
 	//TYPE DEFS
 	typedef Graph<ExecutableContainerNode, Edge>::NodeTypePtr ExecutableContainerNodePtr;

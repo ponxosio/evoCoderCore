@@ -10,7 +10,7 @@
 
 #include "evocodercore_global.h"
 
-class SEARCHERITERATOR_EXPORT SearcherIterator
+class /*SEARCHERITERATOR_EXPORT*/ SearcherIterator
 {
 public:
 	SearcherIterator(std::shared_ptr<SearcherInterface> engine);

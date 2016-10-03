@@ -10,7 +10,7 @@
 
 #include "evocodercore_global.h"
 
-class PATHSEARCHERITERATOR_EXPORT PathSearcherIterator
+class /*PATHSEARCHERITERATOR_EXPORT*/ PathSearcherIterator
 {
 public:
 	PathSearcherIterator(std::shared_ptr<PathSearcher> engine);

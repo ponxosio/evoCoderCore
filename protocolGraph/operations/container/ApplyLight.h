@@ -22,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class APPLYLIGHT_EXPORT ApplyLight: public ContainerOperation {
+class /*APPLYLIGHT_EXPORT*/ ApplyLight: public ContainerOperation {
 public:
 	// Node methods
 	ApplyLight();

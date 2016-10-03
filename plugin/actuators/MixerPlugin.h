@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class MIXERPLUGIN_EXPORT MixerPlugin :
+class /*MIXERPLUGIN_EXPORT*/ MixerPlugin :
     public Mixer, public SelfConfiguringPlugin
 {
 public:

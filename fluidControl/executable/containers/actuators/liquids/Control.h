@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class CONTROL_EXPORT Control: public Instructable {
+class /*CONTROL_EXPORT*/ Control: public Instructable {
 public:
 	Control() {
 		this->communications = -1;

@@ -21,7 +21,7 @@
 
 #include "evocodercore_global.h"
 
-class PATHMANAGER_EXPORT PathManager
+class /*PATHMANAGER_EXPORT*/ PathManager
 {
 public:
 	PathManager(std::shared_ptr<ExecutableMachineGraph> machine);

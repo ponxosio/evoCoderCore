@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class ODSENSOR_EXPORT ODSensor: public Instructable {
+class /*ODSENSOR_EXPORT*/ ODSensor: public Instructable {
 public:
 	ODSensor(){
 		this->communications = -1;

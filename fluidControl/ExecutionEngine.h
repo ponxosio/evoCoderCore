@@ -47,7 +47,7 @@
 
 #include "evocodercore_global.h"
 
-class EXECUTIONENGINE_EXPORT ExecutionEngine {
+class /*EXECUTIONENGINE_EXPORT*/ ExecutionEngine {
 public:
 
 	//type defs

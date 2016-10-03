@@ -26,7 +26,7 @@
 
 #include "evocodercore_global.h"
 
-class BIDIRECTIONALSWITCH_EXPORT BidirectionalSwitch: public ExecutableContainerNode {
+class /*BIDIRECTIONALSWITCH_EXPORT*/ BidirectionalSwitch: public ExecutableContainerNode {
 public:
 	//methods of being node
 	BidirectionalSwitch();

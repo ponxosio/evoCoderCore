@@ -25,7 +25,7 @@
 
 #include "evocodercore_global.h"
 
-class FLOWCONTAINER_EXPORT FlowContainer: public ExecutableContainerNode {
+class /*FLOWCONTAINER_EXPORT*/ FlowContainer: public ExecutableContainerNode {
 public:
 	//methods of being node
 	FlowContainer();

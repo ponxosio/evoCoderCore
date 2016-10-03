@@ -18,7 +18,7 @@
 #include "util\AutoEnumerate.h"
 #include "util\Patch.h"
 
-class EXECUTIONMACHINESERVER_EXPORT ExecutionMachineServer
+class /*EXECUTIONMACHINESERVER_EXPORT*/ ExecutionMachineServer
 {
 public:
 

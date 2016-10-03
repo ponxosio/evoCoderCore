@@ -18,7 +18,7 @@
 
 #include "evocodercore_global.h"
 
-class TEMPERATUREPLUGIN_EXPORT TemperaturePlugin :
+class /*TEMPERATUREPLUGIN_EXPORT*/ TemperaturePlugin :
     public Temperature, public SelfConfiguringPlugin
 {
 public:
