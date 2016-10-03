@@ -8,6 +8,8 @@
 #ifndef FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_COMMUNICATIONS_COMMUNICATIONSINTERFACE_H_
 #define FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_COMMUNICATIONS_COMMUNICATIONSINTERFACE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <unordered_map>
 #include <algorithm>
 
@@ -15,7 +17,7 @@
 
 #include "evocodercore_global.h"
 
-class /*COMMUNICATIONSINTERFACE_EXPORT*/ CommunicationsInterface {
+class COMMUNICATIONSINTERFACE_EXPORT CommunicationsInterface {
 public:
 	static CommunicationsInterface* GetInstance() {
 		if (!m_pInstance)

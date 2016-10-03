@@ -8,14 +8,16 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_COMMUNICATIONS_SERIALSENDER_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_COMMUNICATIONS_SERIALSENDER_H_
 
+#pragma warning( disable : 4290 )
+
 #include <windows.h>
 #include <stdio.h>
 #include <string>
 #include <ios>
 
-#include <lib/easylogging++.h>
+#include <easylogging++.h>
 #include "CommandSender.h"
-#include "../../../../../util/Patch.h"
+#include "util/Patch.h"
 
  //cereal
 #include <cereal/cereal.hpp>
@@ -27,7 +29,7 @@
 /**
  * Class that makes the serial communication
  */
-class /*SERIALSENDER_EXPORT*/ SerialSender : public CommandSender {
+class SERIALSENDER_EXPORT SerialSender : public CommandSender {
 public:
 	/**
 	 * @param device name of the port to communicate to (ex. \\\\.\\COM3)

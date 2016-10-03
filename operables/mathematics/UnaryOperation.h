@@ -8,6 +8,8 @@
 #ifndef SRC_OPERABLES_MATHEMATICS_UNARYOPERATION_H_
 #define SRC_OPERABLES_MATHEMATICS_UNARYOPERATION_H_
 
+#pragma warning( disable : 4290 )
+
 #define ABSOLUTE_VALUE_STRING "fabs"
 #define FLOOR_VALUE_STRING "floor"
 
@@ -20,7 +22,7 @@
 #include <cereal/types/memory.hpp>
 
 //local
-#include "../../util/Utils.h"
+#include "util/Utils.h"
 #include "MathematicOperable.h"
 
 #include "evocodercore_global.h"
@@ -32,7 +34,7 @@ enum UnaryOperator {
 	floor  
 };
 }
-class /*UNARYOPERATION_EXPORT*/ UnaryOperation: public MathematicOperable {
+class UNARYOPERATION_EXPORT UnaryOperation: public MathematicOperable {
 public:
 	UnaryOperation();
 	UnaryOperation(std::shared_ptr<MathematicOperable> variable,

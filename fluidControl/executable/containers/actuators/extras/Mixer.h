@@ -8,9 +8,11 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_EXTRAS_MIXER_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_EXTRAS_MIXER_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 
-#include "../Instructable.h"
+#include "fluidControl/executable/containers/actuators/Instructable.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -18,7 +20,7 @@
 
 #include "evocodercore_global.h"
 
-class /*MIXER_EXPORT*/ Mixer: public Instructable {
+class MIXER_EXPORT Mixer: public Instructable {
 public:
 	Mixer() {
 		this->communications = -1;

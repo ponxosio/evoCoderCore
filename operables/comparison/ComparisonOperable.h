@@ -8,6 +8,8 @@
 #ifndef SRC_OPERABLES_COMPARISON_COMPARISONOPERABLE_H_
 #define SRC_OPERABLES_COMPARISON_COMPARISONOPERABLE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 
 #include "evocodercore_global.h"
@@ -15,12 +17,12 @@
 /**
  * Interface that represents all comparation operations
  */
-class /*COMPARISONOPERABLE_EXPORT*/ ComparisonOperable {
+class COMPARISONOPERABLE_EXPORT ComparisonOperable {
 public:
 	ComparisonOperable(){}
 	virtual ~ComparisonOperable(){}
 
-	virtual void updateReference(const std::string & reference) {}
+    virtual void updateReference(const std::string &) {}
 	
 	/**
 	 * Check if the comparison is true o false

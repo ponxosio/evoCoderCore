@@ -12,7 +12,7 @@
 
 #include "evocodercore_global.h"
 
-class /*INSTRUCTABLE_EXPORT*/ Instructable {
+class INSTRUCTABLE_EXPORT Instructable {
 public:
 	Instructable(){}
 	virtual ~Instructable(){}

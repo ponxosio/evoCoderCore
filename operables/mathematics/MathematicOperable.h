@@ -8,6 +8,8 @@
 #ifndef SRC_OPERABLES_MATHEMATICS_MATHEMATICOPERABLE_H_
 #define SRC_OPERABLES_MATHEMATICS_MATHEMATICOPERABLE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 #include <memory>
 #include <string>
@@ -17,7 +19,7 @@
 /**
  * Interface that represents a variable in a comparison operation:
  */
-class /*MATHEMATICOPERABLE_EXPORT*/ MathematicOperable {
+class MATHEMATICOPERABLE_EXPORT MathematicOperable {
 public:
 	MathematicOperable(){}
 	virtual ~MathematicOperable(){}

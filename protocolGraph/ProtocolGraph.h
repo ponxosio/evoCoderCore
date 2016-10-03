@@ -13,15 +13,12 @@
 //data structures
 #include <vector>
 
-//boost
-#include <memory>
-
 //lib
 #include <easylogging++.h>
 
 //local
-#include "../graph/Graph.h"
-#include "../operables/VariableTable.h"
+#include "graph/Graph.h"
+#include "operables/VariableTable.h"
 #include "ConditionEdge.h"
 #include "OperationNode.h"
 
@@ -33,7 +30,7 @@
 
 #include "evocodercore_global.h"
 
-class /*PROTOCOLGRAPH_EXPORT*/ ProtocolGraph {
+class PROTOCOLGRAPH_EXPORT ProtocolGraph {
 public:
 
 	//TYPE DEFS

@@ -7,9 +7,11 @@
 
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 //local
-#include "../../../util/Utils.h"
-#include "../../../operables/mathematics/MathematicOperable.h"
+#include "util/Utils.h"
+#include "operables/mathematics/MathematicOperable.h"
 #include "ContainerOperation.h"
 
 //cereal
@@ -19,7 +21,7 @@
 
 #include "evocodercore_global.h"
 
-class /*LOADCONTAINEROPERATION_EXPORT*/ LoadContainerOperation: public ContainerOperation {
+class LOADCONTAINEROPERATION_EXPORT LoadContainerOperation: public ContainerOperation {
 public:
 	//methods for node
 	LoadContainerOperation();

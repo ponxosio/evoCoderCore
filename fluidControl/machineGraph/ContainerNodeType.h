@@ -8,6 +8,8 @@
 #ifndef SRC_FLUIDCONTROL_MACHINEGRAPH_CONTAINERNODETYPE_H_
 #define SRC_FLUIDCONTROL_MACHINEGRAPH_CONTAINERNODETYPE_H_
 
+#pragma warning( disable : 4290 )
+
 //NAME CONSTANTS
 //movements
 #define CONTINUOUS_NAME "continuous"
@@ -54,8 +56,8 @@
 #include <array>
 
 //local
-#include "../../util/Patch.h"
-#include "../../util/Utils.h"
+#include "util/Patch.h"
+#include "util/Utils.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -96,7 +98,7 @@ typedef enum AddOnsType_ {
 } AddOnsType;
 
 
-class /*CONTAINERNODETYPE_EXPORT*/ ContainerNodeType {
+class CONTAINERNODETYPE_EXPORT ContainerNodeType {
 public:
 	static MovementType fromIntToMovementType(int movement);
 

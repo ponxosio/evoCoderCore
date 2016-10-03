@@ -8,7 +8,7 @@ QT       -= gui
 
 TARGET = EvoCoderCore
 TEMPLATE = lib
-CONFIG+= staticlib
+#CONFIG+= staticlib
 
 DEFINES += EVOCODERCORE_LIBRARY
 

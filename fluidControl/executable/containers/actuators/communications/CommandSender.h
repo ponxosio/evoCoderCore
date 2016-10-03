@@ -8,15 +8,17 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_COMMUNICATIONS_COMMANDSENDER_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_COMMUNICATIONS_COMMANDSENDER_H_
 
+#pragma warning( disable : 4290 )
+
 #include <ios>
 #include <string>
 
 #include "evocodercore_global.h"
 
-class /*COMMANDSENDER_EXPORT*/ CommandSender {
+class COMMANDSENDER_EXPORT CommandSender {
 public:
 	CommandSender() {}
-	CommandSender(const CommandSender & cs) {}
+    CommandSender(const CommandSender &) {}
     virtual ~CommandSender(){}
 
 	virtual CommandSender* clone() = 0;

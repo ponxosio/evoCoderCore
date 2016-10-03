@@ -1,19 +1,21 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <stack>
 #include <unordered_set>
 #include <vector>
 #include <tuple>
 #include <stdexcept>
 
-#include "../../executable/ExecutableMachineGraph.h"
+#include "fluidControl/executable/ExecutableMachineGraph.h"
 
 #include "evocodercore_global.h"
 
 class PathSearcherIterator;
 class PathManager;
 
-class /*PATHSEARCHER_EXPORT*/ PathSearcher
+class PATHSEARCHER_EXPORT PathSearcher
 {
 public:
 	PathSearcher(int idInicio, std::shared_ptr<ExecutableMachineGraph> machine, PathManager* manager, bool reverse) throw (std::invalid_argument);

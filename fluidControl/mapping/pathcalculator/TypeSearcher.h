@@ -1,12 +1,14 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <vector>
 #include <memory>
 #include <tuple>
 #include <stdexcept>
 
-#include "../../executable/ExecutableMachineGraph.h"
-#include "../../machineGraph/ContainerNodeType.h"
+#include "fluidControl/executable/ExecutableMachineGraph.h"
+#include "fluidControl/machineGraph/ContainerNodeType.h"
 #include "SearcherInterface.h"
 
 #include "evocodercore_global.h"
@@ -14,7 +16,7 @@
 class PathSearcherIterator;
 class PathManager;
 
-class /*TYPESEARCHER_EXPORT*/ TypeSearcher : public SearcherInterface
+class TYPESEARCHER_EXPORT TypeSearcher : public SearcherInterface
 {
 public:
 	TypeSearcher(const ExecutableMachineGraph::ExecutableContainerNodeVector & pendingNodes,

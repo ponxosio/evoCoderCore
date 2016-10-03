@@ -4,12 +4,12 @@
 #include <vector>
 #include <unordered_set>
 
-#include "../../../graph/Edge.h"
-#include "../../../graph/Flow.h"
+#include "graph/Edge.h"
+#include "graph/Flow.h"
 
 #include "evocodercore_global.h"
 
-class /*SEARCHERINTERFACE_EXPORT*/ SearcherInterface
+class SEARCHERINTERFACE_EXPORT SearcherInterface
 {
 public:
 	virtual ~SearcherInterface() {}

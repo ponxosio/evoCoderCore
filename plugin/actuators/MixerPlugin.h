@@ -1,13 +1,15 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include <vector>
 #include <stdexcept>
 
 //local
-#include "..\..\fluidControl\executable\containers\actuators\extras\Mixer.h"
-#include "..\..\fluidControl\executable\containers\actuators\communications\CommunicationsInterface.h"
-#include "..\PythonEnvironment.h"
+#include "fluidControl\executable\containers\actuators\extras\Mixer.h"
+#include "fluidControl\executable\containers\actuators\communications\CommunicationsInterface.h"
+#include "plugin/PythonEnvironment.h"
 #include "selfconfiguringplugin.h"
 
 //cereal
@@ -18,7 +20,7 @@
 
 #include "evocodercore_global.h"
 
-class /*MIXERPLUGIN_EXPORT*/ MixerPlugin :
+class MIXERPLUGIN_EXPORT MixerPlugin :
     public Mixer, public SelfConfiguringPlugin
 {
 public:

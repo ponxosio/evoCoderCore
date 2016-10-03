@@ -8,8 +8,10 @@
 #ifndef SRC_OPERABLES_COMPARISON_TAUTOLOGY_H_
 #define SRC_OPERABLES_COMPARISON_TAUTOLOGY_H_
 
+#pragma warning( disable : 4290 )
+
 #include "ComparisonOperable.h"
-#include "../../util/Utils.h"
+#include "util/Utils.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -17,7 +19,7 @@
 
 #include "evocodercore_global.h"
 
-class /*TAUTOLOGY_EXPORT*/ Tautology: public ComparisonOperable {
+class TAUTOLOGY_EXPORT Tautology: public ComparisonOperable {
 public:
 	Tautology() {
 		this->negation = false;

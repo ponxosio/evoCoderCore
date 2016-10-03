@@ -8,6 +8,8 @@
 #ifndef SRC_FLUIDCONTROL_MAPPING_H_
 #define SRC_FLUIDCONTROL_MAPPING_H_
 
+#pragma warning( disable : 4290 )
+
 #define SLEEP_MS 1000
 
 #include <stdexcept>
@@ -20,12 +22,12 @@
 #include <easylogging++.h>
 
 //local
-#include "../../graph/Edge.h"
-#include "../../graph/Flow.h"
-#include "../executable/ExecutableMachineGraph.h"
-#include "../executable/containers/actuators/communications/CommunicationsInterface.h"
-#include "../executable/containers/actuators/communications/CommandSender.h"
-#include "../machineGraph/MachineGraph.h"
+#include "graph/Edge.h"
+#include "graph/Flow.h"
+#include "fluidControl/executable/ExecutableMachineGraph.h"
+#include "fluidControl/executable/containers/actuators/communications/CommunicationsInterface.h"
+#include "fluidControl/executable/containers/actuators/communications/CommandSender.h"
+#include "fluidControl/machineGraph/MachineGraph.h"
 #include "MappingEngine.h"
 #include "ContinuousFlowEngine.h"
 
@@ -40,7 +42,7 @@ enum MappingOperation {
 };
 }
 
-class /*MAPPING_EXPORT*/ Mapping {
+class MAPPING_EXPORT Mapping {
 public:
 	Mapping() {}
 	Mapping(std::shared_ptr<ExecutableMachineGraph> machine, const std::string & name, const std::vector<int> & communicationInterface);

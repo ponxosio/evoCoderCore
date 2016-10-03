@@ -8,11 +8,13 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_CONVERGENTSWITCHINLET_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_CONVERGENTSWITCHINLET_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 
-#include "../../executable/containers/ExecutableContainerNode.h"
+#include "fluidControl/executable/containers/ExecutableContainerNode.h"
 //local
-#include "../../machineGraph/ContainerNodeType.h"
+#include "fluidControl/machineGraph/ContainerNodeType.h"
 #include "actuators/liquids/Control.h"
 #include "actuators/liquids/Extractor.h"
 #include "actuators/liquids/Injector.h"
@@ -24,7 +26,7 @@
 
 #include "evocodercore_global.h"
 
-class /*CONVERGENTSWITCHINLET_EXPORT*/ ConvergentSwitchInlet: public ExecutableContainerNode {
+class CONVERGENTSWITCHINLET_EXPORT ConvergentSwitchInlet: public ExecutableContainerNode {
 public:
 	//methods of being node
 	ConvergentSwitchInlet();

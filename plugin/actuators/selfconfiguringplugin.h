@@ -1,6 +1,8 @@
 #ifndef SELFCONFIGURINGPLUGIN_H
 #define SELFCONFIGURINGPLUGIN_H
 
+#pragma warning( disable : 4290 )
+
 # include <vector>
 # include <unordered_map>
 # include <stdexcept>
@@ -12,7 +14,7 @@
 #include <boost/python.hpp>
 
 //local
-#include "..\PythonEnvironment.h"
+#include "plugin/PythonEnvironment.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -22,7 +24,7 @@
 
 #include "evocodercore_global.h"
 
-class /*SELFCONFIGURINGPLUGIN_EXPORT*/ SelfConfiguringPlugin
+class SELFCONFIGURINGPLUGIN_EXPORT SelfConfiguringPlugin
 {
 public:
     static std::vector<std::pair<std::string,std::string>> getParamsType(const std::string & pluginType) throw (std::runtime_error);

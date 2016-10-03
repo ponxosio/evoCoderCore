@@ -15,6 +15,8 @@
 #include <string>
 #include <cerrno>
 
+#include "evocodercore_global.h"
+
 /*
  * CORRECTS BUGS OF CYGWIN:
  *
@@ -24,14 +26,14 @@
  */
 namespace patch
 {
-    template < typename T > std::string to_string( const T& n )
+     template < typename T > PATCH_EXPORT std::string to_string( const T& n )
     {
         std::ostringstream stm ;
         stm << n ;
         return stm.str() ;
     }
 
-    inline bool stol (int &i, char const *s, int base = 0)
+     inline PATCH_EXPORT bool stol (int &i, char const *s, int base = 0)
     {
         char *end;
         long  l;
@@ -50,7 +52,7 @@ namespace patch
         return true;
     }
 
-    inline bool stod (float &i, char const *s)
+     inline PATCH_EXPORT bool stod (float &i, char const *s)
         {
             char *end;
             double  l;

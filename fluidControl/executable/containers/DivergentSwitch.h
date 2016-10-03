@@ -8,10 +8,12 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_DIVERGENTSWITCH_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_DIVERGENTSWITCH_H_
 
+#pragma warning( disable : 4290 )
+
 //boost
 #include <memory>
 
-#include "../../executable/containers/ExecutableContainerNode.h"
+#include "fluidControl/executable/containers/ExecutableContainerNode.h"
 #include "actuators/liquids/Control.h"
 #include "actuators/liquids/Extractor.h"
 
@@ -22,7 +24,7 @@
 
 #include "evocodercore_global.h"
 
-class /*DIVERGENTSWITCH_EXPORT*/ DivergentSwitch: public ExecutableContainerNode {
+class DIVERGENTSWITCH_EXPORT DivergentSwitch: public ExecutableContainerNode {
 public:
 	//methods of being node
 	DivergentSwitch();

@@ -7,10 +7,12 @@
 
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 
 //local
-#include "../../../operables/mathematics/MathematicOperable.h"
+#include "operables/mathematics/MathematicOperable.h"
 #include "ContainerOperation.h"
 
 //cereal
@@ -20,7 +22,7 @@
 
 #include "evocodercore_global.h"
 
-class /*TRANSFER_EXPORT*/ Transfer: public ContainerOperation {
+class TRANSFER_EXPORT Transfer: public ContainerOperation {
 public:
 	//Node methods
 	Transfer();

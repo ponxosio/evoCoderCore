@@ -17,9 +17,9 @@
 #include <memory>
 
 //local
-#include "../../util/Patch.h"
-#include "../../util/Utils.h"
-#include "../../graph/Node.h"
+#include "util/Patch.h"
+#include "util/Utils.h"
+#include "graph/Node.h"
 #include "ContainerNodeType.h"
 
 //cereal
@@ -29,7 +29,7 @@
 
 #include "evocodercore_global.h"
 
-class /*CONTAINERNODE_EXPORT*/ ContainerNode: public Node {
+class CONTAINERNODE_EXPORT ContainerNode: public Node {
 
 public:
 	//Obligatory constructors if is dereived from NODE

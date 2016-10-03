@@ -1,18 +1,20 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <vector>
 #include <memory>
 #include <tuple>
 #include <stdexcept>
 #include <algorithm>
 
-#include "../../executable/ExecutableMachineGraph.h"
+#include "fluidControl/executable/ExecutableMachineGraph.h"
 #include "SearcherInterface.h"
-#include "../../../graph/FlowPtrComparator.h"
+#include "graph/FlowPtrComparator.h"
 
 #include "evocodercore_global.h"
 
-class /*SIMPLEPATHSEARCHER_EXPORT*/ SimplePathSearcher : public SearcherInterface
+class SIMPLEPATHSEARCHER_EXPORT SimplePathSearcher : public SearcherInterface
 {
 public:
 	SimplePathSearcher(int idStart, std::shared_ptr<ExecutableMachineGraph> machine, bool reverse);

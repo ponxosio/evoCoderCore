@@ -8,11 +8,13 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_CONVERGENTSWITCH_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_CONVERGENTSWITCH_H_
 
+#pragma warning( disable : 4290 )
+
  // boost
 #include <memory>
 
 //local
-#include "../../executable/containers/ExecutableContainerNode.h"
+#include "fluidControl/executable/containers/ExecutableContainerNode.h"
 #include "actuators/liquids/Control.h"
 #include "actuators/liquids/Injector.h"
 
@@ -23,7 +25,7 @@
 
 #include "evocodercore_global.h"
 
-class /*CONVERGENTSWITCH_EXPORT*/ ConvergentSwitch : public ExecutableContainerNode {
+class CONVERGENTSWITCH_EXPORT ConvergentSwitch : public ExecutableContainerNode {
 public:
 	//methods of being node
 	ConvergentSwitch();

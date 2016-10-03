@@ -8,6 +8,8 @@
 #ifndef FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_COMMUNICATIONS_FILESENDER_H_
 #define FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_COMMUNICATIONS_FILESENDER_H_
 
+#pragma warning( disable : 4290 )
+
 #include <iostream>
 #include <fstream>
 #include <ios>
@@ -23,7 +25,7 @@
 
 #include "evocodercore_global.h"
 
-class /*FILESENDER_EXPORT*/ FileSender: public CommandSender {
+class FILESENDER_EXPORT FileSender: public CommandSender {
 public:
 	FileSender();
 	FileSender(const FileSender & fs);

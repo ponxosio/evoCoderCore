@@ -8,10 +8,12 @@
 #ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONATINER_SETCONTINOUSFLOW_H_
 #define SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONATINER_SETCONTINOUSFLOW_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 
 //local
-#include "../../../operables/mathematics/MathematicOperable.h"
+#include "operables/mathematics/MathematicOperable.h"
 #include "ContainerOperation.h"
 
 //cereal
@@ -21,7 +23,7 @@
 
 #include "evocodercore_global.h"
 
-class /*SETCONTINOUSFLOW_EXPORT*/ SetContinousFlow: public ContainerOperation {
+class SETCONTINOUSFLOW_EXPORT SetContinousFlow: public ContainerOperation {
 public:
 	// Node methods
 	SetContinousFlow();

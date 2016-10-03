@@ -32,6 +32,18 @@ BOOST_PYTHON_MODULE(communicationsMod)
 		;
 }
 
+PythonEnvironment* PythonEnvironment::GetInstance() {
+    if (!m_pInstance)
+        m_pInstance = new PythonEnvironment();
+    return m_pInstance;
+}
+
+ void PythonEnvironment::freeCommandInterface() {
+    if (m_pInstance) {
+        delete m_pInstance;
+    }
+}
+
 namespace boost { template <> CommandSender const volatile * get_pointer(class CommandSender const volatile *c) { return c; } }
 
 using namespace boost::python;

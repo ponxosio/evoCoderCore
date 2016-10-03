@@ -55,8 +55,8 @@ int CommunicationsInterface::addCommandSender(CommandSender* communications) {
 
 int CommunicationsInterface::addCommandSenderTestExec(CommandSender * exec, CommandSender * test)
 {
-	testLastId = std::max(testLastId, lastId);
-	lastId = std::max(testLastId, lastId);
+    testLastId = max(testLastId, lastId);
+    lastId = max(testLastId, lastId);
 	int nextId = lastId;
 
 	communicationMap->insert(std::make_pair(nextId, exec));

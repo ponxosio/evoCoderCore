@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning( disable : 4290 )
 
 #include <string>
 #include <stdexcept>
@@ -22,7 +23,7 @@
 
 #include "evocodercore_global.h"
 
-class /*EXECUTIONSERVER_EXPORT*/ ExecutionServer
+class EXECUTIONSERVER_EXPORT ExecutionServer
 {
 public:
 	static ExecutionServer* GetInstance() {

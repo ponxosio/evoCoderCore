@@ -8,11 +8,10 @@
 #ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_MIX_H_
 #define SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_MIX_H_
 
-//boost
-#include <memory>
+#pragma warning( disable : 4290 )
 
 //local
-#include "../../../operables/mathematics/MathematicOperable.h"
+#include "operables/mathematics/MathematicOperable.h"
 #include "ContainerOperation.h"
 
 //cereal
@@ -22,7 +21,7 @@
 
 #include "evocodercore_global.h"
 
-class /*MIX_EXPORT*/ Mix: public ContainerOperation {
+class MIX_EXPORT Mix: public ContainerOperation {
 public:
 	// Node methods
 	Mix();

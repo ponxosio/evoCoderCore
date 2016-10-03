@@ -8,11 +8,13 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_EXECUTABLECONTAINERNODE_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_EXECUTABLECONTAINERNODE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include <stdexcept>
 
-#include "../../machineGraph/ContainerNode.h"
-#include "../../machineGraph/ContainerNodeType.h"
+#include "fluidControl/machineGraph/ContainerNode.h"
+#include "fluidControl/machineGraph/ContainerNodeType.h"
 #include "actuators/extras/Light.h"
 #include "actuators/extras/Mixer.h"
 #include "actuators/extras/ODSensor.h"
@@ -25,7 +27,7 @@
 
 #include "evocodercore_global.h"
 
-class /*EXECUTABLECONTAINERNODE_EXPORT*/ ExecutableContainerNode: public ContainerNode {
+class EXECUTABLECONTAINERNODE_EXPORT ExecutableContainerNode: public ContainerNode {
 public:
 	//Obligatory methods if is derived from NODE
 	ExecutableContainerNode() :

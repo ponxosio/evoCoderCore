@@ -1,5 +1,7 @@
 #include "ExecutionServer.h"
 
+INITIALIZE_EASYLOGGINGPP
+
 ExecutionServer* ExecutionServer::m_pInstance = NULL;
 
 using namespace std;

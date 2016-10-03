@@ -8,6 +8,8 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_EXTRAS_TEMPERATURE_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_ACTUATORS_EXTRAS_TEMPERATURE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 
 #include "../Instructable.h"

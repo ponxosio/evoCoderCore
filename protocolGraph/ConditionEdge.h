@@ -8,13 +8,10 @@
 #ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_CONDITIONEDGE_H_
 #define SRC_FLUIDCONTROL_PROTOCOLGRAPH_CONDITIONEDGE_H_
 
-//boost
-#include <memory>
-
 //local
-#include "../graph/Edge.h"
-#include "../util/Utils.h"
-#include "../operables/comparison/ComparisonOperable.h"
+#include "graph/Edge.h"
+#include "util/Utils.h"
+#include "operables/comparison/ComparisonOperable.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -26,7 +23,7 @@
 /**
  * Represents an edge in a graph that has a condition, the edge can not be used until the condition is met.
  */
-class /*CONDITIONEDGE_EXPORT*/ ConditionEdge: public Edge {
+class CONDITIONEDGE_EXPORT ConditionEdge: public Edge {
 public:
 
 	//Obligatory constructors if is derived from NODE

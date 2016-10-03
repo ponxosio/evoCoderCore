@@ -8,6 +8,8 @@
 #ifndef SRC_FLUIDCONTROL_EVOCODER_H_
 #define SRC_FLUIDCONTROL_EVOCODER_H_
 
+#pragma warning( disable : 4290 )
+
 /***** OPERATION MODES *****/
 #define SCHEDULE		0
 #define	EXEC_GENERAL	1
@@ -34,20 +36,20 @@
 #include <memory>
 
 //local
-#include "../util/Utils.h"
-#include "../protocolGraph/ProtocolGraph.h"
-#include "../protocolGraph/OperationNode.h"
-#include "../protocolGraph/operations/LoopNode.h"
-#include "../protocolGraph/operations/DivergeNode.h"
-#include "mapping\Mapping.h"
+#include "util/Utils.h"
+#include "protocolGraph/ProtocolGraph.h"
+#include "protocolGraph/OperationNode.h"
+#include "protocolGraph/operations/LoopNode.h"
+#include "protocolGraph/operations/DivergeNode.h"
+#include "fluidControl/mapping/Mapping.h"
 
-#include "machineGraph/MachineGraph.h"
-#include "executable/ExecutableMachineGraph.h"
-#include "executable/containers/actuators/communications/CommunicationsInterface.h"
+#include "fluidControl/machineGraph/MachineGraph.h"
+#include "fluidControl/executable/ExecutableMachineGraph.h"
+#include "fluidControl/executable/containers/actuators/communications/CommunicationsInterface.h"
 
 #include "evocodercore_global.h"
 
-class /*EXECUTIONENGINE_EXPORT*/ ExecutionEngine {
+class EXECUTIONENGINE_EXPORT ExecutionEngine {
 public:
 
 	//type defs

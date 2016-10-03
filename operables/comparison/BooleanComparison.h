@@ -8,6 +8,8 @@
 #ifndef SRC_OPERABLES_COMPARISON_BOOLEANCOMPARISON_H_
 #define SRC_OPERABLES_COMPARISON_BOOLEANCOMPARISON_H_
 
+#pragma warning( disable : 4290 )
+
 //string operations
 #define CONJUNCTION_STRING "&&"
 #define DISJUNCTION_STRING "||"
@@ -18,7 +20,7 @@
 
 //local
 #include "ComparisonOperable.h"
-#include "../../util/Utils.h"
+#include "util/Utils.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -38,7 +40,7 @@ enum BooleanOperator {
 /**
  * Class that represent a boolean operation between simple comparisons, for example: (t > 3) && (t < 5)
  */
-class /*BOOLEANCOMPARISON_EXPORT*/ BooleanComparison: public ComparisonOperable {
+class BOOLEANCOMPARISON_EXPORT BooleanComparison: public ComparisonOperable {
 public:
 	BooleanComparison() {
 		this->left = std::shared_ptr<ComparisonOperable>();

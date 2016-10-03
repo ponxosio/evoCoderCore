@@ -8,6 +8,8 @@
 #ifndef SRC_GRAPH_GRAPH_H_
 #define SRC_GRAPH_GRAPH_H_
 
+#pragma warning( disable : 4290 )
+
 //INCLUDES
 #include <stdlib.h>
 #include <stdio.h>
@@ -31,11 +33,11 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 
-#include <lib/easylogging++.h>
+#include <easylogging++.h>
 
 //local
-#include "../util/Patch.h"
-#include "../util/Utils.h"
+#include "util/Patch.h"
+#include "util/Utils.h"
 #include "Edge.h"
 #include "Node.h"
 
@@ -52,7 +54,7 @@
 /**
  *
  */
-template <class NodeType, class EdgeType> class /*GRAPH_EXPORT*/ Graph {
+template <class NodeType, class EdgeType> class GRAPH_EXPORT Graph {
 
 	// Restrict this template for using only types derived from Node and edge Interfaces
 	BOOST_STATIC_ASSERT((boost::is_base_of<Node, NodeType>::value));

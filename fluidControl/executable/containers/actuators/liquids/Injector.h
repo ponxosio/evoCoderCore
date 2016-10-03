@@ -8,9 +8,11 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLEMACHINEGRAPH_CONTAINERS_ACTUATORSINTERFACES_LIQUIDACTUATORS_INJECTOR_H_
 #define SRC_FLUIDCONTROL_EXECUTABLEMACHINEGRAPH_CONTAINERS_ACTUATORSINTERFACES_LIQUIDACTUATORS_INJECTOR_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 
-#include "../Instructable.h"
+#include "fluidControl/executable/containers/actuators/Instructable.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -18,7 +20,7 @@
 
 #include "evocodercore_global.h"
 
-class /*INJECTOR_EXPORT*/ Injector: public Instructable {
+class INJECTOR_EXPORT Injector: public Instructable {
 public:
 	Injector() {
 		this->communications = -1;

@@ -8,6 +8,8 @@
 #ifndef SRC_GRAPH_EDGE_H_
 #define SRC_GRAPH_EDGE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include  <stdexcept>
 
@@ -15,7 +17,7 @@
 #include <boost/algorithm/string/trim.hpp>
 
 //local
-#include "../util/Patch.h"
+#include "util/Patch.h"
 
 //cereal
 #include <cereal\cereal.hpp>
@@ -25,7 +27,7 @@
 /**
  * Interface with the minimum operations that all directed Edges must have
  */
-class /*EDGE_EXPORT*/ Edge {
+class EDGE_EXPORT Edge {
 
 public:
 	//All derived clases must implement this two Constructor!!

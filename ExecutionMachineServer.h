@@ -1,6 +1,5 @@
 #pragma once
-
-#include "evocodercore_global.h"
+#pragma warning( disable : 4290 )
 
 #include <string>
 #include <stdexcept>
@@ -18,7 +17,9 @@
 #include "util\AutoEnumerate.h"
 #include "util\Patch.h"
 
-class /*EXECUTIONMACHINESERVER_EXPORT*/ ExecutionMachineServer
+#include "evocodercore_global.h"
+
+class EXECUTIONMACHINESERVER_EXPORT ExecutionMachineServer
 {
 public:
 
@@ -31,7 +32,7 @@ public:
 	}
 	static void freeCommandInterface();
 
-	~ExecutionMachineServer();
+    ~ExecutionMachineServer();
 
 	std::string addNewMachine(const std::string & jsonFilePath);
 	std::shared_ptr<ExecutableMachineGraph> getMachine(const std::string & machineName) throw (std::invalid_argument);

@@ -8,14 +8,16 @@
 #ifndef SRC_OPERABLES_MATHEMATICS_VARIABLEENTRY_H_
 #define SRC_OPERABLES_MATHEMATICS_VARIABLEENTRY_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include <memory>
 #include <stdexcept>
 
 //local
-#include "../../ExecutionServer.h"
-#include "../../util/Utils.h"
-#include "../VariableTable.h"
+#include "ExecutionServer.h"
+#include "util/Utils.h"
+#include "operables/VariableTable.h"
 #include "MathematicOperable.h"
 
 //cereal
@@ -28,7 +30,7 @@
 /**
  * Represents a variable stored in the VariableTable.
  */
-class /*VARIABLEENTRY_EXPORT*/ VariableEntry: public MathematicOperable {
+class VARIABLEENTRY_EXPORT VariableEntry: public MathematicOperable {
 public:
 	VariableEntry();
 	VariableEntry(const std::string & name);

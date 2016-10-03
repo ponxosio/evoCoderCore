@@ -8,6 +8,8 @@
 #ifndef SRC_GRAPH_NODE_H_
 #define SRC_GRAPH_NODE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include  <stdexcept>
 
@@ -15,7 +17,7 @@
 #include <boost/algorithm/string/trim.hpp>
 
 //local
-#include "../util/Patch.h"
+#include "util/Patch.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -26,7 +28,7 @@
 /**
  * Minimum operations a all node must have, Base for all Node types to derive
  */
-class /*NODE_EXPORT*/ Node {
+class NODE_EXPORT Node {
 
 public:
 	//All derived clases must implement this two Constructor!!

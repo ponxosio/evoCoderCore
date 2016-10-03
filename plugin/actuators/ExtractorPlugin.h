@@ -1,13 +1,15 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include <vector>
 #include <stdexcept>
 
 //local
-#include "..\..\fluidControl\executable\containers\actuators\liquids\Extractor.h"
-#include "..\..\fluidControl\executable\containers\actuators\communications\CommunicationsInterface.h"
-#include "..\PythonEnvironment.h"
+#include "fluidControl\executable\containers\actuators\liquids\Extractor.h"
+#include "fluidControl\executable\containers\actuators\communications\CommunicationsInterface.h"
+#include "plugin/PythonEnvironment.h"
 #include "selfconfiguringplugin.h"
 
 //cereal
@@ -18,7 +20,7 @@
 
 #include "evocodercore_global.h"
 
-class /*EXTRACTORPLUGIN_EXPORT*/ ExtractorPlugin :
+class EXTRACTORPLUGIN_EXPORT ExtractorPlugin :
     public Extractor, public SelfConfiguringPlugin
 {
 public:

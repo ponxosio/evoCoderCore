@@ -8,19 +8,18 @@
 #ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_ASSIGNATIONOPERATION_H_
 #define SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_ASSIGNATIONOPERATION_H_
 
-#include <string>
+#pragma warning( disable : 4290 )
 
-//boost
-#include <memory>
+#include <string>
 
 //lib
 #include <easylogging++.h>
 
 //local
-#include "../../util/Utils.h"
-#include "../../operables/mathematics/VariableEntry.h"
-#include "../../operables/mathematics/MathematicOperable.h"
-#include "../OperationNode.h"
+#include "util/Utils.h"
+#include "operables/mathematics/VariableEntry.h"
+#include "operables/mathematics/MathematicOperable.h"
+#include "protocolGraph/OperationNode.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -32,7 +31,7 @@
 /**
  * Implements a variable assignation, for example "t = 3 + d*2"
  */
-class /*ASSIGNATIONOPERATION_EXPORT*/ AssignationOperation: public OperationNode {
+class ASSIGNATIONOPERATION_EXPORT AssignationOperation: public OperationNode {
 public:
 	//methods of node
 	AssignationOperation();

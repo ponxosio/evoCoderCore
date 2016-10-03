@@ -8,12 +8,14 @@
 #ifndef SRC_GRAPH_FLOWPTRCOMPARATOR_H_
 #define SRC_GRAPH_FLOWPTRCOMPARATOR_H_
 
+#pragma warning( disable : 4290 )
+
 #include <memory>
 #include "Flow.h"
 
 #include "evocodercore_global.h"
 
-template<class EdgeType> class /*FLOWPTRCOMPARATOR_EXPORT*/ FlowPtrComparator {
+template<class EdgeType> class FLOWPTRCOMPARATOR_EXPORT FlowPtrComparator {
 public:
 	FlowPtrComparator() {}
 	virtual ~FlowPtrComparator(){}

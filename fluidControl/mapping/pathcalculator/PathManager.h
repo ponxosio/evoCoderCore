@@ -1,14 +1,16 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <unordered_map>
 #include <memory>
 #include <stdexcept>
 #include <tuple>
 
-#include "../../../util/Utils.h"
-#include "../../../util/Patch.h"
-#include "../../executable/ExecutableMachineGraph.h"
-#include "../../machineGraph/ContainerNodeType.h"
+#include "util/Utils.h"
+#include "util/Patch.h"
+#include "fluidControl/executable/ExecutableMachineGraph.h"
+#include "fluidControl/machineGraph/ContainerNodeType.h"
 
 #include "PathSearcher.h"
 #include "SimplePathSearcher.h"
@@ -21,7 +23,7 @@
 
 #include "evocodercore_global.h"
 
-class /*PATHMANAGER_EXPORT*/ PathManager
+class PATHMANAGER_EXPORT PathManager
 {
 public:
 	PathManager(std::shared_ptr<ExecutableMachineGraph> machine);

@@ -8,6 +8,8 @@
 #ifndef SRC_OPERABLES_COMPARISON_SIMPLECOMPARISON_H_
 #define SRC_OPERABLES_COMPARISON_SIMPLECOMPARISON_H_
 
+#pragma warning( disable : 4290 )
+
 //Operators string
 #define LESS_EQUAL_STRING "<="
 #define LESS_STRING "<"
@@ -20,8 +22,8 @@
 #include <boost/function.hpp>
 
 //local
-#include "../../util/Utils.h"
-#include "../mathematics/MathematicOperable.h"
+#include "util/Utils.h"
+#include "operables/mathematics/MathematicOperable.h"
 #include "ComparisonOperable.h"
 
 //cereal
@@ -44,7 +46,7 @@ enum ComparisonOperator {
 /**
  * Class that represents a simple comparison between two variables, for example "a > 3"
  */
-class /*SIMPLECOMPARISON_EXPORT*/ SimpleComparison: public ComparisonOperable {
+class SIMPLECOMPARISON_EXPORT SimpleComparison: public ComparisonOperable {
 public:
 	SimpleComparison() {
 		this->left = std::shared_ptr<MathematicOperable>();

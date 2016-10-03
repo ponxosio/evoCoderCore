@@ -8,6 +8,8 @@
 #ifndef SRC_OPERABLES_VARIABLETABLE_H_
 #define SRC_OPERABLES_VARIABLETABLE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include  <stdexcept>
 #include <memory>
@@ -31,7 +33,7 @@
  *
  * Also has methods to serialize and deserialize the object in order to store it at the disk.
  */
-class /*VARIABLETABLE_EXPORT*/ VariableTable {
+class VARIABLETABLE_EXPORT VariableTable {
 public:
 	VariableTable();
 	virtual ~VariableTable();

@@ -8,11 +8,13 @@
 #ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONNODE_H_
 #define SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONNODE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include <stdexcept>
 
 //local
-#include "../graph/Node.h"
+#include "graph/Node.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -23,7 +25,7 @@
 /**
  * Interface that implements a node that can be executed
  */
-class /*OPERATIONNODE_EXPORT*/ OperationNode: public Node {
+class OPERATIONNODE_EXPORT OperationNode: public Node {
 public:
 	OperationNode() :
 		Node() 

@@ -8,6 +8,8 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_EXECUTABLEMACHINEGRAPH_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_EXECUTABLEMACHINEGRAPH_H_
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include <stdexcept>
 
@@ -20,17 +22,17 @@
 #include <memory>
 
 //local
-#include "../../util/Patch.h"
-#include "../../util/Utils.h"
-#include "../../graph/Graph.h"
-#include "../../graph/Edge.h"
-#include "../../graph/Flow.h"
-#include "../../graph/FlowPtrComparator.h"
-#include "../machineGraph/ContainerNodeType.h"
-#include "containers/ExecutableContainerNode.h"
-#include "containers\actuators\communications\CommandSender.h"
-#include "containers\actuators\communications\FileSender.h"
-#include "containers\actuators\communications\SerialSender.h"
+#include "util/Patch.h"
+#include "util/Utils.h"
+#include "graph/Graph.h"
+#include "graph/Edge.h"
+#include "graph/Flow.h"
+#include "graph/FlowPtrComparator.h"
+#include "fluidControl/machineGraph/ContainerNodeType.h"
+#include "fluidControl/executable/containers/ExecutableContainerNode.h"
+#include "fluidControl/executable/containers/actuators/communications/CommandSender.h"
+#include "fluidControl/executable/containers/actuators/communications/FileSender.h"
+#include "fluidControl/executable/containers/actuators/communications/SerialSender.h"
 
 //cereal
 #include <cereal\cereal.hpp>
@@ -41,7 +43,7 @@
 
 #include "evocodercore_global.h"
 
-class /*EXECUTABLEMACHINEGRAPH_EXPORT*/ ExecutableMachineGraph {
+class EXECUTABLEMACHINEGRAPH_EXPORT ExecutableMachineGraph {
 public:
 	//TYPE DEFS
 	typedef Graph<ExecutableContainerNode, Edge>::NodeTypePtr ExecutableContainerNodePtr;

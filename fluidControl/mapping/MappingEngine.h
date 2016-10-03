@@ -8,6 +8,8 @@
 #ifndef FLUIDCONTROL_MAPPINGENGINE_H_
 #define FLUIDCONTROL_MAPPINGENGINE_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 #include <unordered_map>
 #include <unordered_set>
@@ -17,16 +19,16 @@
 
 #include <memory>
 
-#include "../../util/Patch.h"
-#include "../../util/Utils.h"
-#include "../../util/ContainersUtils.h"
-#include "../../graph/Edge.h"
-#include "../../graph/Flow.h"
-#include "../../graph/FlowPtrComparator.h"
-#include "../../fluidControl/machineGraph/MachineGraph.h"
-#include "../../fluidControl/executable/ExecutableMachineGraph.h"
-#include "pathcalculator\PathManager.h"
-#include "pathcalculator\SearcherIterator.h"
+#include "util/Patch.h"
+#include "util/Utils.h"
+#include "util/ContainersUtils.h"
+#include "graph/Edge.h"
+#include "graph/Flow.h"
+#include "graph/FlowPtrComparator.h"
+#include "fluidControl/machineGraph/MachineGraph.h"
+#include "fluidControl/executable/ExecutableMachineGraph.h"
+#include "fluidControl/mapping/pathcalculator/PathManager.h"
+#include "fluidControl/mapping/pathcalculator/SearcherIterator.h"
 
 #include "evocodercore_global.h"
 
@@ -34,7 +36,7 @@ typedef Graph<ContainerNode, Edge>::SubGraphElem SubGraphSketch;
 typedef Graph<ExecutableContainerNode, Edge>::SubGraphElem SubGraphMachine;
 typedef std::priority_queue<Flow<Edge>, vector<Flow<Edge>>,FlowPtrComparator<Edge>> FlowsHeap;
 
-class /*MAPPINGENGINE_EXPORT*/ MappingEngine {
+class MAPPINGENGINE_EXPORT MappingEngine {
 public:
 	MappingEngine(MachineGraph* sketch, std::shared_ptr<ExecutableMachineGraph> machine);
 	virtual ~MappingEngine();

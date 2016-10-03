@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <memory>
 #include <unordered_set>
 #include <stdexcept>
@@ -10,7 +12,7 @@
 
 #include "evocodercore_global.h"
 
-class /*PATHSEARCHERITERATOR_EXPORT*/ PathSearcherIterator
+class PATHSEARCHERITERATOR_EXPORT PathSearcherIterator
 {
 public:
 	PathSearcherIterator(std::shared_ptr<PathSearcher> engine);

@@ -8,6 +8,8 @@
 #ifndef SRC_GRAPH_FLOW_H_
 #define SRC_GRAPH_FLOW_H_
 
+#pragma warning( disable : 4290 )
+
 #include <vector>
 
 // boost library
@@ -15,14 +17,14 @@
 #include <boost/type_traits/is_base_of.hpp>
 
 //local
-#include "../util/Patch.h"
+#include "util/Patch.h"
 #include "Graph.h"
 #include "Node.h"
 #include "Edge.h"
 
 #include "evocodercore_global.h"
 
-template<class EdgeType> class /*FLOW_EXPORT*/ Flow {
+template<class EdgeType> class FLOW_EXPORT Flow {
 	// Restrict this template for using only types derived from edge Interfaces
 	BOOST_STATIC_ASSERT((boost::is_base_of<Edge, EdgeType>::value));
 

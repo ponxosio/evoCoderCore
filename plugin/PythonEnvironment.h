@@ -1,12 +1,15 @@
 #pragma once
 
+#pragma data_seg
+
+#pragma warning( disable : 4290 )
+
 #define BASE_PLUGIN_FOLDER "pythonPlugins\\basePlugins"
 
 #include <unordered_set>
 #include <unordered_map>
 #include <vector>
 #include <stdexcept>
-#include <memory>
 
 //boost
 #include <boost/python.hpp>
@@ -17,31 +20,22 @@
 #include <easylogging++.h>
 
 //local
-#include "../fluidControl/executable/containers/actuators/communications/CommandSender.h"
-#include "../fluidControl/executable/containers/actuators/communications/SerialSender.h"
-#include "../fluidControl/executable/containers/actuators/communications/FileSender.h"
+#include "fluidControl/executable/containers/actuators/communications/CommandSender.h"
+#include "fluidControl/executable/containers/actuators/communications/SerialSender.h"
+#include "fluidControl/executable/containers/actuators/communications/FileSender.h"
 
-#include "../util/AutoEnumerate.h"
-#include "../util/Patch.h"
-#include "../util/Utils.h"
+#include "util/AutoEnumerate.h"
+#include "util/Patch.h"
+#include "util/Utils.h"
 #include "PluginFileLoader.h"
 
 #include "evocodercore_global.h"
 
-class /*PYTHONENVIRONMENT_EXPORT*/ PythonEnvironment
+class PYTHONENVIRONMENT_EXPORT PythonEnvironment
 {
 public:
-	static PythonEnvironment* GetInstance() {
-		if (!m_pInstance)
-			m_pInstance = new PythonEnvironment();
-		return m_pInstance;
-	}
-
-	static void freeCommandInterface() {
-		if (m_pInstance) {
-			delete m_pInstance;
-		}
-	}
+    static PythonEnvironment* GetInstance();
+    static void freeCommandInterface();
 
 	virtual ~PythonEnvironment();
 
@@ -70,7 +64,7 @@ private:
     PythonEnvironment(const PythonEnvironment&) {}
     PythonEnvironment& operator=(const PythonEnvironment& py) {return PythonEnvironment(py);}
 
-	static PythonEnvironment *m_pInstance;
+    static PythonEnvironment *m_pInstance;
 };
 
 struct CommandSenderWrap : CommandSender, boost::python::wrapper<CommandSender>

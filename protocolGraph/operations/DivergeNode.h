@@ -8,20 +8,19 @@
 #ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_DIVERGENODE_H_
 #define SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_DIVERGENODE_H_
 
+#pragma warning( disable : 4290 )
+
 //types strings
 #define DIVERGE_STRING "if"
 
 #include <string>
 
-//boost
-#include <memory>
-
 //lib
 #include <easylogging++.h>
 //local
-#include "../../util/Utils.h"
-#include "../../operables/comparison/ComparisonOperable.h"
-#include "../OperationNode.h"
+#include "util/Utils.h"
+#include "operables/comparison/ComparisonOperable.h"
+#include "protocolGraph//OperationNode.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -30,7 +29,7 @@
 
 #include "evocodercore_global.h"
 
-class /*DIVERGENODE_EXPORT*/ DivergeNode: public OperationNode {
+class DIVERGENODE_EXPORT DivergeNode: public OperationNode {
 public:
 	//Methods for Node
 	DivergeNode();

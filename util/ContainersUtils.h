@@ -16,15 +16,15 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 
-#include "../fluidControl/machineGraph/ContainerNode.h"
-#include "../fluidControl/machineGraph/ContainerNodeType.h"
-#include "../graph/Node.h"
-#include "../graph/Graph.h"
-#include "../graph/Edge.h"
+#include "fluidControl/machineGraph/ContainerNode.h"
+#include "fluidControl/machineGraph/ContainerNodeType.h"
+#include "graph/Node.h"
+#include "graph/Graph.h"
+#include "graph/Edge.h"
 
 #include "evocodercore_global.h"
 
-class /*CONTAINERSUTILS_EXPORT*/ ContainersUtils {
+class CONTAINERSUTILS_EXPORT ContainersUtils {
 
 public:
 	/**

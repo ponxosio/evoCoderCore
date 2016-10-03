@@ -14,7 +14,7 @@ void ExecutionMachineServer::freeCommandInterface()
 ExecutionMachineServer::ExecutionMachineServer()
 {
 	lastSeries = 0;
-	machineMap = make_shared<MachineMap>();
+    machineMap = make_shared<MachineMap>();
 }
 
 ExecutionMachineServer::~ExecutionMachineServer()

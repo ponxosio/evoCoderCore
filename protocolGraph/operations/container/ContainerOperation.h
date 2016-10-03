@@ -7,14 +7,16 @@
 
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include <stdexcept>
 
 //local
-#include "../../../ExecutionServer.h"
-#include "../../../util/Utils.h"
-#include "../../../operables/mathematics/MathematicOperable.h"
-#include "../../OperationNode.h"
+#include "ExecutionServer.h"
+#include "util/Utils.h"
+#include "operables/mathematics/MathematicOperable.h"
+#include "protocolGraph/OperationNode.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -26,7 +28,7 @@
 /**
  * Interface that represents all the operations that can be made over the machine containers
  */
-class /*CONTAINEROPERATION_EXPORT*/ ContainerOperation: public OperationNode {
+class CONTAINEROPERATION_EXPORT ContainerOperation: public OperationNode {
 public:
 	ContainerOperation() : OperationNode() {}
 	ContainerOperation(const ContainerOperation & obj) : OperationNode(obj) {}

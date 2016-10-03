@@ -8,13 +8,15 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_FLOWCONTAINER_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_FLOWCONTAINER_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 
 // boost
 #include <memory>
 
 //local
-#include "../../executable/containers/ExecutableContainerNode.h"
+#include "fluidControl/executable/containers/ExecutableContainerNode.h"
 #include "actuators/liquids/Extractor.h"
 #include "actuators/liquids/Injector.h"
 
@@ -25,7 +27,7 @@
 
 #include "evocodercore_global.h"
 
-class /*FLOWCONTAINER_EXPORT*/ FlowContainer: public ExecutableContainerNode {
+class FLOWCONTAINER_EXPORT FlowContainer: public ExecutableContainerNode {
 public:
 	//methods of being node
 	FlowContainer();

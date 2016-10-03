@@ -1,13 +1,15 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <string>
 #include <vector>
 #include <stdexcept>
 
 //local
-#include "..\..\fluidControl\executable\containers\actuators\extras\ODSensor.h"
-#include "..\..\fluidControl\executable\containers\actuators\communications\CommunicationsInterface.h"
-#include "..\PythonEnvironment.h"
+#include "fluidControl\executable\containers\actuators\extras\ODSensor.h"
+#include "fluidControl\executable\containers\actuators\communications\CommunicationsInterface.h"
+#include "plugin/PythonEnvironment.h"
 #include "selfconfiguringplugin.h"
 
 //cereal
@@ -18,7 +20,7 @@
 
 #include "evocodercore_global.h"
 
-class /*ODSENSORPLUGIN_EXPORT*/ ODSensorPlugin :
+class ODSENSORPLUGIN_EXPORT ODSensorPlugin :
     public ODSensor, public SelfConfiguringPlugin
 {
 public:

@@ -8,11 +8,10 @@
 #ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_STIR_H_
 #define SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_STIR_H_
 
-//boost
-#include "boost/shared_ptr.hpp"
+#pragma warning( disable : 4290 )
 
 //local
-#include "../../../operables/mathematics/MathematicOperable.h"
+#include "operables/mathematics/MathematicOperable.h"
 #include "ContainerOperation.h"
 
 //cereal
@@ -22,7 +21,7 @@
 
 #include "evocodercore_global.h"
 
-class /*STIR_EXPORT*/ Stir: public ContainerOperation {
+class STIR_EXPORT Stir: public ContainerOperation {
 public:
 	// Node methods
 	Stir();

@@ -8,10 +8,12 @@
 #ifndef SRC_OPERABLES_MATHEMATICS_CONSTANTNUMBER_H_
 #define SRC_OPERABLES_MATHEMATICS_CONSTANTNUMBER_H_
 
+#pragma warning( disable : 4290 )
+
 #include <memory>
 
-#include "../../util/Utils.h"
-#include "../../util/Patch.h"
+#include "util/Utils.h"
+#include "util/Patch.h"
 #include "MathematicOperable.h"
 
  //cereal
@@ -24,12 +26,12 @@
 /**
  * Represents a constant number.
  */
-class /*CONSTANTNUMBER_EXPORT*/ ConstantNumber: public MathematicOperable {
+class CONSTANTNUMBER_EXPORT ConstantNumber: public MathematicOperable {
 public:
 	ConstantNumber();
 	ConstantNumber(int value);
 	ConstantNumber(double value);
-	virtual ~ConstantNumber(){};
+    virtual ~ConstantNumber(){}
 
 	virtual double getValue();
 	virtual bool equal ( const MathematicOperable* obj ) const;

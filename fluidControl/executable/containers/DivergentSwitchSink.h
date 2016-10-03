@@ -8,14 +8,16 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_DIVERGENTSWITCHSINK_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_DIVERGENTSWITCHSINK_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 
 // boost
 #include <memory>
 
-#include "../../executable/containers/ExecutableContainerNode.h"
+#include "fluidControl/executable/containers/ExecutableContainerNode.h"
 // local
-#include "../../machineGraph/ContainerNodeType.h"
+#include "fluidControl/machineGraph/ContainerNodeType.h"
 #include "actuators/liquids/Control.h"
 #include "actuators/liquids/Extractor.h"
 #include "actuators/liquids/Injector.h"
@@ -27,7 +29,7 @@
 
 #include "evocodercore_global.h"
 
-class /*DIVERGENTSWITCHSINK_EXPORT*/ DivergentSwitchSink : public ExecutableContainerNode {
+class DIVERGENTSWITCHSINK_EXPORT DivergentSwitchSink : public ExecutableContainerNode {
 public:
 	//methods of being node
 	DivergentSwitchSink();

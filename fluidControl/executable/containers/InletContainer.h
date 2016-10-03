@@ -8,11 +8,13 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_INLETCONTAINER_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_INLETCONTAINER_H_
 
+#pragma warning( disable : 4290 )
+
 //boost
 #include <memory>
 
 //local
-#include "../../executable/containers/ExecutableContainerNode.h"
+#include "fluidControl/executable/containers/ExecutableContainerNode.h"
 #include "actuators/liquids/Extractor.h"
 
 //cereal
@@ -22,7 +24,7 @@
 
 #include "evocodercore_global.h"
 
-class /*INLETCONTAINER_EXPORT*/ InletContainer: public ExecutableContainerNode {
+class INLETCONTAINER_EXPORT InletContainer: public ExecutableContainerNode {
 public:
 	//methods of being node
 	InletContainer();

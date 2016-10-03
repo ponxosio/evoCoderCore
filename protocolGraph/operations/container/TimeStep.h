@@ -8,11 +8,10 @@
 #ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_TIMESTEP_H_
 #define SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_TIMESTEP_H_
 
-//boost
-#include <memory>
+#pragma warning( disable : 4290 )
 
 //local
-#include "../../../operables/mathematics/VariableEntry.h"
+#include "operables/mathematics/VariableEntry.h"
 #include "ContainerOperation.h"
 
 //cereal
@@ -22,7 +21,7 @@
 
 #include "evocodercore_global.h"
 
-class /*TIMESTEP_EXPORT*/ TimeStep: public ContainerOperation {
+class TIMESTEP_EXPORT TimeStep: public ContainerOperation {
 public:
 	// Node methods
 	TimeStep();

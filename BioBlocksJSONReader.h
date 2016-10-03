@@ -22,10 +22,11 @@
 # include "protocolGraph\operations\container\SetContinousFlow.h"
 # include "util\AutoEnumerate.h"
 # include "util\Patch.h"
+# include "singleton.h"
 
 #include "evocodercore_global.h"
 
-class /*BIOBLOCKSJSONREADER_EXPORT*/ BioBlocksJSONReader
+class BIOBLOCKSJSONREADER_EXPORT BioBlocksJSONReader
 {
 public:
 

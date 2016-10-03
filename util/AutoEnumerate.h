@@ -13,7 +13,7 @@
 /**
  * Class that generates a natural sequence of integer numbers, as an autoenumerate type of a bbdd.
  */
-class /*AUTOENUMERATE_EXPORT*/ AutoEnumerate {
+class AUTOENUMERATE_EXPORT AutoEnumerate {
 public:
 	AutoEnumerate();
 	virtual ~AutoEnumerate();

@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #define PLUGIN_FOLDER "pythonPlugins"
 
 #include <windows.h>
@@ -23,11 +25,11 @@
 #include <easylogging++.h>
 
 //local
-#include "../util/Utils.h"
+#include "util/Utils.h"
 
 #include "evocodercore_global.h"
 
-class /*PLUGINFILELOADER_EXPORT*/ PluginFileLoader
+class PLUGINFILELOADER_EXPORT PluginFileLoader
 {
 public:
 	static PluginFileLoader* GetInstance() {

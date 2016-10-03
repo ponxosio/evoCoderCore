@@ -1,15 +1,17 @@
 #pragma once
 
+#pragma warning( disable : 4290 )
+
 #include <unordered_map>
 #include <tuple>
 #include <memory>
 
-#include "..\executable\ExecutableMachineGraph.h"
-#include "..\..\util\Utils.h"
+#include "fluidControl\executable\ExecutableMachineGraph.h"
+#include "util\Utils.h"
 
 #include "evocodercore_global.h"
 
-class /*CONTINUOUSFLOWENGINE_EXPORT*/ ContinuousFlowEngine
+class CONTINUOUSFLOWENGINE_EXPORT ContinuousFlowEngine
 {
 public:
 	ContinuousFlowEngine();

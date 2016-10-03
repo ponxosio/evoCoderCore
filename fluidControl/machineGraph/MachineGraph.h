@@ -14,8 +14,8 @@
 #include <unordered_map>
 
 //local
-#include "../../graph/Graph.h"
-#include "../../graph/Edge.h"
+#include "graph/Graph.h"
+#include "graph/Edge.h"
 #include "ContainerNode.h"
 #include "ContainerNodeType.h"
 
@@ -28,7 +28,7 @@
 #include "evocodercore_global.h"
 
 
-class /*MACHINEGRAPH_EXPORT*/ MachineGraph {
+class MACHINEGRAPH_EXPORT MachineGraph {
 public:
 	
 	//Type defs

@@ -8,13 +8,15 @@
 #ifndef SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_BIDIRECTIONALSWITCH_H_
 #define SRC_FLUIDCONTROL_EXECUTABLE_CONTAINERS_BIDIRECTIONALSWITCH_H_
 
+#pragma warning( disable : 4290 )
+
 #include <stdexcept>
 
 // boost
 #include <memory>
 
 //local
-#include "../../executable/containers/ExecutableContainerNode.h"
+#include "fluidControl/executable/containers/ExecutableContainerNode.h"
 #include "actuators/liquids/Control.h"
 #include "actuators/liquids/Extractor.h"
 #include "actuators/liquids/Injector.h"
@@ -26,7 +28,7 @@
 
 #include "evocodercore_global.h"
 
-class /*BIDIRECTIONALSWITCH_EXPORT*/ BidirectionalSwitch: public ExecutableContainerNode {
+class BIDIRECTIONALSWITCH_EXPORT BidirectionalSwitch: public ExecutableContainerNode {
 public:
 	//methods of being node
 	BidirectionalSwitch();
