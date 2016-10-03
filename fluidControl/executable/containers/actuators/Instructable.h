@@ -10,7 +10,9 @@
 
 #include <string>
 
-class Instructable {
+#include "evocodercore_global.h"
+
+class INSTRUCTABLE_EXPORT Instructable {
 public:
 	Instructable(){}
 	virtual ~Instructable(){}

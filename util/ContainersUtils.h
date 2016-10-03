@@ -22,7 +22,9 @@
 #include "../graph/Graph.h"
 #include "../graph/Edge.h"
 
-class ContainersUtils {
+#include "evocodercore_global.h"
+
+class CONTAINERSUTILS_EXPORT ContainersUtils {
 
 public:
 	/**

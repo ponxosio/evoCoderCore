@@ -20,7 +20,9 @@
 #include <cereal/types/string.hpp>
 #include <cereal/types/unordered_map.hpp>
 
-class SelfConfiguringPlugin
+#include "evocodercore_global.h"
+
+class SELFCONFIGURINGPLUGIN_EXPORT SelfConfiguringPlugin
 {
 public:
     static std::vector<std::pair<std::string,std::string>> getParamsType(const std::string & pluginType) throw (std::runtime_error);

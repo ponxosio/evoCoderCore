@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class InletContainer: public ExecutableContainerNode {
+#include "evocodercore_global.h"
+
+class INLETCONTAINER_EXPORT InletContainer: public ExecutableContainerNode {
 public:
 	//methods of being node
 	InletContainer();

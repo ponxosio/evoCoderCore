@@ -16,7 +16,9 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Control: public Instructable {
+#include "evocodercore_global.h"
+
+class CONTROL_EXPORT Control: public Instructable {
 public:
 	Control() {
 		this->communications = -1;

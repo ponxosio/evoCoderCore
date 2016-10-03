@@ -28,11 +28,13 @@
 #include "pathcalculator\PathManager.h"
 #include "pathcalculator\SearcherIterator.h"
 
+#include "evocodercore_global.h"
+
 typedef Graph<ContainerNode, Edge>::SubGraphElem SubGraphSketch;
 typedef Graph<ExecutableContainerNode, Edge>::SubGraphElem SubGraphMachine;
 typedef std::priority_queue<Flow<Edge>, vector<Flow<Edge>>,FlowPtrComparator<Edge>> FlowsHeap;
 
-class MappingEngine {
+class MAPPINGENGINE_EXPORT MappingEngine {
 public:
 	MappingEngine(MachineGraph* sketch, std::shared_ptr<ExecutableMachineGraph> machine);
 	virtual ~MappingEngine();

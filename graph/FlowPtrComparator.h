@@ -11,7 +11,9 @@
 #include <memory>
 #include "Flow.h"
 
-template<class EdgeType> class FlowPtrComparator {
+#include "evocodercore_global.h"
+
+template<class EdgeType> class FLOWPTRCOMPARATOR_EXPORT FlowPtrComparator {
 public:
 	FlowPtrComparator() {}
 	virtual ~FlowPtrComparator(){}

@@ -25,6 +25,8 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/memory.hpp>
 
+#include "evocodercore_global.h"
+
 namespace logical{
 /*** Enum for the type of boolean operator ***/
 enum BooleanOperator {
@@ -36,7 +38,7 @@ enum BooleanOperator {
 /**
  * Class that represent a boolean operation between simple comparisons, for example: (t > 3) && (t < 5)
  */
-class BooleanComparison: public ComparisonOperable {
+class BOOLEANCOMPARISON_EXPORT BooleanComparison: public ComparisonOperable {
 public:
 	BooleanComparison() {
 		this->left = std::shared_ptr<ComparisonOperable>();

@@ -17,7 +17,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class LoadContainerOperation: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class LOADCONTAINEROPERATION_EXPORT LoadContainerOperation: public ContainerOperation {
 public:
 	//methods for node
 	LoadContainerOperation();

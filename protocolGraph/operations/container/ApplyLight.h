@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class ApplyLight: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class APPLYLIGHT_EXPORT ApplyLight: public ContainerOperation {
 public:
 	// Node methods
 	ApplyLight();

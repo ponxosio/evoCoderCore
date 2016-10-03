@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Stir: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class STIR_EXPORT Stir: public ContainerOperation {
 public:
 	// Node methods
 	Stir();

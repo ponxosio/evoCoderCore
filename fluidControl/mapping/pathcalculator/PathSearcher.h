@@ -8,10 +8,12 @@
 
 #include "../../executable/ExecutableMachineGraph.h"
 
+#include "evocodercore_global.h"
+
 class PathSearcherIterator;
 class PathManager;
 
-class PathSearcher
+class PATHSEARCHER_EXPORT PathSearcher
 {
 public:
 	PathSearcher(int idInicio, std::shared_ptr<ExecutableMachineGraph> machine, PathManager* manager, bool reverse) throw (std::invalid_argument);

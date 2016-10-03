@@ -23,7 +23,9 @@
 # include "util\AutoEnumerate.h"
 # include "util\Patch.h"
 
-class BioBlocksJSONReader
+#include "evocodercore_global.h"
+
+class BIOBLOCKSJSONREADER_EXPORT BioBlocksJSONReader
 {
 public:
 
@@ -46,6 +48,8 @@ private:
 	AutoEnumerate graph_sequence;
 
 	BioBlocksJSONReader();
+    BioBlocksJSONReader(const BioBlocksJSONReader &){}
+    BioBlocksJSONReader& operator=(const BioBlocksJSONReader & com){return BioBlocksJSONReader(com);}
 
 	float parseVolume(const std::string & text);
 };

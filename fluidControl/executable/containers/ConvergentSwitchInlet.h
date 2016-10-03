@@ -22,7 +22,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class ConvergentSwitchInlet: public ExecutableContainerNode {
+#include "evocodercore_global.h"
+
+class CONVERGENTSWITCHINLET_EXPORT ConvergentSwitchInlet: public ExecutableContainerNode {
 public:
 	//methods of being node
 	ConvergentSwitchInlet();

@@ -16,8 +16,9 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 
+#include "evocodercore_global.h"
 
-class TemperaturePlugin :
+class TEMPERATUREPLUGIN_EXPORT TemperaturePlugin :
     public Temperature, public SelfConfiguringPlugin
 {
 public:

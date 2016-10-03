@@ -11,11 +11,13 @@
 #include <ios>
 #include <string>
 
-class CommandSender {
+#include "evocodercore_global.h"
+
+class COMMANDSENDER_EXPORT CommandSender {
 public:
 	CommandSender() {}
 	CommandSender(const CommandSender & cs) {}
-	virtual ~CommandSender(){};
+    virtual ~CommandSender(){}
 
 	virtual CommandSender* clone() = 0;
 	virtual unsigned long sendString(const std::string & str) = 0;

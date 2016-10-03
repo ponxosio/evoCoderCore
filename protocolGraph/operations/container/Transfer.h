@@ -18,7 +18,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Transfer: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class TRANSFER_EXPORT Transfer: public ContainerOperation {
 public:
 	//Node methods
 	Transfer();

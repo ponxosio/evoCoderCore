@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class DivergentSwitch: public ExecutableContainerNode {
+#include "evocodercore_global.h"
+
+class DIVERGENTSWITCH_EXPORT DivergentSwitch: public ExecutableContainerNode {
 public:
 	//methods of being node
 	DivergentSwitch();

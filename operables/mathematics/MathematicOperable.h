@@ -12,10 +12,12 @@
 #include <memory>
 #include <string>
 
+#include "evocodercore_global.h"
+
 /**
  * Interface that represents a variable in a comparison operation:
  */
-class MathematicOperable {
+class MATHEMATICOPERABLE_EXPORT MathematicOperable {
 public:
 	MathematicOperable(){}
 	virtual ~MathematicOperable(){}

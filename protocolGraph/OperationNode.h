@@ -18,10 +18,12 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  * Interface that implements a node that can be executed
  */
-class OperationNode: public Node {
+class OPERATIONNODE_EXPORT OperationNode: public Node {
 public:
 	OperationNode() :
 		Node() 

@@ -21,7 +21,9 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/string.hpp>
 
-class FileSender: public CommandSender {
+#include "evocodercore_global.h"
+
+class FILESENDER_EXPORT FileSender: public CommandSender {
 public:
 	FileSender();
 	FileSender(const FileSender & fs);

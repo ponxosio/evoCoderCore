@@ -20,10 +20,12 @@
 //cereal
 #include <cereal\cereal.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  * Interface with the minimum operations that all directed Edges must have
  */
-class Edge {
+class EDGE_EXPORT Edge {
 
 public:
 	//All derived clases must implement this two Constructor!!

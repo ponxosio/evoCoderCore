@@ -8,6 +8,7 @@ QT       -= gui
 
 TARGET = EvoCoderCore
 TEMPLATE = lib
+CONFIG+= staticlib
 
 DEFINES += EVOCODERCORE_LIBRARY
 
@@ -17,6 +18,8 @@ INCLUDEPATH += C:/Python27/include
 
 LIBS += -L$$quote(X:\boost_1_61_0\stage\lib) -lboost_python-vc140-mt-1_61
 LIBS += -L$$quote(C:\Python27\libs)
+
+QMAKE_CXXFLAGS += -bigobj
 
 SOURCES += \
     fluidControl/executable/containers/actuators/communications/CommunicationsInterface.cpp \

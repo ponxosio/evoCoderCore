@@ -27,7 +27,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class ContainerNode: public Node {
+#include "evocodercore_global.h"
+
+class CONTAINERNODE_EXPORT ContainerNode: public Node {
 
 public:
 	//Obligatory constructors if is dereived from NODE

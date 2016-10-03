@@ -13,7 +13,9 @@
 
 #include "CommandSender.h"
 
-class CommunicationsInterface {
+#include "evocodercore_global.h"
+
+class COMMUNICATIONSINTERFACE_EXPORT CommunicationsInterface {
 public:
 	static CommunicationsInterface* GetInstance() {
 		if (!m_pInstance)
@@ -34,8 +36,8 @@ public:
 	~CommunicationsInterface();
 private:
 	CommunicationsInterface();
-	CommunicationsInterface(const CommunicationsInterface& com){}
-	CommunicationsInterface& operator=(const CommunicationsInterface&){}
+    CommunicationsInterface(const CommunicationsInterface&){}
+    CommunicationsInterface& operator=(const CommunicationsInterface& com){return CommunicationsInterface(com);}
 
 	static CommunicationsInterface *m_pInstance;
 

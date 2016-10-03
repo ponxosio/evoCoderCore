@@ -16,7 +16,9 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Mixer: public Instructable {
+#include "evocodercore_global.h"
+
+class MIXER_EXPORT Mixer: public Instructable {
 public:
 	Mixer() {
 		this->communications = -1;

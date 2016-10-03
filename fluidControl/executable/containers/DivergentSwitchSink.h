@@ -25,7 +25,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class DivergentSwitchSink : public ExecutableContainerNode {
+#include "evocodercore_global.h"
+
+class DIVERGENTSWITCHSINK_EXPORT DivergentSwitchSink : public ExecutableContainerNode {
 public:
 	//methods of being node
 	DivergentSwitchSink();

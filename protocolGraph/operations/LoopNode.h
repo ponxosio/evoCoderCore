@@ -29,10 +29,12 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  * Implements a flow control operation, if or while
  */
-class LoopNode: public OperationNode {
+class LOOPNODE_EXPORT LoopNode: public OperationNode {
 public:
 	//Methods for Node
 	LoopNode();

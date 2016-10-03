@@ -27,10 +27,12 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  * Implements a variable assignation, for example "t = 3 + d*2"
  */
-class AssignationOperation: public OperationNode {
+class ASSIGNATIONOPERATION_EXPORT AssignationOperation: public OperationNode {
 public:
 	//methods of node
 	AssignationOperation();

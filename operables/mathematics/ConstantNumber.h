@@ -19,10 +19,12 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/memory.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  * Represents a constant number.
  */
-class ConstantNumber: public MathematicOperable {
+class CONSTANTNUMBER_EXPORT ConstantNumber: public MathematicOperable {
 public:
 	ConstantNumber();
 	ConstantNumber(int value);

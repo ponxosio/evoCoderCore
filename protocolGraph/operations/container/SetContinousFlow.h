@@ -19,7 +19,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class SetContinousFlow: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class SETCONTINOUSFLOW_EXPORT SetContinousFlow: public ContainerOperation {
 public:
 	// Node methods
 	SetContinousFlow();

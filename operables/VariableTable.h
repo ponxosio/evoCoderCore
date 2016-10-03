@@ -22,6 +22,7 @@
 #include <cereal/types/string.hpp>
 #include <cereal/types/tuple.hpp>
 
+#include "evocodercore_global.h"
 
 /**
  * Class that implements an associative table where the value of the declared variables in a protocol will be stored.
@@ -30,7 +31,7 @@
  *
  * Also has methods to serialize and deserialize the object in order to store it at the disk.
  */
-class VariableTable {
+class VARIABLETABLE_EXPORT VariableTable {
 public:
 	VariableTable();
 	virtual ~VariableTable();

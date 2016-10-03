@@ -8,10 +8,12 @@
 #ifndef SRC_UTIL_AUTOENUMERATE_H_
 #define SRC_UTIL_AUTOENUMERATE_H_
 
+#include "evocodercore_global.h"
+
 /**
  * Class that generates a natural sequence of integer numbers, as an autoenumerate type of a bbdd.
  */
-class AutoEnumerate {
+class AUTOENUMERATE_EXPORT AutoEnumerate {
 public:
 	AutoEnumerate();
 	virtual ~AutoEnumerate();

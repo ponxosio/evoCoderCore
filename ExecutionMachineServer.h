@@ -1,5 +1,7 @@
 #pragma once
 
+#include "evocodercore_global.h"
+
 #include <string>
 #include <stdexcept>
 #include <memory>
@@ -16,7 +18,7 @@
 #include "util\AutoEnumerate.h"
 #include "util\Patch.h"
 
-class ExecutionMachineServer
+class EXECUTIONMACHINESERVER_EXPORT ExecutionMachineServer
 {
 public:
 
@@ -50,7 +52,7 @@ private:
 	int lastSeries;
 
 	ExecutionMachineServer();
-	ExecutionMachineServer(const CommunicationsInterface& com) {}
-	ExecutionMachineServer& operator=(const CommunicationsInterface&) {}
+    ExecutionMachineServer(const ExecutionMachineServer&) {}
+    ExecutionMachineServer& operator=(const ExecutionMachineServer& com) {return ExecutionMachineServer(com);}
 };
 

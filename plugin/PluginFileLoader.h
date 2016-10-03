@@ -25,7 +25,9 @@
 //local
 #include "../util/Utils.h"
 
-class PluginFileLoader
+#include "evocodercore_global.h"
+
+class PLUGINFILELOADER_EXPORT PluginFileLoader
 {
 public:
 	static PluginFileLoader* GetInstance() {
@@ -56,8 +58,8 @@ protected:
 
 private:
 	PluginFileLoader();
-	PluginFileLoader(const PluginFileLoader& com) {}
-	PluginFileLoader& operator=(const PluginFileLoader&) {}
+    PluginFileLoader(const PluginFileLoader&) {}
+    PluginFileLoader& operator=(const PluginFileLoader& com) {return PluginFileLoader(com);}
 
 	static PluginFileLoader *m_pInstance;
 };

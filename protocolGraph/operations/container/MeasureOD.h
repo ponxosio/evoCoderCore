@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class MeasureOD: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class MEASUREOD_EXPORT MeasureOD: public ContainerOperation {
 public:
 	// Node methods
 	MeasureOD();

@@ -61,6 +61,8 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/array.hpp>
 
+#include "evocodercore_global.h"
+
 
 /*** Enum for the type of fluid movement ***/
 typedef enum MovementType_ {
@@ -94,7 +96,7 @@ typedef enum AddOnsType_ {
 } AddOnsType;
 
 
-class ContainerNodeType {
+class CONTAINERNODETYPE_EXPORT ContainerNodeType {
 public:
 	static MovementType fromIntToMovementType(int movement);
 

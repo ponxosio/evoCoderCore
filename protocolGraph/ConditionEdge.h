@@ -21,10 +21,12 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/memory.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  * Represents an edge in a graph that has a condition, the edge can not be used until the condition is met.
  */
-class ConditionEdge: public Edge {
+class CONDITIONEDGE_EXPORT ConditionEdge: public Edge {
 public:
 
 	//Obligatory constructors if is derived from NODE

@@ -25,8 +25,10 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/archives/json.hpp>
 
+#include "evocodercore_global.h"
 
-class MachineGraph {
+
+class MACHINEGRAPH_EXPORT MachineGraph {
 public:
 	
 	//Type defs

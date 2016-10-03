@@ -10,7 +10,9 @@
 #include "SearcherInterface.h"
 #include "../../../graph/FlowPtrComparator.h"
 
-class SimplePathSearcher : public SearcherInterface
+#include "evocodercore_global.h"
+
+class SIMPLEPATHSEARCHER_EXPORT SimplePathSearcher : public SearcherInterface
 {
 public:
 	SimplePathSearcher(int idStart, std::shared_ptr<ExecutableMachineGraph> machine, bool reverse);

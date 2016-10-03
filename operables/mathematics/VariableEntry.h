@@ -23,10 +23,12 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/string.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  * Represents a variable stored in the VariableTable.
  */
-class VariableEntry: public MathematicOperable {
+class VARIABLEENTRY_EXPORT VariableEntry: public MathematicOperable {
 public:
 	VariableEntry();
 	VariableEntry(const std::string & name);

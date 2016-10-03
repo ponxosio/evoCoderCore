@@ -16,7 +16,9 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Injector: public Instructable {
+#include "evocodercore_global.h"
+
+class INJECTOR_EXPORT Injector: public Instructable {
 public:
 	Injector() {
 		this->communications = -1;

@@ -23,7 +23,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class ExecutableContainerNode: public ContainerNode {
+#include "evocodercore_global.h"
+
+class EXECUTABLECONTAINERNODE_EXPORT ExecutableContainerNode: public ContainerNode {
 public:
 	//Obligatory methods if is derived from NODE
 	ExecutableContainerNode() :

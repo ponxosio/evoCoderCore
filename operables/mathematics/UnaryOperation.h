@@ -23,6 +23,8 @@
 #include "../../util/Utils.h"
 #include "MathematicOperable.h"
 
+#include "evocodercore_global.h"
+
 namespace unaryOperations {
 /*** Enum for the type of unary operator ***/
 enum UnaryOperator {
@@ -30,7 +32,7 @@ enum UnaryOperator {
 	floor  
 };
 }
-class UnaryOperation: public MathematicOperable {
+class UNARYOPERATION_EXPORT UnaryOperation: public MathematicOperable {
 public:
 	UnaryOperation();
 	UnaryOperation(std::shared_ptr<MathematicOperable> variable,

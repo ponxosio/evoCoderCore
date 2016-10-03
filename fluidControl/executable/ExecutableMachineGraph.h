@@ -39,7 +39,9 @@
 #include <cereal\types\vector.hpp>
 #include <cereal/archives/json.hpp>
 
-class ExecutableMachineGraph {
+#include "evocodercore_global.h"
+
+class EXECUTABLEMACHINEGRAPH_EXPORT ExecutableMachineGraph {
 public:
 	//TYPE DEFS
 	typedef Graph<ExecutableContainerNode, Edge>::NodeTypePtr ExecutableContainerNodePtr;

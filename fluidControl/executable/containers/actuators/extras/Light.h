@@ -16,7 +16,9 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Light: public Instructable {
+#include "evocodercore_global.h"
+
+class LIGHT_EXPORT Light: public Instructable {
 public:
 	Light() {
 		this->communications = -1;

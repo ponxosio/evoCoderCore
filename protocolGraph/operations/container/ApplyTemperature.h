@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class ApplyTemperature: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class APPLYTEMPERATURE_EXPORT ApplyTemperature: public ContainerOperation {
 public:
 	// Node methods
 	ApplyTemperature();

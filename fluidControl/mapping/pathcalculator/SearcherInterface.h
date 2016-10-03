@@ -7,7 +7,9 @@
 #include "../../../graph/Edge.h"
 #include "../../../graph/Flow.h"
 
-class SearcherInterface
+#include "evocodercore_global.h"
+
+class SEARCHERINTERFACE_EXPORT SearcherInterface
 {
 public:
 	virtual ~SearcherInterface() {}

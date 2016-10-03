@@ -24,7 +24,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class BidirectionalSwitch: public ExecutableContainerNode {
+#include "evocodercore_global.h"
+
+class BIDIRECTIONALSWITCH_EXPORT BidirectionalSwitch: public ExecutableContainerNode {
 public:
 	//methods of being node
 	BidirectionalSwitch();

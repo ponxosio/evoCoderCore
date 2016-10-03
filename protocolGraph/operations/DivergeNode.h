@@ -28,7 +28,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class DivergeNode: public OperationNode {
+#include "evocodercore_global.h"
+
+class DIVERGENODE_EXPORT DivergeNode: public OperationNode {
 public:
 	//Methods for Node
 	DivergeNode();

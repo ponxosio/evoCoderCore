@@ -16,7 +16,9 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class ODSensor: public Instructable {
+#include "evocodercore_global.h"
+
+class ODSENSOR_EXPORT ODSensor: public Instructable {
 public:
 	ODSensor(){
 		this->communications = -1;

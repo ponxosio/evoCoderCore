@@ -23,6 +23,8 @@
 //local
 #include <easylogging++.h>
 
+#include "evocodercore_global.h"
+
 typedef struct {
 	//cantor paring function
 	size_t operator()(std::tuple<int, int> x) const throw () {
@@ -38,7 +40,7 @@ using namespace std;
 /**
  * Class only eith static methods that do miscelaneus staff
  */
-class Utils {
+class UTILS_EXPORT Utils {
 
 public:
 	/**

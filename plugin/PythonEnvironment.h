@@ -26,7 +26,9 @@
 #include "../util/Utils.h"
 #include "PluginFileLoader.h"
 
-class PythonEnvironment
+#include "evocodercore_global.h"
+
+class PYTHONENVIRONMENT_EXPORT PythonEnvironment
 {
 public:
 	static PythonEnvironment* GetInstance() {
@@ -65,8 +67,8 @@ protected:
 
 private:
 	PythonEnvironment();
-	PythonEnvironment(const PythonEnvironment& com) {}
-	PythonEnvironment& operator=(const PythonEnvironment&) {}
+    PythonEnvironment(const PythonEnvironment&) {}
+    PythonEnvironment& operator=(const PythonEnvironment& py) {return PythonEnvironment(py);}
 
 	static PythonEnvironment *m_pInstance;
 };

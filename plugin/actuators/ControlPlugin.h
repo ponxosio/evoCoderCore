@@ -16,7 +16,9 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 
-class ControlPlugin :
+#include "evocodercore_global.h"
+
+class CONTROLPLUGIN_EXPORT ControlPlugin :
     public Control, public SelfConfiguringPlugin
 {
 public:

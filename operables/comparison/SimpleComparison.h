@@ -29,6 +29,8 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/memory.hpp>
 
+#include "evocodercore_global.h"
+
 namespace comparison {
 /*** Enum for the type of comparison operator ***/
 enum ComparisonOperator {
@@ -42,7 +44,7 @@ enum ComparisonOperator {
 /**
  * Class that represents a simple comparison between two variables, for example "a > 3"
  */
-class SimpleComparison: public ComparisonOperable {
+class SIMPLECOMPARISON_EXPORT SimpleComparison: public ComparisonOperable {
 public:
 	SimpleComparison() {
 		this->left = std::shared_ptr<MathematicOperable>();

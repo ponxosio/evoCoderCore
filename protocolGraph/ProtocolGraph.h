@@ -31,8 +31,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/archives/json.hpp>
 
+#include "evocodercore_global.h"
 
-class ProtocolGraph {
+class PROTOCOLGRAPH_EXPORT ProtocolGraph {
 public:
 
 	//TYPE DEFS

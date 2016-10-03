@@ -15,7 +15,9 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Tautology: public ComparisonOperable {
+#include "evocodercore_global.h"
+
+class TAUTOLOGY_EXPORT Tautology: public ComparisonOperable {
 public:
 	Tautology() {
 		this->negation = false;

@@ -7,7 +7,9 @@
 #include "..\executable\ExecutableMachineGraph.h"
 #include "..\..\util\Utils.h"
 
-class ContinuousFlowEngine
+#include "evocodercore_global.h"
+
+class CONTINUOUSFLOWENGINE_EXPORT ContinuousFlowEngine
 {
 public:
 	ContinuousFlowEngine();

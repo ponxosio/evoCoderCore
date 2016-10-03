@@ -8,7 +8,9 @@
 
 #include "PathSearcher.h"
 
-class PathSearcherIterator
+#include "evocodercore_global.h"
+
+class PATHSEARCHERITERATOR_EXPORT PathSearcherIterator
 {
 public:
 	PathSearcherIterator(std::shared_ptr<PathSearcher> engine);

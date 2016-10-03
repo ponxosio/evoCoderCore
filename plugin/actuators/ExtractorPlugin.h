@@ -16,7 +16,9 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 
-class ExtractorPlugin :
+#include "evocodercore_global.h"
+
+class EXTRACTORPLUGIN_EXPORT ExtractorPlugin :
     public Extractor, public SelfConfiguringPlugin
 {
 public:

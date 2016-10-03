@@ -10,10 +10,12 @@
 
 #include <string>
 
+#include "evocodercore_global.h"
+
 /**
  * Interface that represents all comparation operations
  */
-class ComparisonOperable {
+class COMPARISONOPERABLE_EXPORT ComparisonOperable {
 public:
 	ComparisonOperable(){}
 	virtual ~ComparisonOperable(){}

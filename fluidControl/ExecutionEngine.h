@@ -45,8 +45,9 @@
 #include "executable/ExecutableMachineGraph.h"
 #include "executable/containers/actuators/communications/CommunicationsInterface.h"
 
+#include "evocodercore_global.h"
 
-class ExecutionEngine {
+class EXECUTIONENGINE_EXPORT ExecutionEngine {
 public:
 
 	//type defs

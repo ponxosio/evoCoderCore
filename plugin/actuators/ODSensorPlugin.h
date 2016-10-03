@@ -16,7 +16,9 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 
-class ODSensorPlugin :
+#include "evocodercore_global.h"
+
+class ODSENSORPLUGIN_EXPORT ODSensorPlugin :
     public ODSensor, public SelfConfiguringPlugin
 {
 public:

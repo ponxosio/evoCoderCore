@@ -16,7 +16,9 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 
-class InjectorPlugin :
+#include "evocodercore_global.h"
+
+class INJECTORPLUGIN_EXPORT InjectorPlugin :
     public Injector, public SelfConfiguringPlugin
 {
 public:

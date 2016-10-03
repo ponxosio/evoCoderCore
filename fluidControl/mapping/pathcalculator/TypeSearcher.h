@@ -9,10 +9,12 @@
 #include "../../machineGraph/ContainerNodeType.h"
 #include "SearcherInterface.h"
 
+#include "evocodercore_global.h"
+
 class PathSearcherIterator;
 class PathManager;
 
-class TypeSearcher : public SearcherInterface
+class TYPESEARCHER_EXPORT TypeSearcher : public SearcherInterface
 {
 public:
 	TypeSearcher(const ExecutableMachineGraph::ExecutableContainerNodeVector & pendingNodes,

@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class GetVolume: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class GETVOLUME_EXPORT GetVolume: public ContainerOperation {
 public:
 	// Node methods
 	GetVolume();

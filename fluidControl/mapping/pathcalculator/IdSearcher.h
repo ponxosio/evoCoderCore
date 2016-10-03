@@ -9,10 +9,12 @@
 #include "../../../graph/Flow.h"
 #include "SearcherInterface.h"
 
+#include "evocodercore_global.h"
+
 class PathSearcherIterator;
 class PathManager;
 
-class IdSearcher : public SearcherInterface
+class IDSEARCHER_EXPORT IdSearcher : public SearcherInterface
 {
 public:
 	IdSearcher(int idInicio, PathManager* manager, int idDestination) throw (std::invalid_argument);

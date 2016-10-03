@@ -47,10 +47,12 @@
 #include <cereal/types/tuple.hpp>
 #include <cereal/types/polymorphic.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  *
  */
-template <class NodeType, class EdgeType> class Graph {
+template <class NodeType, class EdgeType> class GRAPH_EXPORT Graph {
 
 	// Restrict this template for using only types derived from Node and edge Interfaces
 	BOOST_STATIC_ASSERT((boost::is_base_of<Node, NodeType>::value));

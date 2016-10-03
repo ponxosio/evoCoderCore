@@ -16,7 +16,9 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Temperature: public Instructable {
+#include "evocodercore_global.h"
+
+class TEMPERATURE_EXPORT Temperature: public Instructable {
 public:
 	Temperature() {
 		this->communications = -1;

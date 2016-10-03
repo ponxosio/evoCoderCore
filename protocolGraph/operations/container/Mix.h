@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class Mix: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class MIX_EXPORT Mix: public ContainerOperation {
 public:
 	// Node methods
 	Mix();

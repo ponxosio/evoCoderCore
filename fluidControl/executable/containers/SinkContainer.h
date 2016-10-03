@@ -16,7 +16,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class SinkContainer: public ExecutableContainerNode {
+#include "evocodercore_global.h"
+
+class SINKCONTAINER_EXPORT SinkContainer: public ExecutableContainerNode {
 public:
 	//methods of being node
 	SinkContainer();

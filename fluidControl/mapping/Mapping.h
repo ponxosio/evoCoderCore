@@ -29,6 +29,8 @@
 #include "MappingEngine.h"
 #include "ContinuousFlowEngine.h"
 
+#include "evocodercore_global.h"
+
 namespace mapping {
 /*** Enum for the operation the mapping will do ***/
 enum MappingOperation {
@@ -38,7 +40,7 @@ enum MappingOperation {
 };
 }
 
-class Mapping {
+class MAPPING_EXPORT Mapping {
 public:
 	Mapping() {}
 	Mapping(std::shared_ptr<ExecutableMachineGraph> machine, const std::string & name, const std::vector<int> & communicationInterface);

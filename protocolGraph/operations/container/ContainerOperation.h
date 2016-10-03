@@ -21,10 +21,12 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/string.hpp>
 
+#include "evocodercore_global.h"
+
 /**
  * Interface that represents all the operations that can be made over the machine containers
  */
-class ContainerOperation: public OperationNode {
+class CONTAINEROPERATION_EXPORT ContainerOperation: public OperationNode {
 public:
 	ContainerOperation() : OperationNode() {}
 	ContainerOperation(const ContainerOperation & obj) : OperationNode(obj) {}

@@ -20,7 +20,9 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/polymorphic.hpp>
 
-class TimeStep: public ContainerOperation {
+#include "evocodercore_global.h"
+
+class TIMESTEP_EXPORT TimeStep: public ContainerOperation {
 public:
 	// Node methods
 	TimeStep();

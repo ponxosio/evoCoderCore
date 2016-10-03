@@ -20,7 +20,9 @@
 #include "util\Patch.h"
 #include "util\Utils.h"
 
-class ExecutionServer
+#include "evocodercore_global.h"
+
+class EXECUTIONSERVER_EXPORT ExecutionServer
 {
 public:
 	static ExecutionServer* GetInstance() {
@@ -52,7 +54,7 @@ private:
 	std::unordered_map<std::string, std::tuple<std::string, std::shared_ptr<ExecutionEngine>>> executionMap;
 
 	ExecutionServer();
-	ExecutionServer(const CommunicationsInterface& com) {}
-	ExecutionServer& operator=(const CommunicationsInterface&) {}
+    ExecutionServer(const ExecutionServer&) {}
+    ExecutionServer& operator=(const ExecutionServer& com) {return ExecutionServer(com);}
 };
 

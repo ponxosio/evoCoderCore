@@ -16,7 +16,9 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 
-class LightPlugin :
+#include "evocodercore_global.h"
+
+class LIGHTPLUGIN_EXPORT LightPlugin :
     public Light, public SelfConfiguringPlugin
 {
 public:

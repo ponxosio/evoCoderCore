@@ -16,8 +16,9 @@
 #include <cereal/types/vector.hpp>
 #include <cereal/types/string.hpp>
 
+#include "evocodercore_global.h"
 
-class MixerPlugin :
+class MIXERPLUGIN_EXPORT MixerPlugin :
     public Mixer, public SelfConfiguringPlugin
 {
 public:
