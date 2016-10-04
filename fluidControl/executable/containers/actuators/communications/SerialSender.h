@@ -58,7 +58,7 @@ public:
 	 * Send the string through the serial port.
 	 * @param str the number of characters send.
 	 */
-	virtual unsigned long sendString(const std::string & str);
+    virtual unsigned long sendString(const char* str);
 	/**
 	 * receive a String through the serial port. if no information after maxMsWaitingRead millisenconds
 	 * a timeout exception is thrown.

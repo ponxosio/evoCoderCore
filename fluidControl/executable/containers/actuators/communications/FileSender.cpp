@@ -34,13 +34,14 @@ FileSender::~FileSender() {
 	disconnect();
 }
 
-unsigned long FileSender::sendString(const std::string& str) {
-	if (outFile.is_open()) {
+unsigned long FileSender::sendString(const char* str) {
+    LOG(DEBUG) << "sending: " << str;
+    if (outFile.is_open()) {
 		outFile << str << "\n";
 	} else {
 		throw(std::ios_base::failure("the connection must be opened first"));
 	}
-	return str.length();
+    return 1;
 }
 
 std::string FileSender::receiveString() throw (std::ios_base::failure) {

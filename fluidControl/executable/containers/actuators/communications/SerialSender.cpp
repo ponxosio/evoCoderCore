@@ -49,12 +49,12 @@ void SerialSender::disconnect() {
     }
 }
 
-unsigned long SerialSender::sendString(const std::string& str) {
+unsigned long SerialSender::sendString(const char * str) {
     if (handler->isOpen()) {
 		throw(std::ios_base::failure("connection has not been established yet"));
 	}
 
-    return handler->write(str.c_str());
+    return handler->write(str);
 }
 
 std::string SerialSender::receiveString() throw (std::ios_base::failure) {
