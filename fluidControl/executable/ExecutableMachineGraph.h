@@ -147,6 +147,14 @@ public:
 		return name;
 	}
 
+    inline void setTestCommunicationsPrototype(std::unique_ptr<CommandSender> testPrototype) {
+        testComInterface = std::move(testPrototype);
+    }
+
+    inline void setExecCommunicationsPrototype(std::unique_ptr<CommandSender> execPrototype) {
+        execComInterface = std::move(execPrototype);
+    }
+
 	//Volume
 	float getVolume(int idContainer);
 	void addVolume(int idContainer, float volume);

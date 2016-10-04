@@ -8,225 +8,105 @@
 #include "SerialSender.h"
 
 SerialSender::SerialSender(std::string device,
-		DWORD baudRate,
-		BYTE byteSize,
-		BYTE stopBits,
-		BYTE parity,
-		long maxMsWaitingRead,
-		DWORD readIntervalTimeout,
-		DWORD readTotalTimeoutConstant,
-		DWORD readTotalTimeoutMultiplier,
-		DWORD writeTotalTimeoutConstant,
-		DWORD writeTotalTimeoutMultiplier) :
+        qint32 baudRate,
+        QSerialPort::DataBits byteSize,
+        QSerialPort::StopBits stopBits,
+        QSerialPort::Parity parity,
+        int msWait) :
 	CommandSender()
 {
-
-	this->connected = false;
-	this->device = device;
+    this->handler = NULL;
+    this->device = device;
 	this->baudRate = baudRate;
 	this->byteSize = byteSize;
 	this->stopBits = stopBits;
 	this->parity = parity;
-
-	this->maxMsWaitingRead = maxMsWaitingRead;
-	this->readIntervalTimeout = readIntervalTimeout;
-	this->readTotalTimeoutConstant = readTotalTimeoutConstant;
-	this->readTotalTimeoutMultiplier = readTotalTimeoutMultiplier;
-	this->writeTotalTimeoutConstant = writeTotalTimeoutConstant;
-	this->writeTotalTimeoutMultiplier = writeTotalTimeoutMultiplier;
+    this->waitMs = msWait;
 }
 
 SerialSender::SerialSender(const SerialSender & ss) :
 	CommandSender(ss)
 {
-	this->connected = false;
-	this->device = ss.device;
+    this->handler = NULL;
+    this->device = ss.device;
 	this->baudRate = ss.baudRate;
 	this->byteSize = ss.byteSize;
 	this->stopBits = ss.stopBits;
 	this->parity = ss.parity;
-
-	this->maxMsWaitingRead = ss.maxMsWaitingRead;
-	this->readIntervalTimeout = ss.readIntervalTimeout;
-	this->readTotalTimeoutConstant = ss.readTotalTimeoutConstant;
-	this->readTotalTimeoutMultiplier = ss.readTotalTimeoutMultiplier;
-	this->writeTotalTimeoutConstant = ss.writeTotalTimeoutConstant;
-	this->writeTotalTimeoutMultiplier = ss.writeTotalTimeoutMultiplier;
+    this->waitMs = ss.waitMs;
 }
 
 SerialSender::~SerialSender() {
 	disconnect();
+    if (handler) {
+        delete handler;
+    }
 }
 
 void SerialSender::disconnect() {
-    /*if (connected) {
-		CloseHandle(hSerial);
-	}
-    connected = false;*/
+    if (handler && handler->isOpen()) {
+        handler->close();
+    }
 }
 
 unsigned long SerialSender::sendString(const std::string& str) {
-    /*if (!this->connected) {
+    if (handler->isOpen()) {
 		throw(std::ios_base::failure("connection has not been established yet"));
 	}
 
-	DWORD bytesWritten = 0;
-	WriteFile(hSerial, str.c_str(), sizeof(char) * str.length(), &bytesWritten, NULL);
-	LOG(DEBUG) << "send  " << bytesWritten << " bytes";
-
-    return bytesWritten;*/
-    return 0;
+    return handler->write(str.c_str());
 }
 
 std::string SerialSender::receiveString() throw (std::ios_base::failure) {
-    /*if (!this->connected) {
-		throw(std::ios_base::failure("connection has not been established yet"));
-	}
-	long waited = 0;
-	DWORD dwErrorFlags;
-	COMSTAT ComStat;
+    if (handler->isOpen()) {
+        throw(std::ios_base::failure("connection has not been established yet"));
+    }
 
-	ClearCommError(hSerial, &dwErrorFlags, &ComStat);
+    std::string strRead;
+    int numRead = 0;
+    char buffer[50];
 
-	while (ComStat.cbInQue == 0) {
-		LOG(DEBUG) << "waiting for data for " << waited << " ms";
-		Sleep(100);
-		waited += 100;
-		ClearCommError(hSerial, &dwErrorFlags, &ComStat);
-		if (waited >= maxMsWaitingRead) {
-			throw(std::ios_base::failure("timeout while reading data"));
-		}
-	}
-
-	DWORD bytesRead;
-	std::string buffer;
-	char tempChar;
-	ReadFile(hSerial,           //Handle of the Serial port
-			&tempChar,       //Temporary character
-			sizeof(tempChar),       //Size of TempChar
-			&bytesRead,    //Number of bytes read
-			NULL);
-
-	while (bytesRead > 0) {
-		buffer += tempChar;    // Store Tempchar into buffer
-		LOG(DEBUG)<< "read " << bytesRead << " bytes";
-		ReadFile(hSerial,           //Handle of the Serial port
-				&tempChar,       //Temporary character
-				sizeof(tempChar),       //Size of TempChar
-				&bytesRead,    //Number of bytes read
-				NULL);
-
-	}
-    return buffer;*/
-    return "";
+    numRead  = handler->read(buffer, 50);
+    while(numRead > 0 && handler->waitForReadyRead(waitMs)) {
+        strRead = strRead + std::string(buffer, sizeof(buffer));
+        numRead  = handler->read(buffer, 50);
+    }
+    return strRead;
 }
 
 void SerialSender::connect() throw (std::ios_base::failure) {
-    /*hSerial = CreateFile(device.c_str(),
-	GENERIC_READ | GENERIC_WRITE, 0, 0,
-	OPEN_EXISTING, 0, 0);
-	connected = true;
-
-	if (hSerial == INVALID_HANDLE_VALUE) {
-		if (GetLastError() == ERROR_FILE_NOT_FOUND) {
-			throw(std::ios_base::failure(
-					"device " + device + " does not exists"));
-		}
-		throw(std::ios_base::failure("can not open the connection"));
-	}
-    configure();*/
+    if (!handler) {
+        handler = new QSerialPort(QString::fromStdString(device));
+        handler->setBaudRate(baudRate);
+        handler->setDataBits(byteSize);
+        handler->setParity(parity);
+        handler->setStopBits(stopBits);
+    }
+    if (!handler->isOpen()) {
+        if (!handler->open(QSerialPort::ReadWrite)) {
+            throw (std::ios_base::failure("imposible to open the port: code error " + patch::to_string(handler->error())));
+        }
+    }
 }
 
 void SerialSender::synch() throw (std::ios_base::failure) {
-    //Sleep(1500);
-}
-
-void SerialSender::configure() throw (std::ios_base::failure) {
-	//params
-    /*DCB dcbSerialParams = { 0 };
-	dcbSerialParams.DCBlength = sizeof(DCB);
-
-	if (!GetCommState(hSerial, &dcbSerialParams)) {
-		throw( std::ios_base::failure(
-				"Failed to Get Comm State Reason: " + GetLastError()));
-	}
-	dcbSerialParams.BaudRate = baudRate;
-	dcbSerialParams.ByteSize = byteSize;
-	dcbSerialParams.StopBits = stopBits;
-	dcbSerialParams.Parity = parity;
-
-	if (!SetCommState(hSerial, &dcbSerialParams)) {
-		throw(std::ios_base::failure(
-				"Failed to set Comm state reason: " + GetLastError()));
-	}
-
-	//timeouts
-	COMMTIMEOUTS timeouts = { 0 };
-
-	timeouts.ReadIntervalTimeout = readIntervalTimeout;
-	timeouts.ReadTotalTimeoutConstant = readTotalTimeoutConstant;
-	timeouts.ReadTotalTimeoutMultiplier = readTotalTimeoutMultiplier;
-	timeouts.WriteTotalTimeoutConstant = writeTotalTimeoutConstant;
-	timeouts.WriteTotalTimeoutMultiplier = writeTotalTimeoutMultiplier;
-
-	if (!SetCommTimeouts(hSerial, &timeouts)) {
-		throw(std::ios_base::failure(
-				"Failed to set TimeOuts reason: " + GetLastError()));
-	}
-
-	if (!SetCommMask(hSerial, EV_TXEMPTY | EV_RXCHAR)) {
-		throw(std::ios_base::failure(
-				"Failed to set Comm mask, reason: " + GetLastError()));
-    }*/
+    Sleep(1500);
 }
 
 std::string SerialSender::readUntil(char endCharacter)
-		throw (std::ios_base::failure) {
-    /*if (!this->connected) {
-		throw(std::ios_base::failure("connection has not been established yet"));
-	}
+        throw (std::ios_base::failure)
+{
+    if (handler->isOpen()) {
+        throw(std::ios_base::failure("connection has not been established yet"));
+    }
 
-	long waited = 0;
-	DWORD dwErrorFlags;
-	COMSTAT ComStat;
-
-	ClearCommError(hSerial, &dwErrorFlags, &ComStat);
-
-	while (ComStat.cbInQue == 0) {
-		LOG(DEBUG)<< "waiting for data for " << waited << " ms";
-		Sleep(100);
-		waited += 100;
-		ClearCommError(hSerial, &dwErrorFlags, &ComStat);
-		if (waited >= maxMsWaitingRead) {
-			throw(std::ios_base::failure("timeout while reading data"));
-		}
-	}
-
-	DWORD bytesRead;
-	std::string buffer;
-	char tempChar;
-	ReadFile(hSerial,           //Handle of the Serial port
-			&tempChar,       //Temporary character
-			sizeof(tempChar),       //Size of TempChar
-			&bytesRead,    //Number of bytes read
-			NULL);
-
-	while (tempChar != endCharacter && bytesRead > 0) {
-		buffer += tempChar;    // Store Tempchar into buffer
-		LOG(DEBUG)<< "read " << bytesRead << " bytes";
-		ReadFile(hSerial,           //Handle of the Serial port
-				&tempChar,       //Temporary character
-				sizeof(tempChar),       //Size of TempChar
-				&bytesRead,    //Number of bytes read
-				NULL);
-
-	}
-
-	if (bytesRead == 0) {
-		throw(std::ios_base::failure("the stream has ended without receiving the stop character " + endCharacter));
-	}
-    return buffer;*/
-    return "";
+    std::string read = receiveString();
+    size_t pos = read.find_last_of(endCharacter);
+    if (pos != std::string::npos) {
+        return read.substr(0, pos);
+    } else {
+        throw(std::ios_base::failure("no end character received"));
+    }
 }
 
 CommandSender* SerialSender::clone() {
