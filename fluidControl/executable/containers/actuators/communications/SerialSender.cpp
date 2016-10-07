@@ -44,32 +44,45 @@ SerialSender::~SerialSender() {
 }
 
 void SerialSender::disconnect() {
-    if (handler && handler->isOpen()) {
+    if (handler && handler->openMode() == QIODevice::ReadWrite) {
         handler->close();
     }
 }
 
 unsigned long SerialSender::sendString(const char * str) {
-    if (handler->isOpen()) {
+    if (handler->openMode() != QIODevice::ReadWrite) {
 		throw(std::ios_base::failure("connection has not been established yet"));
 	}
 
-    return handler->write(str);
+    qint64 bytesSended =  handler->write(str);
+    if (!handler->waitForBytesWritten(waitMs)) {
+        bytesSended = -1;
+    }
+
+     LOG(DEBUG) << "bytes sended: " << bytesSended;
+
+    return bytesSended;
 }
 
 std::string SerialSender::receiveString() throw (std::ios_base::failure) {
-    if (handler->isOpen()) {
+    if (handler->openMode() != QIODevice::ReadWrite) {
         throw(std::ios_base::failure("connection has not been established yet"));
     }
 
+    bool timeout = false;
     std::string strRead;
     int numRead = 0;
     char buffer[50];
 
-    numRead  = handler->read(buffer, 50);
-    while(numRead > 0 && handler->waitForReadyRead(waitMs)) {
+    do {
+        numRead  = handler->read(buffer, 50);
         strRead = strRead + std::string(buffer, sizeof(buffer));
         numRead  = handler->read(buffer, 50);
+        timeout = !handler->waitForReadyRead(waitMs);
+    } while(numRead > 0 && !timeout);
+
+    if (timeout) {
+        throw (std::ios_base::failure("time out while connection"));
     }
     return strRead;
 }
@@ -82,9 +95,13 @@ void SerialSender::connect() throw (std::ios_base::failure) {
         handler->setParity(parity);
         handler->setStopBits(stopBits);
     }
-    if (!handler->isOpen()) {
-        if (!handler->open(QSerialPort::ReadWrite)) {
+    if (handler->openMode() != QIODevice::ReadWrite) {
+        if (!handler->open(QIODevice::ReadWrite)) {
             throw (std::ios_base::failure("imposible to open the port: code error " + patch::to_string(handler->error())));
+        }
+
+        if (handler->waitForReadyRead(waitMs * 10)) {
+            LOG(DEBUG) << "arduino said " << handler->readAll().toStdString();
         }
     }
 }
@@ -96,7 +113,7 @@ void SerialSender::synch() throw (std::ios_base::failure) {
 std::string SerialSender::readUntil(char endCharacter)
         throw (std::ios_base::failure)
 {
-    if (handler->isOpen()) {
+    if (handler->openMode() != QIODevice::ReadWrite) {
         throw(std::ios_base::failure("connection has not been established yet"));
     }
 

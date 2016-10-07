@@ -1,7 +1,9 @@
 #pragma once
+#pragma warning( disable : 4290 )
 
-# include <fstream>
-# include <unordered_map>
+#include <stdexcept>
+#include <fstream>
+#include <unordered_map>
 
 #include <boost/python.hpp>
 #include <boost/tokenizer.hpp>
@@ -38,19 +40,30 @@ public:
 
 	virtual ~BioBlocksJSONReader();
 
-	ProtocolGraph* loadFile(const std::string & path);
+    ProtocolGraph* loadFile(const std::string & path) throw(std::invalid_argument);
+protected:
+    std::vector<std::shared_ptr<OperationNode>> lastOp;
+    std::unordered_map<std::string, int> containerMap;
+    AutoEnumerate table_sequence;
+    AutoEnumerate graph_sequence;
+    std::shared_ptr<ComparisonOperable> tautology;
+
+    void readRefs(const nlohmann::json & js, ProtocolGraph* protocol) throw(std::invalid_argument);
+    void readInstructions(const nlohmann::json & js, ProtocolGraph* protocol);
+
+    void parsePipette(const nlohmann::json::iterator & it, ProtocolGraph* protocol);
+    void parsePipette_one2many(const std::string & key, nlohmann::json to, nlohmann::json from, ProtocolGraph* protocol);
+    void parsePipette_many2one(const std::string & key, nlohmann::json to, nlohmann::json from, nlohmann::json value, ProtocolGraph* protocol);
+    void parsePipette_one2one(const std::string & key, nlohmann::json to, nlohmann::json from, nlohmann::json value, ProtocolGraph* protocol);
+
+    float parseVolume(const std::string & text);
+
 
 private:
 	static BioBlocksJSONReader* m_pInstance;
 
-	std::unordered_map<std::string, int> containerMap;
-	AutoEnumerate table_sequence;
-	AutoEnumerate graph_sequence;
-
 	BioBlocksJSONReader();
     BioBlocksJSONReader(const BioBlocksJSONReader &){}
     BioBlocksJSONReader& operator=(const BioBlocksJSONReader & com){return BioBlocksJSONReader(com);}
-
-	float parseVolume(const std::string & text);
 };
 

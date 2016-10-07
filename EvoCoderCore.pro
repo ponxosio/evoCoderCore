@@ -85,7 +85,8 @@ SOURCES += \
     util/Utils.cpp \
     BioBlocksJSONReader.cpp \
     ExecutionMachineServer.cpp \
-    ExecutionServer.cpp
+    ExecutionServer.cpp \
+    util/logutils.cpp
 
 HEADERS +=\
         evocodercore_global.h \
@@ -175,7 +176,8 @@ HEADERS +=\
     util/Utils.h \
     BioBlocksJSONReader.h \
     ExecutionMachineServer.h \
-    ExecutionServer.h
+    ExecutionServer.h \
+    util/logutils.h
 
 unix {
     target.path = /usr/lib

@@ -89,7 +89,6 @@ public:
 	static bool ends_with(std::string const &a, std::string const &b);
 
 	static bool starts_with(std::string const &a, std::string const &b);
-
 private:
 	Utils();
 	virtual ~Utils();
