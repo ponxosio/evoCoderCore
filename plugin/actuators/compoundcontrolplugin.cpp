@@ -1,7 +1,7 @@
 #include "compoundcontrolplugin.h"
 
 CompoundControlPlugin::CompoundControlPlugin():
-    Control(), SelfConfiguringPlugin("compoundControl", CompoundControlPlugin::generateParams())
+    Control(), SelfConfiguringPlugin()
 {
     maxConnections = 0;
 }
@@ -22,12 +22,12 @@ void CompoundControlPlugin::addConnection(int idSource, int idTarget, int pos) t
     int lastMaxVirtualPos = 0;
     int translatedPos = -1;
 
-    for (auto actualPair = virtualPos.begin(); actualPair != virtualPos.end() && !findedPlugin; ++actualPair) {
-        if (pos < actualPair->firts) {
+    for (auto actualPair = virtualPosMap.begin(); actualPair != virtualPosMap.end() && !findedPlugin; ++actualPair) {
+        if (pos < actualPair->first) {
             translatedPos = pos - lastMaxVirtualPos;
             findedPlugin = actualPair->second;
         } else {
-            lastMaxVirtualPos = actualPair->firts;
+            lastMaxVirtualPos = actualPair->first;
         }
     }
     findedPlugin->addConnection(idSource, idTarget, translatedPos);
@@ -37,14 +37,17 @@ void CompoundControlPlugin::addConnection(int idSource, int idTarget, int pos) t
 }
 
 void CompoundControlPlugin::setConnection(int idSource, int idTarget) throw (std::runtime_error) {
-    for (auto actualPair = virtualPos.begin(); actualPair != virtualPos.end(); ++actualPair) {
-        actualPair->second->setConnection(idSource, idTraget);
+    for (auto actualPair = virtualPosMap.begin(); actualPair != virtualPosMap.end(); ++actualPair) {
+        actualPair->second->setConnection(idSource, idTarget);
     }
 }
 
 void CompoundControlPlugin::clearConnections() throw (std::runtime_error) {
-    availableVirtualPos = std::vector(virtualPos);
-    for (auto actualPair = virtualPos.begin(); actualPair != virtualPos.end(); ++actualPair) {
+    availableVirtualPos.clear();
+    availableVirtualPos.reserve(virtualPos.size());
+    std::copy(availableVirtualPos.begin(), availableVirtualPos.end(), virtualPos.begin());
+
+    for (auto actualPair = virtualPosMap.begin(); actualPair != virtualPosMap.end(); ++actualPair) {
         actualPair->second->clearConnections();
     }
 }
@@ -58,7 +61,7 @@ std::vector<int> CompoundControlPlugin::getAvailablePos() throw (std::runtime_er
 }
 
 void CompoundControlPlugin::reloadConnections() throw (std::runtime_error) {
-    for (auto actualPair = virtualPos.begin(); actualPair != virtualPos.end(); ++actualPair) {
+    for (auto actualPair = virtualPosMap.begin(); actualPair != virtualPosMap.end(); ++actualPair) {
         actualPair->second->clearConnections();
     }
 }
@@ -88,10 +91,4 @@ void CompoundControlPlugin::groupValves(const std::vector<std::shared_ptr<Contro
 
 int CompoundControlPlugin::getActualPosition() throw (std::runtime_error) {
     return -1;
-}
-
-//selfconfiguring plugin overriden method
-std::vector<std::pair<std::string,std::string>> CompoundControlPlugin::getParamsType() throw (std::runtime_error) {
-    std::vector<std::pair<std::string,std::string>> paramsType = {std::make_pair("list_of_controls", "list[plugin]")};
-    return paramsType;
 }

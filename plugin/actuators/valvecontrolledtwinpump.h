@@ -42,9 +42,6 @@ public:
     //selfconfiguringplugin pure virtual method
     virtual SelfConfiguringPlugin* clone();
 
-    //selfconfiguringplugin overriden method
-    virtual std::vector<std::pair<std::string,std::string>> getParamsType() throw (std::runtime_error);
-
     //SERIALIZATIoN
     template<class Archive>
     void serialize(Archive & ar, std::uint32_t const version);

@@ -53,3 +53,7 @@ void InletContainer::connectContainer(int source, int target) throw (std::runtim
 void InletContainer::reloadCommunicationInterface(int communication) {
 	this->ext->setCommunications(communication);
 }
+
+ void InletContainer::reloadActuatorsParams() throw (std::runtime_error) {
+
+}

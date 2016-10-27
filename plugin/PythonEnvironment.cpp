@@ -261,3 +261,75 @@ object PythonEnvironment::executeStaticMethod(const std::string & type, const st
         throw(std::invalid_argument("error at python environment " + msg));
     }
 }
+
+bool PythonEnvironment::isVirtualType(const std::string & pluginType) {
+    bool isVirtual = ((pluginType.compare("compoundControl") == 0) ||
+                      (pluginType.compare("valveControlledTwinPump") == 0));
+    return isVirtual;
+}
+
+void PythonEnvironment::getParamsVirtualType(const std::string & pluginType, std::vector<std::pair<std::string,std::string>> & paramsType) {
+    if (pluginType.compare("compoundControl") == 0) {
+        paramsType.push_back(std::make_pair("list_of_controls", "list[plugin]"));
+    } else if (pluginType.compare("compoundControl") == 0) {
+        paramsType.push_back(std::make_pair("pump1", "plugin"));
+        paramsType.push_back(std::make_pair("pump2", "plugin"));
+        paramsType.push_back(std::make_pair("controlActuator", "plugin"));
+        paramsType.push_back(std::make_pair("positionsPump1Works", "list[int]"));
+    } else {
+        LOG(WARNING) << "only use this method for plugins that agregate pythonPlugins";
+    }
+}
+
+std::vector<std::pair<std::string,std::string>> PythonEnvironment::getParamsType(const std::string & pluginType) throw (std::runtime_error) {
+    try {
+        std::vector<std::pair<std::string,std::string>> params;
+        if (isVirtualType(pluginType)) {
+            getParamsVirtualType(pluginType, params);
+        } else {
+            dict dictionary = extract<dict>(executeStaticMethod(pluginType, "getParamsType"));
+
+            boost::python::list lista = dictionary.keys();
+            int size = len(lista);
+
+            for (int i = 0; i < size; i++) {
+                boost::python::extract<boost::python::object> key_extract(lista[i]);
+                if (key_extract.check()) {
+                    boost::python::object u = key_extract();
+                    const char* cKey = extract<const char*>(str(u).encode("utf-8"));
+                    std::string keyStr(cKey);
+
+                    boost::python::extract<boost::python::object> value_extract(dictionary[keyStr]);
+                    if (value_extract.check()) {
+                        u = value_extract();
+                        const char* cValue = extract<const char*>(str(u).encode("utf-8"));
+                        std::string valueStr(cValue);
+
+                        params.push_back(make_pair(keyStr, valueStr));
+                    } else {
+                        LOG(ERROR) << "bad value at position " << i;
+                    }
+                } else {
+                    LOG(ERROR) << "bad value at position " << i;
+                }
+            }
+        }
+        return params;
+    }
+    catch (error_already_set)
+    {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+
+        std::string error = "";
+        char* c_str = PyString_AsString(pvalue);
+        if (c_str) {
+            error = std::string(c_str);
+        }
+        throw(std::runtime_error("addConnection(), " + pluginType + ": " + "error at python environment " + error));
+    }
+    catch (std::invalid_argument & e)
+    {
+        throw(std::runtime_error("addConnection(), " + pluginType + ": " + "internal error" + std::string(e.what())));
+    }
+}

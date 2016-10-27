@@ -108,7 +108,7 @@ public:
 	virtual void connectContainer(int source, int target) throw (std::runtime_error) = 0;
     virtual void reloadActuatorsParams() throw (std::runtime_error) = 0;
 	
-    virtual void updateCommunicationInterface(int communication) = 0;
+    virtual void reloadCommunicationInterface(int communication) = 0;
 
 	//SERIALIZATIoN
 	template<class Archive>

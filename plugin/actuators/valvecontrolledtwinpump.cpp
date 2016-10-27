@@ -12,7 +12,7 @@ ValveControlledTwinPump::ValveControlledTwinPump(int communications,
         std::shared_ptr<ExtractorPlugin> pump2,
         std::shared_ptr<ControlPlugin> controlActuator,
         const std::vector<int> & positionsPump1Works) :
-    Extractor(communications), SelfConfiguringPlugin(params)
+    Extractor(communications), SelfConfiguringPlugin("valveControlledTwinPump", params)
 {
     this->pump1 = pump1;
     this->pump2 = pump2;
@@ -48,10 +48,4 @@ int ValveControlledTwinPump::getMovementType() throw (std::runtime_error) {
 //selfconfiguringplugin pure virtual method
 SelfConfiguringPlugin* ValveControlledTwinPump::clone() {
     return new ValveControlledTwinPump();
-}
-
-//selfconfiguringplugin overriden method
-std::vector<std::pair<std::string,std::string>> ValveControlledTwinPump::getParamsType() throw (std::runtime_error) {
-    std::vector<std::pair<std::string,std::string>> paramsType = {std::make_pair("pump1", "plugin"), std::make_pair("pump2", "plugin"), std::make_pair("controlActuator", "plugin"), std::make_pair("positionsPump1Works", "list[int]")};
-    return paramsType;
 }

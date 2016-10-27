@@ -31,8 +31,6 @@ public:
     SelfConfiguringPlugin(const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
     virtual ~SelfConfiguringPlugin();
 
-    virtual std::vector<std::pair<std::string,std::string>> getParamsType() throw (std::runtime_error);
-
     //setters & getters
     virtual void setPluginType(const std::string & pluginType);
     virtual void setParams(const std::unordered_map<std::string,std::string> & params);

@@ -42,9 +42,6 @@ public:
     virtual int getMaxConnections() throw (std::runtime_error);
     virtual int getActualPosition() throw (std::runtime_error);
 
-    //selfconfiguring plugin overriden method
-    virtual std::vector<std::pair<std::string,std::string>> getParamsType() throw (std::runtime_error);
-
     //compoundControl own methods
     void groupValves(const std::vector<std::shared_ptr<ControlPlugin>> & controls);
 

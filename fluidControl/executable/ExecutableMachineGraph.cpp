@@ -339,7 +339,7 @@ void ExecutableMachineGraph::updateCommunicationsInterface(int idCommunication) 
 	ExecutableContainerNodeVectorPtr nodes = graph->getAllNodes();
 
 	for (auto it = nodes->begin(); it != nodes->end(); ++it) {
-		(*it)->updateCommunicationInterface(idCommunication);
+        (*it)->reloadCommunicationInterface(idCommunication);
 	}
 }
 

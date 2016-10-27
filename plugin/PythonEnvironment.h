@@ -44,6 +44,7 @@ public:
 	boost::python::api::object getVarInstance(const std::string & varName) throw (std::invalid_argument);
 
     boost::python::object executeStaticMethod(const std::string & type, const std::string & method) throw (std::invalid_argument);
+    std::vector<std::pair<std::string,std::string>> getParamsType(const std::string & pluginType) throw (std::runtime_error);
 	
 	void initEnvironment();
 	void finishEnvironment();
@@ -58,6 +59,8 @@ protected:
 	void addImportPath(const std::string & path);
 	std::string getPythonClassNAme(const std::string & path) throw (std::invalid_argument);
 	std::string getDirectoryPath(const std::string & path) throw (std::invalid_argument);
+    bool isVirtualType(const std::string & pluginType);
+    void getParamsVirtualType(const std::string & pluginType, std::vector<std::pair<std::string,std::string>> & paramsType);
 
     static PythonEnvironment* m_pInstance;
 
