@@ -40,9 +40,9 @@ public:
 	virtual void receiveLiquid(double rate) throw (std::runtime_error);
 	virtual void extractLiquid(double rate) throw (std::runtime_error);
 	virtual void connectContainer(int source, int target) throw (std::runtime_error);
-	inline virtual void clearConnectedContainers() throw (std::runtime_error) {}
+	inline virtual void reloadActuatorsParams() throw (std::runtime_error) {}
 
-	virtual void updateCommunicationInterface(int communication);
+	virtual void reloadCommunicationInterface(int communication);
 
     //getters & setters
     inline std::shared_ptr<Injector> getInjector() {

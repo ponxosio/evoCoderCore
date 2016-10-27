@@ -27,17 +27,17 @@
 class SELFCONFIGURINGPLUGIN_EXPORT SelfConfiguringPlugin
 {
 public:
-    static std::vector<std::pair<std::string,std::string>> getParamsType(const std::string & pluginType) throw (std::runtime_error);
-
     SelfConfiguringPlugin();
     SelfConfiguringPlugin(const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
     virtual ~SelfConfiguringPlugin();
 
+    virtual std::vector<std::pair<std::string,std::string>> getParamsType() throw (std::runtime_error);
+
     //setters & getters
-    void setPluginType(const std::string & pluginType);
-    void setParams(const std::unordered_map<std::string,std::string> & params);
-    std::string getPluginType();
-    const std::unordered_map<std::string,std::string> & getParams();
+    virtual void setPluginType(const std::string & pluginType);
+    virtual void setParams(const std::unordered_map<std::string,std::string> & params);
+    virtual std::string getPluginType();
+    virtual const std::unordered_map<std::string,std::string> & getParams();
 
     virtual SelfConfiguringPlugin* clone() = 0;
 

@@ -22,7 +22,7 @@ ControlPlugin::~ControlPlugin()
 	}
 }
 
-void ControlPlugin::addConnection(int idSource, int idTarget) throw (std::runtime_error)
+void ControlPlugin::addConnection(int idSource, int idTarget, int pos) throw (std::runtime_error)
 {
 	try {
 		if (referenceName.empty()) {
@@ -30,7 +30,16 @@ void ControlPlugin::addConnection(int idSource, int idTarget) throw (std::runtim
 		}
 
 		CommandSender* com = CommunicationsInterface::GetInstance()->getCommandSender(communications);
-		PythonEnvironment::GetInstance()->getVarInstance(referenceName).attr("addConnection")(idSource, idTarget, boost::ref(*com));
+        PythonEnvironment::GetInstance()->getVarInstance(referenceName).attr("addConnection")(idSource, idTarget, pos, boost::ref(*com));
+
+        auto finded = posMap.find(pos);
+        if (finded != posMap.end()) {
+            std::array<int, 2> contPair = {idSource, idTarget};
+            finded->second = contPair;
+        } else {
+            std::array<int, 2> contPair = {idSource, idTarget};
+            posMap.insert(std::make_pair(pos, contPair));
+        }
 	}
 	catch (error_already_set) 
 	{
@@ -120,4 +129,97 @@ std::string ControlPlugin::getInstructions() throw (std::runtime_error)
 		}
 		throw(std::runtime_error("getInstructions(), Plugin " + pluginType + ": " + "error at python environment " + error));
 	}
+}
+
+std::vector<int> ControlPlugin::getAvailablePos() throw (std::runtime_error) {
+    try {
+        if (referenceName.empty()) {
+            referenceName = PythonEnvironment::GetInstance()->makeInstance(this->pluginType, this->params);
+        }
+
+        CommandSender* com = CommunicationsInterface::GetInstance()->getCommandSender(communications);
+        vector<int> pos = extract<vector<int>>(PythonEnvironment::GetInstance()->getVarInstance(referenceName).attr("getAvailablePos")(boost::ref(*com)));
+        return pos;
+    }
+    catch (error_already_set)
+    {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+
+        std::string error = "";
+        char* c_str = PyString_AsString(pvalue);
+        if (c_str) {
+            error = std::string(c_str);
+        }
+        throw(std::runtime_error("getAvailablePos(), " + pluginType + ": " + "error at python environment " + error));
+    }
+    catch (std::invalid_argument & e)
+    {
+        throw(std::runtime_error("getAvailablePos(), " + pluginType + ": " + "internal error" + std::string(e.what())));
+    }
+}
+
+int ControlPlugin::getMaxConnections() throw (std::runtime_error) {
+    try {
+        if (referenceName.empty()) {
+            referenceName = PythonEnvironment::GetInstance()->makeInstance(this->pluginType, this->params);
+        }
+
+        int pos = extract<int>(PythonEnvironment::GetInstance()->getVarInstance(referenceName).attr("getMaxConnections")());
+        return pos;
+    }
+    catch (error_already_set)
+    {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+
+        std::string error = "";
+        char* c_str = PyString_AsString(pvalue);
+        if (c_str) {
+            error = std::string(c_str);
+        }
+        throw(std::runtime_error("getAvailablePos(), " + pluginType + ": " + "error at python environment " + error));
+    }
+    catch (std::invalid_argument & e)
+    {
+        throw(std::runtime_error("getAvailablePos(), " + pluginType + ": " + "internal error" + std::string(e.what())));
+    }
+}
+
+int ControlPlugin::getActualPosition() throw (std::runtime_error) {
+    try {
+        if (referenceName.empty()) {
+            referenceName = PythonEnvironment::GetInstance()->makeInstance(this->pluginType, this->params);
+        }
+
+        int pos = extract<int>(PythonEnvironment::GetInstance()->getVarInstance(referenceName).attr("getActualPosition")());
+        return pos;
+    }
+    catch (error_already_set)
+    {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+
+        std::string error = "";
+        char* c_str = PyString_AsString(pvalue);
+        if (c_str) {
+            error = std::string(c_str);
+        }
+        throw(std::runtime_error("getAvailablePos(), " + pluginType + ": " + "error at python environment " + error));
+    }
+    catch (std::invalid_argument & e)
+    {
+        throw(std::runtime_error("getAvailablePos(), " + pluginType + ": " + "internal error" + std::string(e.what())));
+    }
+}
+
+void ControlPlugin::reloadConnections() throw (std::runtime_error) {
+    clearConnections();
+    for (auto it: posMap) {
+        int pos = it.first;
+        int source = it.second[0];
+        int target = it.second[1];
+
+        addConnection(source, target, pos);
+    }
 }

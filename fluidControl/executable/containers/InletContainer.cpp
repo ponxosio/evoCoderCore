@@ -50,6 +50,6 @@ void InletContainer::setPositionExtract(int source, int target) throw (std::runt
 void InletContainer::connectContainer(int source, int target) throw (std::runtime_error) {
 }
 
-void InletContainer::updateCommunicationInterface(int communication) {
+void InletContainer::reloadCommunicationInterface(int communication) {
 	this->ext->setCommunications(communication);
 }

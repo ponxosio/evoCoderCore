@@ -86,7 +86,9 @@ SOURCES += \
     BioBlocksJSONReader.cpp \
     ExecutionMachineServer.cpp \
     ExecutionServer.cpp \
-    util/logutils.cpp
+    util/logutils.cpp \
+    plugin/actuators/compoundcontrolplugin.cpp \
+    plugin/actuators/valvecontrolledtwinpump.cpp
 
 HEADERS +=\
         evocodercore_global.h \
@@ -177,7 +179,9 @@ HEADERS +=\
     BioBlocksJSONReader.h \
     ExecutionMachineServer.h \
     ExecutionServer.h \
-    util/logutils.h
+    util/logutils.h \
+    plugin/actuators/compoundcontrolplugin.h \
+    plugin/actuators/valvecontrolledtwinpump.h
 
 unix {
     target.path = /usr/lib

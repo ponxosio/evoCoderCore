@@ -62,17 +62,17 @@ void DivergentSwitch::setPositionExtract(int source, int target) throw (std::run
 }
 
 void DivergentSwitch::connectContainer(int source, int target) throw (std::runtime_error) {
-	if (containerID == source) {
+    /*if (containerID == source) {
 		control.get()->addConnection(source, target);
-	}
+    }*/
 }
 
-void DivergentSwitch::updateCommunicationInterface(int communication) {
+void DivergentSwitch::reloadCommunicationInterface(int communication) {
 	this->control->setCommunications(communication);
 	this->extract->setCommunications(communication);
 }
 
-void DivergentSwitch::clearConnectedContainers() throw (std::runtime_error)
+void DivergentSwitch::reloadActuatorsParams() throw (std::runtime_error)
 {
-	this->control->clearConnections();
+    this->control->reloadConnections();
 }

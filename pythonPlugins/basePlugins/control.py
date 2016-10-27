@@ -6,20 +6,29 @@ class Control(object):
 	def __init__(self, maxConnections):
 		"""constructor"""
 		self.maxconnections = maxConnections
+		
+	def getMaxConnections():
+		return self.maxconnections
 
 	@classmethod
 	def getParamsType(cls):
 		"""must return a list with the types expected at the params variable in the init function"""
-		return {"max_connections":"int"}
+		return {}
 
 	@abc.abstractmethod
 	def getInstructions(self):
 		""" must return a string with the instructions to make this component"""
 
 	@abc.abstractmethod
-	def addConnection(self, idSource, idTarget, communications):
+	def addConnection(self, idSource, idTarget, pos, communications):
 		"""
 			must register a new connection between idSource container and idTarget container
+		"""
+
+	@abc.abstractmethod
+	def getAvailablePos(self, communications):
+		"""
+			return the available position of the valve
 		"""
 
 	@abc.abstractmethod

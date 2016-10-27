@@ -66,18 +66,18 @@ void ConvergentSwitchInlet::setPositionExtract(int source, int target) throw (st
 }
 
 void ConvergentSwitchInlet::connectContainer(int source, int target) throw (std::runtime_error) {
-	if (containerID == target) {
+    /*if (containerID == target) {
 		this->control.get()->addConnection(source, target);
-	}
+    }*/
 }
 
-void ConvergentSwitchInlet::updateCommunicationInterface(int communication) {
+void ConvergentSwitchInlet::reloadCommunicationInterface(int communication) {
 	this->control->setCommunications(communication);
 	this->insert->setCommunications(communication);
 	this->extractor->setCommunications(communication);
 }
 
-void ConvergentSwitchInlet::clearConnectedContainers() throw (std::runtime_error)
+void ConvergentSwitchInlet::reloadActuatorsParams() throw (std::runtime_error)
 {
-	this->control->clearConnections();
+    this->control->reloadConnections();
 }

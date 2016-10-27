@@ -66,18 +66,18 @@ void DivergentSwitchSink::setPositionExtract(int source, int target) throw (std:
 }
 
 void DivergentSwitchSink::connectContainer(int source, int target) throw (std::runtime_error) {
-	if (containerID == source) {
+    /*if (containerID == source) {
 		this->control.get()->addConnection(source, target);
-	}
+    }*/
 }
 
-void DivergentSwitchSink::updateCommunicationInterface(int communication) {
+void DivergentSwitchSink::reloadCommunicationInterface(int communication) {
 	this->control->setCommunications(communication);
 	this->insert->setCommunications(communication);
 	this->extractor->setCommunications(communication);
 }
 
-void DivergentSwitchSink::clearConnectedContainers() throw (std::runtime_error)
+void DivergentSwitchSink::reloadActuatorsParams() throw (std::runtime_error)
 {
-	this->control->clearConnections();
+    this->control->reloadConnections();
 }

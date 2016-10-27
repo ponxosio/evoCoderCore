@@ -56,6 +56,6 @@ void SinkContainer::setPositionExtract(int source, int target) throw (std::runti
 void SinkContainer::connectContainer(int source, int target) throw (std::runtime_error) {
 }
 
-void SinkContainer::updateCommunicationInterface(int communication) {
+void SinkContainer::reloadCommunicationInterface(int communication) {
 	this->insert->setCommunications(communication);
 }

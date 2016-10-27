@@ -60,17 +60,17 @@ void ConvergentSwitch::setPositionExtract(int source, int target) throw (std::ru
 }
 
 void ConvergentSwitch::connectContainer(int source, int target) throw (std::runtime_error)  {
-	if (containerID == target) {
+    /*if (containerID == target) {
 		control.get()->addConnection(source, target);
-	}
+    }*/
 }
 
-void ConvergentSwitch::updateCommunicationInterface(int communication) {
+void ConvergentSwitch::reloadCommunicationInterface(int communication) {
 	this->control->setCommunications(communication);
 	this->insert->setCommunications(communication);
 }
 
-void ConvergentSwitch::clearConnectedContainers() throw (std::runtime_error) 
+void ConvergentSwitch::reloadActuatorsParams() throw (std::runtime_error) 
 {
-	this->control->clearConnections();
+    this->control->reloadConnections();
 }

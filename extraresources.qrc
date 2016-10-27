@@ -70,7 +70,6 @@
         <file>pythonPlugins/EVOPROG/EVOPROG_light.py</file>
         <file>pythonPlugins/EVOPROG/EVOPROG_mixer.py</file>
         <file>pythonPlugins/EVOPROG/EVOPROG_odsensor.py</file>
-        <file>pythonPlugins/EVOPROG/EVOPROG_sixwayvalve.py</file>
         <file>pythonPlugins/EVOPROG/EVOPROG_temperature.py</file>
         <file>pythonPlugins/EVOPROGv2/evoprog1wayvalve.py</file>
         <file>pythonPlugins/EVOPROGv2/evoprog2wayvalve.py</file>

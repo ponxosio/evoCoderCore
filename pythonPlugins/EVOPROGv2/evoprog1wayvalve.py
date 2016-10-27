@@ -6,14 +6,18 @@ class Evoprog1WayValve(Control):
 		"""constructor"""
 		super(Evoprog1WayValve, self).__init__(1)
 		self.address = int(params["address"])
+		self.closePos = int(params["closePos"])
+		self.availablePos = range(self.maxconnections + 1)
+		self.availablePos.remove(self.closePos)
+		self.motorPositions = [0,4]
 		self.map = {}
-		self.lastPos = 0
 
 	@classmethod
 	def getParamsType(cls):
 		"""must return a list with the types expected at the params variable in the init function"""
 		dict = {}
 		dict["address"] = "int"
+		dict["closePos"] = "int"
 		dict.update(super(Evoprog1WayValve, cls).getParamsType())
 		return dict
 
@@ -21,14 +25,13 @@ class Evoprog1WayValve(Control):
 		""" must return a string with the instructions to make this component"""
 		return ""
 
-	def addConnection(self, idSource, idTarget, communications):
+	def addConnection(self, idSource, idTarget, pos, communications):
 		"""
 			must register a new connection between idSource container and idTarget container
 		"""
-		if self.lastPos < self.maxconnections :
-			self.map[(idSource, idTarget)] = self.lastPos
-			self.lastPos += 1
-			
+		if pos in self.availablePos :
+			self.map[(idSource, idTarget)] = self.motorPositions[pos]
+			self.availablePos.remove(pos)
 
 	def setConnection(self, idSource, idTarget, communications):
 		"""
@@ -40,16 +43,24 @@ class Evoprog1WayValve(Control):
 				*) string readUntil(endCharacter) -- returns a string received from the machine, stops when the endCharacter arrives;
 				*) void synch() -- synchronize with the machine, not always necesary, only for protocols compatibles;
 		"""
-		valvePos = 4
+		valvePos = self.closePos
 		if (idSource, idTarget) in self.map:
 			valvePos = self.map[(idSource, idTarget)]	
 		command = "M " + str(self.address) + " " + str(valvePos) + "\r"
+		print command
 		communications.sendString(command)
-		time.sleep(0.01)
 		communications.synch()
 
 	def clearConnections(self):
 		"""
 			must removed all the connections added with addConnection
 		"""
+		self.availablePos = range(self.maxconnections + 1)
+		self.availablePos.remove(self.closePos)
 		self.map.clear()
+
+	def getAvailablePos(self, communications):
+		"""
+			return the available position of the valve
+		"""
+		return availablePos

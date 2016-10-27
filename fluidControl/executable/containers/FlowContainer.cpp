@@ -60,7 +60,7 @@ void FlowContainer::setPositionExtract(int source, int target) throw (std::runti
 void FlowContainer::connectContainer(int source, int target) throw (std::runtime_error) {
 }
 
-void FlowContainer::updateCommunicationInterface(int communication) {
+void FlowContainer::reloadCommunicationInterface(int communication) {
 	this->insert->setCommunications(communication);
 	this->extract->setCommunications(communication);
 }

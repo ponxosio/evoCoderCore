@@ -68,22 +68,22 @@ void BidirectionalSwitch::setPositionInject(int source, int target) throw (std::
 }
 
 void BidirectionalSwitch::connectContainer(int source, int target) throw (std::runtime_error) {
-	if (containerID == source) {
+    /*if (containerID == source) {
 		controlOUT.get()->addConnection(source, target);
 	} else if (containerID == target) {
 		controlIN.get()->addConnection(source, target);
-	}
+    }*/
 }
 
-void BidirectionalSwitch::updateCommunicationInterface(int communication) {
+void BidirectionalSwitch::reloadCommunicationInterface(int communication) {
 	this->controlIN->setCommunications(communication);
 	this->controlOUT->setCommunications(communication);
 	this->extract->setCommunications(communication);
 	this->insert->setCommunications(communication);
 }
 
-void BidirectionalSwitch::clearConnectedContainers() throw (std::runtime_error)
+void BidirectionalSwitch::reloadActuatorsParams() throw (std::runtime_error)
 {
-	this->controlIN->clearConnections();
-	this->controlOUT->clearConnections();
+    this->controlIN->reloadConnections();
+    this->controlOUT->reloadConnections();
 }

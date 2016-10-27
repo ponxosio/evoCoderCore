@@ -345,19 +345,10 @@ void ExecutableMachineGraph::updateCommunicationsInterface(int idCommunication) 
 
 void ExecutableMachineGraph::updateControlActuators()
 {
-	ExecutableContainerNodeVectorPtr nodes = graph->getAllNodes();
+    ExecutableContainerNodeVectorPtr nodes = graph->getAllNodes();
 	for (auto it = nodes->begin(); it != nodes->end(); ++it)
 	{
-		(*it)->clearConnectedContainers();
-	}
-
-	ExecutableContainerEdgeVectorPtr edges = graph->getEdgeList();
-	for (auto it = edges->begin(); it != edges->end(); ++it) {
-		ExecutableContainerNodePtr source = graph->getNode((*it)->getIdSource());
-		ExecutableContainerNodePtr target = graph->getNode((*it)->getIdTarget());
-
-		source->connectContainer((*it)->getIdSource(), (*it)->getIdTarget());
-		target->connectContainer((*it)->getIdSource(), (*it)->getIdTarget());
+        (*it)->reloadActuatorsParams();
 	}
 }
 

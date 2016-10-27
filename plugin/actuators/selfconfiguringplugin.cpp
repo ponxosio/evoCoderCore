@@ -39,8 +39,7 @@ const std::unordered_map<std::string,std::string> & SelfConfiguringPlugin::getPa
     return params;
 }
 
-//static
-std::vector<std::pair<std::string,std::string>> SelfConfiguringPlugin::getParamsType(const std::string & pluginType) throw (std::runtime_error) {
+std::vector<std::pair<std::string,std::string>> SelfConfiguringPlugin::getParamsType() throw (std::runtime_error) {
     try {
         std::vector<std::pair<std::string,std::string>> params;
         dict dictionary = extract<dict>(PythonEnvironment::GetInstance()->executeStaticMethod(pluginType, "getParamsType"));
