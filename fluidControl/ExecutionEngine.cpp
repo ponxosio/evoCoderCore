@@ -96,6 +96,8 @@ bool ExecutionEngine::test() throw (std::runtime_error) {
 		sketcher();
 		mapping->doMapping();
 
+        LOG(DEBUG) << "mapping done " << mapping->printMappingTable();
+
 		table.get()->clear();
 		initilizeTime();
 

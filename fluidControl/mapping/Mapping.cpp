@@ -639,3 +639,20 @@ void Mapping::stopCommunications() {
 		com->disconnect();
 	}
 }
+
+std::string Mapping::printMappingTable() {
+    std::stringstream stream;
+    const MachineGraph::ContainerEdgeVectorPtr edges = sketch->getGraph()->getEdgeList();
+    const MachineGraph::ContainerNodeVectorPtr nodes = sketch->getGraph()->getAllNodes();
+
+    for (auto it = nodes->begin(); it != nodes->end(); ++it) {
+        MachineGraph::ContainerNodePtr act = *it;
+        stream << " sketch : " << patch::to_string(act->getContainerId()) << ", machine: " << patch::to_string(engine->getMappedContainerId(act->getContainerId()));
+    }
+
+    for (auto it = edges->begin(); it != edges->end(); ++it) {
+        MachineGraph::ContainerEdgePtr act = *it;
+        stream << " sketch : " << act->toText() << ", machine: " << engine->getMappedEdge(act)->toText();
+    }
+    return stream.str();
+}

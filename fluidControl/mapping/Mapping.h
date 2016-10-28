@@ -13,6 +13,7 @@
 #define SLEEP_MS 1000
 
 #include <stdexcept>
+#include <sstream>
 #include <vector>
 
 //boost
@@ -61,6 +62,9 @@ public:
 	double measureOD(int id) throw (std::runtime_error);
 
 	double timeStept();
+
+    //miscelaneous
+    std::string printMappingTable();
 
 	//operations
 	void doMapping() throw (std::invalid_argument);
