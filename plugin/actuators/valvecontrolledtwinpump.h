@@ -4,6 +4,7 @@
 //stl
 #include <algorithm>
 
+#include <easylogging++.h>
 
 //local
 #include "fluidControl/executable/containers/actuators/liquids/Extractor.h"
@@ -17,6 +18,7 @@
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/vector.hpp>
+#include <cereal/types/memory.hpp>
 
 //dll
 #include "evocodercore_global.h"
@@ -26,6 +28,7 @@ class VALVECONTROLLEDTWINPUMP_EXPORT ValveControlledTwinPump : public SelfConfig
 public:
     ValveControlledTwinPump();
     ValveControlledTwinPump(int communications,
+            const std::string & name,
             const std::unordered_map<std::string,std::string> & params,
             std::shared_ptr<ExtractorPlugin> pump1,
             std::shared_ptr<ExtractorPlugin> pump2,
@@ -39,8 +42,14 @@ public:
     virtual std::string getInstructions() throw (std::runtime_error);
     virtual int getMovementType() throw (std::runtime_error);
 
+    //extractor overriden methods
+    virtual void setCommunications(int communications);
+
     //selfconfiguringplugin pure virtual method
     virtual SelfConfiguringPlugin* clone();
+
+    //selfconfigurationplugin overriden methods
+    virtual void setPluginType(const std::string & pluginType);
 
     //SERIALIZATIoN
     template<class Archive>
@@ -57,12 +66,12 @@ template<class Archive>
 inline void ValveControlledTwinPump::serialize(Archive& ar,
     const std::uint32_t version) {
     if (version <= 1) {
-        Extractor::serialize(ar, version);
-        SelfConfiguringPlugin::serialize(ar, version);
-        ar(CEREAL_NVP(pump1),
+        //Extractor::serialize(ar, version);
+        //SelfConfiguringPlugin::serialize(ar, version);
+       /* ar(CEREAL_NVP(pump1),
            CEREAL_NVP(pump2),
            CEREAL_NVP(controlActuator),
-           CEREAL_NVP(positionsPump1Works));
+           CEREAL_NVP(positionsPump1Works));*/
     }
 }
 

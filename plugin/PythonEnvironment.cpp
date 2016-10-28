@@ -271,7 +271,7 @@ bool PythonEnvironment::isVirtualType(const std::string & pluginType) {
 void PythonEnvironment::getParamsVirtualType(const std::string & pluginType, std::vector<std::pair<std::string,std::string>> & paramsType) {
     if (pluginType.compare("compoundControl") == 0) {
         paramsType.push_back(std::make_pair("list_of_controls", "list[plugin]"));
-    } else if (pluginType.compare("compoundControl") == 0) {
+    } else if (pluginType.compare("valveControlledTwinPump") == 0) {
         paramsType.push_back(std::make_pair("pump1", "plugin"));
         paramsType.push_back(std::make_pair("pump2", "plugin"));
         paramsType.push_back(std::make_pair("controlActuator", "plugin"));

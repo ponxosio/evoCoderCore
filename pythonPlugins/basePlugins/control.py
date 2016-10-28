@@ -7,7 +7,7 @@ class Control(object):
 		"""constructor"""
 		self.maxconnections = maxConnections
 		
-	def getMaxConnections():
+	def getMaxConnections(self):
 		return self.maxconnections
 
 	@classmethod

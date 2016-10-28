@@ -35,10 +35,12 @@
 #include "fluidControl/executable/containers/actuators/communications/SerialSender.h"
 
 //cereal
-#include <cereal\cereal.hpp>
-#include <cereal\types\memory.hpp>
-#include <cereal\types\unordered_set.hpp>
-#include <cereal\types\vector.hpp>
+#include <cereal/cereal.hpp>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/unordered_set.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/string.hpp>
+#include <cereal/types/unordered_map.hpp>
 #include <cereal/archives/json.hpp>
 
 #include "evocodercore_global.h"
@@ -79,7 +81,8 @@ public:
 	//
 
 	//graph's operations
-	void addContainer(ExecutableContainerNodePtr node);
+    void addContainer(ExecutableContainerNodePtr node, const std::string & alias = "");
+    std::string getAlias(int id);
 	ExecutableContainerNodePtr getContainer(int idConatiner) throw(std::invalid_argument);
 	bool connectExecutableContainer(int idSource, int idTarget);
 	void printMachine(const std::string & path);
@@ -168,8 +171,10 @@ public:
 	//SERIALIZATIoN
 	template<class Archive>
 	void serialize(Archive & ar, std::uint32_t const version);
+
 protected:
 	std::string name;
+    std::unordered_map<int, std::string> idAliasMap;
 	ExecutableNodeGraphPtr graph;
 	UsedMapPtr usedNodes;
 	UsedEdgeMapPtr usedEges;
@@ -196,7 +201,13 @@ template<class Archive>
 inline void ExecutableMachineGraph::serialize(Archive& ar,
 	const std::uint32_t version) {
 	if (version <= 1) {
-		ar(CEREAL_NVP(name), CEREAL_NVP(graph), CEREAL_NVP(usedNodes), CEREAL_NVP(usedEges), CEREAL_NVP(execComInterface), CEREAL_NVP(testComInterface));
+        ar(CEREAL_NVP(name),
+           CEREAL_NVP(graph),
+           CEREAL_NVP(usedNodes),
+           CEREAL_NVP(usedEges),
+           CEREAL_NVP(execComInterface),
+           CEREAL_NVP(testComInterface),
+           CEREAL_NVP(idAliasMap));
 	}
 }
 

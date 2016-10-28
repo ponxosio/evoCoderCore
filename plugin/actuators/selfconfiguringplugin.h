@@ -28,13 +28,17 @@ class SELFCONFIGURINGPLUGIN_EXPORT SelfConfiguringPlugin
 {
 public:
     SelfConfiguringPlugin();
-    SelfConfiguringPlugin(const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
+    SelfConfiguringPlugin(const std::string & name, std::string pluginType, const std::unordered_map<std::string,std::string> & params);
     virtual ~SelfConfiguringPlugin();
 
     //setters & getters
     virtual void setPluginType(const std::string & pluginType);
     virtual void setParams(const std::unordered_map<std::string,std::string> & params);
+    virtual void setName(const std::string & name);
+
     virtual std::string getPluginType();
+    virtual std::string getName();
+
     virtual const std::unordered_map<std::string,std::string> & getParams();
 
     virtual SelfConfiguringPlugin* clone() = 0;
@@ -45,6 +49,7 @@ public:
 
 protected:
     std::string pluginType;
+    std::string name;
     std::unordered_map<std::string,std::string> params;
 };
 
@@ -53,7 +58,7 @@ inline void SelfConfiguringPlugin::serialize(Archive& ar,
     const std::uint32_t version) {
     if (version <= 1) {
         //SelfConfiguringPlugin::serialize(ar, version);
-        ar(CEREAL_NVP(pluginType), CEREAL_NVP(params));
+        ar(CEREAL_NVP(pluginType), CEREAL_NVP(params), CEREAL_NVP(name));
     }
 }
 

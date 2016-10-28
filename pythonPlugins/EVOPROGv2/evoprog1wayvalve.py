@@ -29,7 +29,9 @@ class Evoprog1WayValve(Control):
 		"""
 			must register a new connection between idSource container and idTarget container
 		"""
-		if pos in self.availablePos :
+		if pos == -1:
+			self.map[(idSource, idTarget)] = -1
+		elif pos in self.availablePos :
 			self.map[(idSource, idTarget)] = self.motorPositions[pos]
 			self.availablePos.remove(pos)
 
@@ -46,10 +48,12 @@ class Evoprog1WayValve(Control):
 		valvePos = self.closePos
 		if (idSource, idTarget) in self.map:
 			valvePos = self.map[(idSource, idTarget)]	
-		command = "M " + str(self.address) + " " + str(valvePos) + "\r"
-		print command
-		communications.sendString(command)
-		communications.synch()
+		
+		if valvePos != -1:
+			command = "M " + str(self.address) + " " + str(valvePos) + "\r"
+			print command
+			communications.sendString(command)
+			communications.synch()
 
 	def clearConnections(self):
 		"""
@@ -63,4 +67,4 @@ class Evoprog1WayValve(Control):
 		"""
 			return the available position of the valve
 		"""
-		return availablePos
+		return self.availablePos

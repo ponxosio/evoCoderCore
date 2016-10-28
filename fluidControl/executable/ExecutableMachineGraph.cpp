@@ -62,8 +62,11 @@ ExecutableMachineGraph::~ExecutableMachineGraph() {
 	//delete usedEges;
 }
 
-void ExecutableMachineGraph::addContainer(ExecutableContainerNodePtr node) {
+void ExecutableMachineGraph::addContainer(ExecutableContainerNodePtr node, const std::string & alias) {
 	this->graph->addNode(node);
+    if (!alias.empty()) {
+        idAliasMap.insert(std::make_pair(node->getContainerId(), std::string(alias)));
+    }
 }
 
 typename ExecutableMachineGraph::ExecutableContainerNodePtr ExecutableMachineGraph::getContainer(int idConatiner) throw(std::invalid_argument) {
@@ -412,4 +415,13 @@ void ExecutableMachineGraph::getAllFlows_recursive(int idStart,
 			}
 		}
 	}
+}
+
+std::string ExecutableMachineGraph::getAlias(int id) {
+    std::string vuelta = "";
+    auto it = idAliasMap.find(id);
+    if (it != idAliasMap.end()) {
+        vuelta = it->second;
+    }
+    return vuelta;
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma data_seg
-
 #pragma warning( disable : 4290 )
 
 #define BASE_PLUGIN_FOLDER "pythonPlugins\\basePlugins"

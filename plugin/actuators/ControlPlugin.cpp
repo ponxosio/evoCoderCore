@@ -8,8 +8,8 @@ ControlPlugin::ControlPlugin() :
 	this->referenceName = "";
 }
 
-ControlPlugin::ControlPlugin(int communications, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params) :
-    Control(communications), SelfConfiguringPlugin(pluginType, params)
+ControlPlugin::ControlPlugin(int communications, const std::string & name, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params) :
+    Control(communications), SelfConfiguringPlugin(name, pluginType, params)
 {
 	this->referenceName = "";
 }
@@ -138,8 +138,13 @@ std::vector<int> ControlPlugin::getAvailablePos() throw (std::runtime_error) {
         }
 
         CommandSender* com = CommunicationsInterface::GetInstance()->getCommandSender(communications);
-        vector<int> pos = extract<vector<int>>(PythonEnvironment::GetInstance()->getVarInstance(referenceName).attr("getAvailablePos")(boost::ref(*com)));
-        return pos;
+        boost::python::list pos = extract<boost::python::list>(PythonEnvironment::GetInstance()->getVarInstance(referenceName).attr("getAvailablePos")(boost::ref(*com)));
+
+        vector<int> vectorPos;
+        for (int i = 0; i < boost::python::len(pos) ; i++) {
+            vectorPos.push_back(extract<int>(pos[i]));
+        }
+        return vectorPos;
     }
     catch (error_already_set)
     {

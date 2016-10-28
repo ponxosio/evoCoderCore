@@ -25,7 +25,7 @@ class EXTRACTORPLUGIN_EXPORT ExtractorPlugin :
 {
 public:
 	ExtractorPlugin();
-	ExtractorPlugin(int communications, const std::string & pluginType,
+    ExtractorPlugin(int communications, const std::string & name, const std::string & pluginType,
         const std::unordered_map<std::string,std::string> & params);
 
 	virtual ~ExtractorPlugin();

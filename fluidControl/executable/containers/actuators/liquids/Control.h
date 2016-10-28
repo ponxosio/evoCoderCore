@@ -41,7 +41,7 @@ public:
     virtual int getActualPosition() throw (std::runtime_error) = 0;
 
 	//getters and setters
-    inline void setCommunications(int communications) {
+    inline virtual void setCommunications(int communications) {
 		this->communications = communications;
 	}
 

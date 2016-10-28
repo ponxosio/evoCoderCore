@@ -25,7 +25,7 @@ class INJECTORPLUGIN_EXPORT InjectorPlugin :
 {
 public:
 	InjectorPlugin();
-    InjectorPlugin(int communications, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
+    InjectorPlugin(int communications, const std::string & name, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
 	virtual ~InjectorPlugin();
 
 	virtual void injectLiquid(double rate)throw (std::runtime_error);

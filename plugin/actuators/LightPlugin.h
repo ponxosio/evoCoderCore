@@ -25,7 +25,7 @@ class LIGHTPLUGIN_EXPORT LightPlugin :
 {
 public:
 	LightPlugin();
-    LightPlugin(int communications, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
+    LightPlugin(int communications, const std::string & name, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
 	virtual ~LightPlugin();
 
 	virtual std::string getInstructions() throw(std::runtime_error);

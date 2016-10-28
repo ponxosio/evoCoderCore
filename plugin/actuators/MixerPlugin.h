@@ -25,7 +25,7 @@ class MIXERPLUGIN_EXPORT MixerPlugin :
 {
 public:
 	MixerPlugin();
-    MixerPlugin(int communications, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
+    MixerPlugin(int communications, const std::string & name, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params);
 	virtual ~MixerPlugin();
 
 	virtual std::string getInstructions()  throw(std::runtime_error);

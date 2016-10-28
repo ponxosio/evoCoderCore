@@ -8,8 +8,8 @@ InjectorPlugin::InjectorPlugin() :
 	this->referenceName = "";
 }
 
-InjectorPlugin::InjectorPlugin(int communications, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params) :
-    Injector(communications), SelfConfiguringPlugin(pluginType, params)
+InjectorPlugin::InjectorPlugin(int communications, const std::string & name, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params) :
+    Injector(communications), SelfConfiguringPlugin(name, pluginType, params)
 {
 	this->referenceName = "";
 }

@@ -4,7 +4,7 @@ from control import Control
 class EvoprogDummyValve(Control):
 	def __init__(self, params):
 		"""constructor"""
-		super(EvoprogSixWayValve, self).__init__(int(params["max_connections"]))
+		super(EvoprogDummyValve, self).__init__(int(params["max_connections"]))
 		self.valveNumber = int(params["valve_number"])
 		self.closePos = int(params["closePos"])
 		self.availablePos = range(self.maxconnections + 1)
@@ -18,7 +18,7 @@ class EvoprogDummyValve(Control):
 		dict["valve_number"] = "int"
 		dict["max_connections"] = "int"
 		dict["closePos"] = "int"
-		dict.update(super(EvoprogSixWayValve, cls).getParamsType())
+		dict.update(super(EvoprogDummyValve, cls).getParamsType())
 		return dict
 
 	def getInstructions(self):
@@ -29,7 +29,9 @@ class EvoprogDummyValve(Control):
 		"""
 			must register a new connection between idSource container and idTarget container
 		"""
-		if pos in self.availablePos :
+		if pos == -1:
+			self.map[(idSource, idTarget)] = pos
+		elif pos in self.availablePos :
 			self.map[(idSource, idTarget)] = pos
 			self.availablePos.remove(pos)
 
@@ -43,10 +45,14 @@ class EvoprogDummyValve(Control):
 				*) string readUntil(endCharacter) -- returns a string received from the machine, stops when the endCharacter arrives;
 				*) void synch() -- synchronize with the machine, not always necesary, only for protocols compatibles;
 		"""
-		valvePos = self.map[(idSource, idTarget)]
-		command = "MOVE " + str(self.valveNumber) + " " + str(valvePos)
-		communications.sendString(command)
-		communications.synch()
+		valvePos = self.closePos
+		if (idSource, idTarget) in self.map:
+			valvePos = self.map[(idSource, idTarget)]
+		
+		if valvePos != -1:
+			command = "MOVE " + str(self.valveNumber) + " " + str(valvePos)
+			communications.sendString(command)
+			communications.synch()
 
 	def clearConnections(self):
 		"""
@@ -60,4 +66,4 @@ class EvoprogDummyValve(Control):
 		"""
 			return the available position of the valve
 		"""
-		return availablePos
+		return self.availablePos

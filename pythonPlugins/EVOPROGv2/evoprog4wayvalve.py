@@ -1,15 +1,15 @@
 import time
 from control import Control
 
-class Evoprog2WayValve(Control):
+class Evoprog4WayValve(Control):
 	def __init__(self, params):
 		"""constructor"""
-		super(Evoprog2WayValve, self).__init__(2)
+		super(Evoprog4WayValve, self).__init__(5)
 		self.address = int(params["address"])
 		self.closePos = int(params["closePos"])
-		self.availablePos = range(self.maxconnections + 1)
+		self.availablePos = range(self.maxconnections)
 		self.availablePos.remove(self.closePos)
-		self.motorPositions = [0,2,4]
+		self.motorPositions = [0,1,2,3,4]
 		self.map = {}
 
 	@classmethod
@@ -18,7 +18,7 @@ class Evoprog2WayValve(Control):
 		dict = {}
 		dict["address"] = "int"
 		dict["closePos"] = "int"
-		dict.update(super(Evoprog2WayValve, cls).getParamsType())
+		dict.update(super(Evoprog4WayValve, cls).getParamsType())
 		return dict
 
 	def getInstructions(self):
@@ -29,11 +29,9 @@ class Evoprog2WayValve(Control):
 		"""
 			must register a new connection between idSource container and idTarget container
 		"""
-		if pos == -1:
-			self.map[(idSource, idTarget)] = -1
-		elif pos in self.availablePos :
-			self.map[(idSource, idTarget)] = self.motorPositions[pos]
-			self.availablePos.remove(pos)
+		if pos != -1:
+			if pos in self.availablePos :
+				self.map[(idSource, idTarget)] = self.motorPositions[pos]
 
 	def setConnection(self, idSource, idTarget, communications):
 		"""
@@ -59,7 +57,7 @@ class Evoprog2WayValve(Control):
 		"""
 			must removed all the connections added with addConnection
 		"""
-		self.availablePos = range(self.maxconnections + 1)
+		self.availablePos = range(self.maxconnections)
 		self.availablePos.remove(self.closePos)
 		self.map.clear()
 

@@ -4,10 +4,12 @@ using namespace boost::python;
 
 SelfConfiguringPlugin::SelfConfiguringPlugin()  {
     this->pluginType = "unknow";
+    this->name = "unknow";
 }
 
-SelfConfiguringPlugin::SelfConfiguringPlugin(const std::string & pluginType, const std::unordered_map<std::string,std::string> & params) {
-    this->pluginType = std::string(pluginType);
+SelfConfiguringPlugin::SelfConfiguringPlugin(const std::string & name, std::string pluginType, const std::unordered_map<std::string,std::string> & params) {
+    this->pluginType = pluginType;
+    this->name = name;
 
     for (auto it: params) {
         this->params.insert(std::make_pair(it.first, it.second));
@@ -37,4 +39,12 @@ std::string SelfConfiguringPlugin::getPluginType() {
 
 const std::unordered_map<std::string,std::string> & SelfConfiguringPlugin::getParams() {
     return params;
+}
+
+std::string SelfConfiguringPlugin::getName() {
+    return this->name;
+}
+
+void SelfConfiguringPlugin::setName(const std::string & name) {
+    this->name = name;
 }

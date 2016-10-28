@@ -8,8 +8,8 @@ ExtractorPlugin::ExtractorPlugin() :
 	this->referenceName = "";
 }
 
-ExtractorPlugin::ExtractorPlugin(int communications, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params) :
-    Extractor(communications), SelfConfiguringPlugin(pluginType, params)
+ExtractorPlugin::ExtractorPlugin(int communications,const std::string & name, const std::string & pluginType, const std::unordered_map<std::string,std::string> & params) :
+    Extractor(communications), SelfConfiguringPlugin(name, pluginType, params)
 {
 	this->referenceName = "";
 }

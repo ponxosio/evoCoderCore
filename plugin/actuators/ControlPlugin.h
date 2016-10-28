@@ -26,7 +26,7 @@ class CONTROLPLUGIN_EXPORT ControlPlugin :
 {
 public:
 	ControlPlugin();
-    ControlPlugin(int communications, const std::string & pluginType,
+    ControlPlugin(int communications, const std::string & name, const std::string & pluginType,
         const std::unordered_map<std::string,std::string> & params);
 
 	virtual ~ControlPlugin();

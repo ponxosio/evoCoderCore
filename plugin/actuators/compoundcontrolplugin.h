@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <stdexcept>
 
 //boost
 #include <boost/range/irange.hpp>
@@ -20,6 +21,7 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/map.hpp>
 #include <cereal/types/vector.hpp>
+#include <cereal/types/memory.hpp>
 
 //dll
 #include "evocodercore_global.h"
@@ -28,7 +30,7 @@ class COMPOUNDCONTROLPLUGIN_EXPORT CompoundControlPlugin : public Control, publi
 {
 public:
     CompoundControlPlugin();
-    CompoundControlPlugin(int communications,const std::unordered_map<std::string, std::string> & params);
+    CompoundControlPlugin(int communications,const std::string & name, const std::unordered_map<std::string, std::string> & params, const std::vector<std::shared_ptr<ControlPlugin>> & controls);
 
     virtual ~CompoundControlPlugin();
 
@@ -42,8 +44,13 @@ public:
     virtual int getMaxConnections() throw (std::runtime_error);
     virtual int getActualPosition() throw (std::runtime_error);
 
+    //Control overriden methods
+    virtual void setCommunications(int communications);
+
     //compoundControl own methods
     void groupValves(const std::vector<std::shared_ptr<ControlPlugin>> & controls);
+    std::shared_ptr<std::map<int, std::shared_ptr<ControlPlugin>>> getVirtualPosMap();
+    std::string getPositionPluginName(int pos) throw (std::invalid_argument);
 
     //selfconfiguring plugin pure virtual method
     inline virtual SelfConfiguringPlugin* clone() {
@@ -55,7 +62,7 @@ public:
     void serialize(Archive & ar, std::uint32_t const version);
 
 protected:
-    std::map<int, std::shared_ptr<ControlPlugin>> virtualPosMap;
+    std::shared_ptr<std::map<int, std::shared_ptr<ControlPlugin>>> virtualPosMap;
     std::vector<int> virtualPos;
     std::vector<int> availableVirtualPos;
     int maxConnections;

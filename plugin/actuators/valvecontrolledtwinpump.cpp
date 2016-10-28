@@ -7,18 +7,22 @@ ValveControlledTwinPump::ValveControlledTwinPump() :
 }
 
 ValveControlledTwinPump::ValveControlledTwinPump(int communications,
+        const std::string & name,
         const std::unordered_map<std::string,std::string> & params,
         std::shared_ptr<ExtractorPlugin> pump1,
         std::shared_ptr<ExtractorPlugin> pump2,
         std::shared_ptr<ControlPlugin> controlActuator,
         const std::vector<int> & positionsPump1Works) :
-    Extractor(communications), SelfConfiguringPlugin("valveControlledTwinPump", params)
+    Extractor(communications), SelfConfiguringPlugin(name, "valveControlledTwinPump", params)
 {
+    this->pluginType = "valveControlledTwinPump";
     this->pump1 = pump1;
     this->pump2 = pump2;
     this->controlActuator = controlActuator;
-    this->positionsPump1Works.reserve(positionsPump1Works.size());
-    std::copy(positionsPump1Works.begin(), positionsPump1Works.end(), this->positionsPump1Works.begin());
+
+    for (int pos : positionsPump1Works) {
+        this->positionsPump1Works.push_back(pos);
+    }
 }
 
 ValveControlledTwinPump::~ValveControlledTwinPump() {
@@ -48,4 +52,14 @@ int ValveControlledTwinPump::getMovementType() throw (std::runtime_error) {
 //selfconfiguringplugin pure virtual method
 SelfConfiguringPlugin* ValveControlledTwinPump::clone() {
     return new ValveControlledTwinPump();
+}
+
+void ValveControlledTwinPump::setCommunications(int communications) {
+    pump1->setCommunications(communications);
+    pump2->setCommunications(communications);
+    controlActuator->setCommunications(communications);
+}
+
+void ValveControlledTwinPump::setPluginType(const std::string & pluginType) {
+    this->pluginType = "valveControlledTwinPump";
 }
