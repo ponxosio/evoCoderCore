@@ -1,7 +1,7 @@
 #include "PathSearcherIterator.h"
 
 
-PathSearcherIterator::PathSearcherIterator(std::shared_ptr<PathSearcher> engine)
+PathSearcherIterator::PathSearcherIterator(std::shared_ptr<SimplePathSearcher> engine)
 {
 	this->lastPosition = 0;
 	this->engine = engine;
@@ -32,7 +32,7 @@ int PathSearcherIterator::hasNext(std::unordered_set<int> visitados)
 	int has = -1;
 	if (lastPosition >= engine->getAvialableFlows()->size()) {
 		LOG(DEBUG) << "Calculating next flow...";
-        if (engine->calculateNextFlow(visitados, 0)) {
+        if (engine->calculateNextFlow(/*visitados, 0*/)) {
 			has = engine->getAvialableFlows()->at(lastPosition)->getPaths().size();
 		}
 	}else {
@@ -61,7 +61,7 @@ std::shared_ptr<Flow<Edge>> PathSearcherIterator::next(std::unordered_set<int> v
 	}
 	else {
 		LOG(DEBUG) << "Calculating next flow...";
-        if (engine->calculateNextFlow(visitados, 0)) {
+        if (engine->calculateNextFlow(/*visitados, 0*/)) {
 			next = engine->getAvialableFlows()->at(lastPosition);
 		}
 		else {

@@ -137,7 +137,6 @@ void MappingEngine::addSolution(MachineGraph::ContainerEdgePtr edge, const Flow<
 			}
 		}
 
-	machine->addUsedEdge(edge->getIdSource(), edge->getIdTarget());
 	setNodesUsed(flow);
 }
 
@@ -163,7 +162,6 @@ void MappingEngine::removeSolution(MachineGraph::ContainerEdgePtr edge) {
 	Flow<Edge>* flow = edgeFlowMap->find(flowsKey)->second;
 
 	unsetNodesUsed(*flow);
-	machine->removeUsedEdge(edge->getIdSource(), edge->getIdTarget());
 
 	delete flow;
 	edgeFlowMap->erase(flowsKey);
@@ -218,7 +216,8 @@ int MappingEngine::getMappedContainerId(int sketchContainerId) throw(std::invali
 void MappingEngine::setNodesUsed(const Flow<Edge>& flow) {
 	Flow<Edge>::FlowEdgeVector edges = flow.getPaths();
 	for(auto it = edges.begin(); it != edges.end(); ++it) {
-		machine->addUsedNode((*it)->getIdSource());
+        machine->addUsedEdge((*it)->getIdSource(), (*it)->getIdTarget());
+        machine->addUsedNode((*it)->getIdSource());
 		machine->addUsedNode((*it)->getIdTarget());
 	}
 }
@@ -226,7 +225,8 @@ void MappingEngine::setNodesUsed(const Flow<Edge>& flow) {
 void MappingEngine::unsetNodesUsed(const Flow<Edge>& flow) {
 	Flow<Edge>::FlowEdgeVector edges = flow.getPaths();
 	for (auto it = edges.begin(); it != edges.end(); ++it) {
-		machine->removeUsedNode((*it)->getIdSource());
+        machine->removeUsedEdge((*it)->getIdSource(), (*it)->getIdTarget());
+        machine->removeUsedNode((*it)->getIdSource());
 		machine->removeUsedNode((*it)->getIdTarget());
 	}
 }
@@ -285,17 +285,17 @@ bool MappingEngine::isAvailable(std::shared_ptr<Flow<Edge>> actualFlow, MachineG
 	Flow<Edge>::FlowEdgeVector paths = actualFlow->getPaths();
 
 	if (!isMapped(actualEdge->getIdSource())) {
-		available = machine->isNodeAvailable(idStart);
+        available = available && machine->isNodeAvailable(idStart);
 	}
 	if (!isMapped(actualEdge->getIdTarget())) {
-		available = machine->isNodeAvailable(idFinish);
+        available = available && machine->isNodeAvailable(idFinish);
 	}
 
 	for (auto it = paths.begin(); available && it != paths.end(); ++it) {
-		available = machine->isEdgeAvailable(*it);
+        available = available && machine->isEdgeAvailable(*it);
 
 		if ((it + 1) != paths.end()) {
-			available = machine->isNodeAvailable((*it)->getIdTarget());
+            available = available && machine->isNodeAvailable((*it)->getIdTarget());
 		} 
 	}
 	
