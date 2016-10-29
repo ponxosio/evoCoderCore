@@ -458,7 +458,7 @@ double Mapping::sketching_timeStep() {
 
 //EXEC
 void Mapping::exec_setContinuosFlow(int idSource, int idTarget, double rate) throw (std::runtime_error) {
-	LOG(DEBUG) << "exec setContinousFlow(" << patch::to_string(idSource) << ", "
+    LOG(INFO) << "exec setContinousFlow(" << patch::to_string(idSource) << ", "
 		<< patch::to_string(idTarget) << ", " + patch::to_string(rate)
 		<< ")";
 
@@ -488,7 +488,7 @@ void Mapping::exec_setContinuosFlow(int idSource, int idTarget, double rate) thr
 }
 
 void Mapping::exec_transfer(int idSource, int idTarget, double volume) throw (std::runtime_error) {
-	LOG(DEBUG) << "exec transfer(" << patch::to_string(idSource) << ", "
+    LOG(INFO) << "exec transfer(" << patch::to_string(idSource) << ", "
 		<< patch::to_string(idTarget) << ", " << patch::to_string(volume)
 		<< ")";
 
@@ -516,7 +516,7 @@ void Mapping::exec_transfer(int idSource, int idTarget, double volume) throw (st
 }
 
 void Mapping::exec_mix(int source1, int source2, int target, double volume1, double volume2) throw (std::runtime_error) {
-	LOG(DEBUG) << "exec mix(" << patch::to_string(source1) << ", " << patch::to_string(source2) << ", "
+    LOG(INFO) << "exec mix(" << patch::to_string(source1) << ", " << patch::to_string(source2) << ", "
 		<< patch::to_string(target) + ", " << patch::to_string(volume1) << ", " << patch::to_string(volume2)
 		<< ")";
 
@@ -525,7 +525,7 @@ void Mapping::exec_mix(int source1, int source2, int target, double volume1, dou
 }
 
 void Mapping::exec_applyLight(int id, double wavelength, double intensity) throw (std::runtime_error) {
-	LOG(DEBUG) << "exec applyLight(" << patch::to_string(id) << ", "
+    LOG(INFO) << "exec applyLight(" << patch::to_string(id) << ", "
 		<< patch::to_string(wavelength) << ", " << patch::to_string(intensity)
 		<< ")";
 
@@ -541,7 +541,7 @@ void Mapping::exec_applyLight(int id, double wavelength, double intensity) throw
 }
 
 void Mapping::exec_applyTemperature(int id, double degres) throw (std::runtime_error) {
-	LOG(DEBUG) << "exec applyTemperature(" << patch::to_string(id) << ", "
+    LOG(INFO) << "exec applyTemperature(" << patch::to_string(id) << ", "
 		<< patch::to_string(degres) << ")";
 
 	ExecutableMachineGraph::ExecutableContainerNodePtr mappedContainer = machine->getContainer(
@@ -568,7 +568,7 @@ double Mapping::exec_measureOD(int id) throw (std::runtime_error) {
 
 	if (od.get() != NULL) {
 		measureValued = od.get()->readOd();
-		LOG(DEBUG) << "exec measureOD(" << patch::to_string(id) << ") = " << patch::to_string(measureValued);
+        LOG(INFO) << "exec measureOD(" << patch::to_string(id) << ") = " << patch::to_string(measureValued);
 	}
 	else {
 		LOG(FATAL) << "trying to measure OD from a container without that add on, container id: " << patch::to_string(mappedContainer->getContainerId());
@@ -577,7 +577,7 @@ double Mapping::exec_measureOD(int id) throw (std::runtime_error) {
 }
 
 void Mapping::exec_loadContainer(int containerID, double volume) {
-	LOG(DEBUG) << "exec loadContainer(" << patch::to_string(containerID) << ", "
+    LOG(INFO) << "exec loadContainer(" << patch::to_string(containerID) << ", "
 		<< patch::to_string(volume)
 		<< ")";
 	ExecutableMachineGraph::ExecutableContainerNodePtr mappedContainer = machine->getContainer(
@@ -586,7 +586,7 @@ void Mapping::exec_loadContainer(int containerID, double volume) {
 }
 
 void Mapping::exec_stir(int id, double intensity) throw (std::runtime_error) {
-	LOG(DEBUG) << "exec stir(" << patch::to_string(id) << "," << patch::to_string(intensity) << ")";
+    LOG(INFO) << "exec stir(" << patch::to_string(id) << "," << patch::to_string(intensity) << ")";
 	ExecutableMachineGraph::ExecutableContainerNodePtr mappedContainer = machine->getContainer(
 		engine->getMappedContainerId(id));
 	std::shared_ptr<Mixer> mix = mappedContainer->getMix();
@@ -600,7 +600,8 @@ void Mapping::exec_stir(int id, double intensity) throw (std::runtime_error) {
 }
 
 double Mapping::exec_timeStep() {
-	long msPassed;
+    LOG(INFO) << "executing timeStept:";
+    long msPassed;
 	if (this->testing) {
 		msPassed = SLEEP_MS;
 	}
