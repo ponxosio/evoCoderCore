@@ -45,6 +45,7 @@ public:
 
 	Flow<Edge>* getMappedEdge(MachineGraph::ContainerEdgePtr skectchEdge)throw(std::invalid_argument);
 	int getMappedContainerId(int sketchContainerId) throw(std::invalid_argument);
+
 protected:
 	std::unordered_map<int,int>* containersMap;
 	std::unordered_map<int,int>* numberSolutionsMap;
@@ -62,13 +63,15 @@ protected:
 	void setNodesUsed(const Flow<Edge> & flow);
 	void unsetNodesUsed(const Flow<Edge> & flow);
 
-	std::shared_ptr<SearcherIterator> getAvailableFlows(ExecutableMachineGraph::ExecutableContainerEdgePtr actual);
+    std::shared_ptr<SearcherIterator> getAvailableFlows(ExecutableMachineGraph::ExecutableContainerEdgePtr actual);
+    //FlowsHeap getAvailableFlows(ExecutableMachineGraph::ExecutableContainerEdgePtr actual);
 
 	inline bool isMapped(int idConatiner) {
 		return (containersMap->find(idConatiner) != containersMap->end());
 	}
 
-	bool isAvailable(std::shared_ptr<Flow<Edge>> actualFlow, MachineGraph::ContainerEdgePtr actualEdge);
+    bool isAvailable(std::shared_ptr<Flow<Edge>> actualFlow, MachineGraph::ContainerEdgePtr actualEdge);
+    //bool isAvailable(const Flow<Edge> actualFlow, MachineGraph::ContainerEdgePtr actualEdge);
 };
 
 #endif /* FLUIDCONTROL_MAPPINGENGINE_H_ */

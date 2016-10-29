@@ -5,19 +5,20 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
-#include <array>
+#include <tuple>
 
 //local
 #include "fluidControl\executable\containers\actuators\liquids\Control.h"
 #include "fluidControl\executable\containers\actuators\communications\CommunicationsInterface.h"
 #include "plugin\PythonEnvironment.h"
+#include "util/Utils.h"
 #include "selfconfiguringplugin.h"
 
 //cereal
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/unordered_map.hpp>
-#include <cereal/types/array.hpp>
+#include <cereal/types/tuple.hpp>
 
 #include "evocodercore_global.h"
 
@@ -50,7 +51,7 @@ public:
 
 protected:
 	std::string referenceName;
-    std::unordered_map<int, std::array<int, 2>> posMap;
+    std::unordered_map<std::tuple<int,int>,int, PairIntIntHashFunction> posMap;
 };
 
 

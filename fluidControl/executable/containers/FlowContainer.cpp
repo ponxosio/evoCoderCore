@@ -61,6 +61,7 @@ void FlowContainer::connectContainer(int source, int target) throw (std::runtime
 }
 
 void FlowContainer::reloadCommunicationInterface(int communication) {
-	this->insert->setCommunications(communication);
+    ExecutableContainerNode::reloadCommunicationInterface(communication);
+    this->insert->setCommunications(communication);
 	this->extract->setCommunications(communication);
 }

@@ -15,7 +15,7 @@
 class PATHSEARCHERITERATOR_EXPORT PathSearcherIterator
 {
 public:
-	PathSearcherIterator(std::shared_ptr<PathSearcher> engine);
+    PathSearcherIterator(std::shared_ptr<PathSearcher> engine);
 	virtual ~PathSearcherIterator();
 
 	int hasNext();
@@ -30,6 +30,6 @@ public:
 
 protected:
 	int lastPosition;
-	std::shared_ptr<PathSearcher> engine;
+    std::shared_ptr<PathSearcher> engine;
 };
 

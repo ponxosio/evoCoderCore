@@ -61,7 +61,7 @@ std::string FileSender::readUntil(char endCharacter)
 			if (inFile.eof()) {
 				inFile.clear();
 				inFile.seekg(0, inFile.beg);
-				finded = true;
+                                finded = !line.empty();
 			} else {
 				temp += c;
 				if (c == endCharacter) {

@@ -72,7 +72,8 @@ void DivergentSwitchSink::connectContainer(int source, int target) throw (std::r
 }
 
 void DivergentSwitchSink::reloadCommunicationInterface(int communication) {
-	this->control->setCommunications(communication);
+    ExecutableContainerNode::reloadCommunicationInterface(communication);
+    this->control->setCommunications(communication);
 	this->insert->setCommunications(communication);
 	this->extractor->setCommunications(communication);
 }

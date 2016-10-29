@@ -76,7 +76,8 @@ void BidirectionalSwitch::connectContainer(int source, int target) throw (std::r
 }
 
 void BidirectionalSwitch::reloadCommunicationInterface(int communication) {
-	this->controlIN->setCommunications(communication);
+    ExecutableContainerNode::reloadCommunicationInterface(communication);
+    this->controlIN->setCommunications(communication);
 	this->controlOUT->setCommunications(communication);
 	this->extract->setCommunications(communication);
 	this->insert->setCommunications(communication);

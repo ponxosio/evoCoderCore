@@ -57,5 +57,6 @@ void SinkContainer::connectContainer(int source, int target) throw (std::runtime
 }
 
 void SinkContainer::reloadCommunicationInterface(int communication) {
-	this->insert->setCommunications(communication);
+    ExecutableContainerNode::reloadCommunicationInterface(communication);
+    this->insert->setCommunications(communication);
 }

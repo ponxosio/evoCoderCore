@@ -72,7 +72,8 @@ void ConvergentSwitchInlet::connectContainer(int source, int target) throw (std:
 }
 
 void ConvergentSwitchInlet::reloadCommunicationInterface(int communication) {
-	this->control->setCommunications(communication);
+    ExecutableContainerNode::reloadCommunicationInterface(communication);
+    this->control->setCommunications(communication);
 	this->insert->setCommunications(communication);
 	this->extractor->setCommunications(communication);
 }

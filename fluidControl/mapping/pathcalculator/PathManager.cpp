@@ -16,13 +16,13 @@ std::shared_ptr<PathSearcherIterator> PathManager::getPathSearcher(int idStart, 
 	if (!reverse) {
 		auto it = searchersMap.find(idStart);
 		if (it != searchersMap.end()) {
-			std::shared_ptr<PathSearcher> searcher = it->second;
+            std::shared_ptr<PathSearcher> searcher = it->second;
 			return make_shared<PathSearcherIterator>(searcher);
 		}
 		else {
 			try {
-				std::shared_ptr<PathSearcher> newSearcher = std::make_shared<PathSearcher>(idStart, machine, this, reverse);
-				//std::shared_ptr<SearcherInterface> newSearcher = make_shared<SimplePathSearcher>(idStart, machine, reverse);
+                std::shared_ptr<PathSearcher> newSearcher = std::make_shared<PathSearcher>(idStart, machine, this, reverse);
+                //std::shared_ptr<SimplePathSearcher> newSearcher = make_shared<SimplePathSearcher>(idStart, machine, reverse);
 
 				searchersMap.insert(std::make_pair(idStart, newSearcher));
 
@@ -34,13 +34,13 @@ std::shared_ptr<PathSearcherIterator> PathManager::getPathSearcher(int idStart, 
 	} else {
 		auto it = searchersMapReverse.find(idStart);
 		if (it != searchersMapReverse.end()) {
-			std::shared_ptr<PathSearcher> searcher = it->second;
+            std::shared_ptr<PathSearcher> searcher = it->second;
 			return make_shared<PathSearcherIterator>(searcher);
 		}
 		else {
 			try {
-				std::shared_ptr<PathSearcher> newSearcher = std::make_shared<PathSearcher>(idStart, machine, this, reverse);
-				//std::shared_ptr<SearcherInterface> newSearcher = make_shared<SimplePathSearcher>(idStart, machine, reverse);
+                std::shared_ptr<PathSearcher> newSearcher = std::make_shared<PathSearcher>(idStart, machine, this, reverse);
+                //std::shared_ptr<SimplePathSearcher> newSearcher = make_shared<SimplePathSearcher>(idStart, machine, reverse);
 
 				searchersMapReverse.insert(std::make_pair(idStart, newSearcher));
 

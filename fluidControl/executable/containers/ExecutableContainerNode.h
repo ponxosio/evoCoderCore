@@ -108,7 +108,20 @@ public:
 	virtual void connectContainer(int source, int target) throw (std::runtime_error) = 0;
     virtual void reloadActuatorsParams() throw (std::runtime_error) = 0;
 	
-    virtual void reloadCommunicationInterface(int communication) = 0;
+    inline virtual void reloadCommunicationInterface(int communication) {
+        if (od) {
+            od->setCommunications(communication);
+        }
+        if (mix) {
+            mix->setCommunications(communication);
+        }
+        if (light) {
+            light->setCommunications(communication);
+        }
+        if (temperature) {
+            temperature->setCommunications(communication);
+        }
+    }
 
 	//SERIALIZATIoN
 	template<class Archive>

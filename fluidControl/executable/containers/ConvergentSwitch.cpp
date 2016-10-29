@@ -66,7 +66,8 @@ void ConvergentSwitch::connectContainer(int source, int target) throw (std::runt
 }
 
 void ConvergentSwitch::reloadCommunicationInterface(int communication) {
-	this->control->setCommunications(communication);
+    ExecutableContainerNode::reloadCommunicationInterface(communication);
+    this->control->setCommunications(communication);
 	this->insert->setCommunications(communication);
 }
 

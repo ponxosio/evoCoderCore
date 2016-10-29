@@ -41,8 +41,8 @@ protected:
 
 	//internal
 	//paths
-	std::unordered_map<int, std::shared_ptr<PathSearcher>> searchersMap;
-	std::unordered_map<int, std::shared_ptr<PathSearcher>> searchersMapReverse;
+    std::unordered_map<int, std::shared_ptr<PathSearcher>> searchersMap;
+    std::unordered_map<int, std::shared_ptr<PathSearcher>> searchersMapReverse;
 	
 	//flows
 	std::unordered_map<std::tuple<int, int>, std::shared_ptr<SearcherInterface>, PairIntIntHashFunction> idIdMap;

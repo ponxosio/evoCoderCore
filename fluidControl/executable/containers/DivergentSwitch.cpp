@@ -68,7 +68,8 @@ void DivergentSwitch::connectContainer(int source, int target) throw (std::runti
 }
 
 void DivergentSwitch::reloadCommunicationInterface(int communication) {
-	this->control->setCommunications(communication);
+    ExecutableContainerNode::reloadCommunicationInterface(communication);
+    this->control->setCommunications(communication);
 	this->extract->setCommunications(communication);
 }
 

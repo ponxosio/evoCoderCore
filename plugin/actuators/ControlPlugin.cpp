@@ -32,13 +32,13 @@ void ControlPlugin::addConnection(int idSource, int idTarget, int pos) throw (st
 		CommandSender* com = CommunicationsInterface::GetInstance()->getCommandSender(communications);
         PythonEnvironment::GetInstance()->getVarInstance(referenceName).attr("addConnection")(idSource, idTarget, pos, boost::ref(*com));
 
-        auto finded = posMap.find(pos);
+        auto finded = posMap.find(std::make_tuple(idSource, idTarget));
         if (finded != posMap.end()) {
-            std::array<int, 2> contPair = {idSource, idTarget};
+            int contPair = pos;
             finded->second = contPair;
         } else {
-            std::array<int, 2> contPair = {idSource, idTarget};
-            posMap.insert(std::make_pair(pos, contPair));
+            std::tuple<int,int> contPair = std::make_tuple(idSource, idTarget);
+            posMap.insert(std::make_pair(contPair, pos));
         }
 	}
 	catch (error_already_set) 
@@ -221,9 +221,9 @@ int ControlPlugin::getActualPosition() throw (std::runtime_error) {
 void ControlPlugin::reloadConnections() throw (std::runtime_error) {
     clearConnections();
     for (auto it: posMap) {
-        int pos = it.first;
-        int source = it.second[0];
-        int target = it.second[1];
+        int pos = it.second;
+        int source = std::get<0>(it.first);
+        int target = std::get<1>(it.first);
 
         addConnection(source, target, pos);
     }
