@@ -95,12 +95,12 @@ bool ExecutionEngine::test() throw (std::runtime_error) {
 	try {
 		sketcher();
 
-        LOG(DEBUG) << "printing minimal machine...";
+        LOG(INFO) << "printing minimal machine...";
         mapping->printSketch("sketch_protocol.graph");
 
 		mapping->doMapping();
 
-        LOG(DEBUG) << "mapping done " << mapping->printMappingTable();
+        LOG(INFO) << "mapping done " << mapping->printMappingTable();
 
 		table.get()->clear();
 		initilizeTime();

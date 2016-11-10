@@ -61,7 +61,7 @@ struct PipetteOperation {
 
 typedef struct PipetteOperationComparator_ {
     bool operator()(PipetteOperation f1, PipetteOperation f2) const {
-        return (f1.timeOfOperation < f2.timeOfOperation);
+        return (f2.timeOfOperation < f1.timeOfOperation);
     }
 } PipetteOperationComparator;
 
