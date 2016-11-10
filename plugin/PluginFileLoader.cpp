@@ -3,20 +3,23 @@
 using namespace std;
 
 PluginFileLoader *PluginFileLoader::m_pInstance = NULL;
+std::string PluginFileLoader::pluginDir = Utils::getCurrentDir() + "\\" + PLUGIN_FOLDER;
 
 
 PluginFileLoader::PluginFileLoader()
 {
-	std::string currentDir = Utils::getCurrentDir();
-	currentDir = currentDir + "\\" + PLUGIN_FOLDER;
-
-	checkDirectory(currentDir, "*");
+    checkDirectory(this->pluginDir, "*");
 }
 
 
 PluginFileLoader::~PluginFileLoader()
 {
 
+}
+
+void PluginFileLoader::setPluginDir(const std::string & pluginDir)
+{
+    PluginFileLoader::pluginDir = pluginDir;
 }
 
 // Recursive directory traversal using the Win32 API

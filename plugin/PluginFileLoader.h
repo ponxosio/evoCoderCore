@@ -44,6 +44,8 @@ public:
 		}
 	}
 
+    static void setPluginDir(const std::string & pluginDir);
+
 	virtual ~PluginFileLoader();
 
 	std::string getPath(std::string name) throw (std::invalid_argument);
@@ -52,6 +54,8 @@ public:
 
 	void toText();
 protected:
+    static std::string pluginDir;
+
 	std::unordered_map<std::string, std::string> namePathMap;
     std::unordered_map<std::string, std::string> nameSuperclassMap;
 

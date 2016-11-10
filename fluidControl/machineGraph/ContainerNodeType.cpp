@@ -225,7 +225,7 @@ std::string ContainerNodeType::makeAddonsNodes(int idContainer) {
 	for (int i = 0; i < ADDONS_MAX; i++) {
 		if (addOns[i] == true) {
 			vuelta += patch::to_string(base - i) + "[image=\""
-					+ Utils::getCurrentDir() + PATH_TO_IMGS
+                    + /*Utils::getCurrentDir() +*/ PATH_TO_IMGS
 					+ getAddonsImg((AddOnsType) (i)) + "\"];"
 					+ patch::to_string(base - i) + "->"
 					+ patch::to_string(idContainer) + ";";

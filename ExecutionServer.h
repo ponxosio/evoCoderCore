@@ -21,6 +21,8 @@
 #include "util\Patch.h"
 #include "util\Utils.h"
 
+#include "BioBlocksJSONReader.h"
+
 #include "evocodercore_global.h"
 
 class EXECUTIONSERVER_EXPORT ExecutionServer
@@ -41,6 +43,9 @@ public:
 
     std::string addProtocolOnExistingMachine(const std::string & protocolJson, const std::string & machineReference) throw (std::invalid_argument);
     std::string addProtocolOnExistingMachine(std::shared_ptr<ProtocolGraph> protocol, const std::string & machineReference) throw (std::invalid_argument);
+
+    std::string addBioBlocksProtocolOnNewMachine(const std::string & bioBlocksJson, const std::string & machineJson);
+    std::string addBioBlocksProtocolOnExistingMachine(const std::string & bioBlocksJson, const std::string & machineReference) throw (std::invalid_argument);
 
 	void exec(const std::string & reference) throw(std::runtime_error);
 	void test(const std::string& reference) throw(std::runtime_error);

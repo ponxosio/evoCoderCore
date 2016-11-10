@@ -43,7 +43,7 @@ public:
 
 	virtual void execute() throw(std::invalid_argument) = 0;
 
-	inline virtual void updateReference(const std::string & reference) {}
+    virtual void updateReference(const std::string & reference) = 0;
 
 	//SERIALIZATIoN
 	template<class Archive>

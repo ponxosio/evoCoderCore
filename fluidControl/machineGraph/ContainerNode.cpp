@@ -37,7 +37,7 @@ ContainerNode::~ContainerNode() {
 string ContainerNode::toText() {
 	std::ostringstream stm;
 	stm << patch::to_string(this->containerID) << " [image=\""
-			<< Utils::getCurrentDir() << this->type.get()->getTypeImagePath()
+            << /*Utils::getCurrentDir() <<*/ this->type.get()->getTypeImagePath()
 			<< "\"];";
 	stm << this->type.get()->makeAddonsNodes(this->containerID);
 	return stm.str();

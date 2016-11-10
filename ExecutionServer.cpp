@@ -101,6 +101,18 @@ std::string ExecutionServer::addProtocolOnExistingMachine(std::shared_ptr<Protoc
     return executionReference;
 }
 
+std::string ExecutionServer::addBioBlocksProtocolOnNewMachine(const std::string & bioBlocksJson, const std::string & machineJson) {
+   /* std::shared_ptr<ProtocolGraph> translatedProtocol(BioBlocksJSONReader::GetInstance()->loadFile(bioBlocksJson));
+    return addProtocolOnNewMachine(translatedProtocol, machineJson);*/
+    return "";
+}
+
+std::string ExecutionServer::addBioBlocksProtocolOnExistingMachine(const std::string & bioBlocksJson, const std::string & machineReference) throw (std::invalid_argument) {
+   /* std::shared_ptr<ProtocolGraph> translatedProtocol(BioBlocksJSONReader::GetInstance()->loadFile(bioBlocksJson));
+    return addProtocolOnExistingMachine(translatedProtocol, machineReference);*/
+    return "";
+}
+
 void ExecutionServer::exec(const std::string & reference) throw(std::runtime_error)
 {
 	auto it = executionMap.find(reference);
