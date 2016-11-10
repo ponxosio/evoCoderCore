@@ -421,7 +421,7 @@ float BioBlocksJSONReader::toMillisecondsPower(std::string unit) throw (std::inv
         power = 6.0e+4;
     } else if (unit.compare("seconds") == 0) {
         power = 1.0e+3;
-    } else if (unit.compare("millisecond") == 0) {
+    } else if (unit.compare("milliseconds") == 0) {
         power = 1.0;
     } else {
         throw (new std::invalid_argument("unknow time units: " + unit));
