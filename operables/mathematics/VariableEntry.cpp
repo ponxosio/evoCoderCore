@@ -5,7 +5,9 @@
  *      Author: angel
  */
 
-#include "../mathematics/VariableEntry.h"
+#include "VariableEntry.h"
+
+#include "ExecutionServer.h"
 
 using namespace std;
 
@@ -51,4 +53,15 @@ void VariableEntry::setValue(double value) throw (std::invalid_argument)  {
 
 void VariableEntry::setPhysical(bool physical) throw (std::invalid_argument)  {
 	getVariableTable()->setPhysical(name, physical);
+}
+
+std::shared_ptr<VariableTable> VariableEntry::getVariableTable() throw (std::invalid_argument) {
+    try {
+        return ExecutionServer::GetInstance()->getEvoCoder(reference)->getVariableTable();
+    }
+    catch (std::invalid_argument & e)
+    {
+        throw(std::invalid_argument("VariableEntry::getVariableTable(), " + std::string(e.what())));
+    }
+    return shared_ptr<VariableTable>();
 }

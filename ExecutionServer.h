@@ -1,4 +1,6 @@
-#pragma once
+#ifndef EXECUTIONSERVER_H
+#define EXECUTIONSERVER_H
+
 #pragma warning( disable : 4290 )
 
 #include <string>
@@ -67,3 +69,4 @@ private:
     ExecutionServer& operator=(const ExecutionServer& com) {return ExecutionServer(com);}
 };
 
+#endif /* EXECUTIONSERVER_H */

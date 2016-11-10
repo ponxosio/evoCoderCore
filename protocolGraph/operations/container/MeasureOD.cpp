@@ -33,7 +33,7 @@ MeasureOD::MeasureOD(int containerId,
 MeasureOD::~MeasureOD() {}
 
 void MeasureOD::execute() throw(std::invalid_argument) {
-	receiver.get()->setValue(ContainerOperation::getMapping()->measureOD(sourceId));
+    receiver.get()->setValue(getMapping()->measureOD(sourceId));
 	receiver.get()->setPhysical(true);
 }
 

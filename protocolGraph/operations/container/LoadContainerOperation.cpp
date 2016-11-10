@@ -40,5 +40,5 @@ void LoadContainerOperation::loadNode(const std::string& line)
 }
 
 void LoadContainerOperation::execute() throw(std::invalid_argument)  {
-	ContainerOperation::getMapping()->loadContainer(this->idSource, value.get()->getValue());
+    getMapping()->loadContainer(this->idSource, value.get()->getValue());
 }

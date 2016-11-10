@@ -43,5 +43,5 @@ ApplyLight::~ApplyLight() {
 }
 
 void ApplyLight::execute() throw(std::invalid_argument)  {
-	ContainerOperation::getMapping()->applyLight(sourceId, wavelength.get()->getValue(), intensity.get()->getValue());
+    getMapping()->applyLight(sourceId, wavelength.get()->getValue(), intensity.get()->getValue());
 }

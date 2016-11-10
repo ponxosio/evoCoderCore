@@ -37,5 +37,5 @@ void GetVolume::loadNode(const std::string& line) throw (invalid_argument) {
 }
 
 void GetVolume::execute() throw(std::invalid_argument)  {
-	receiver.get()->setValue(ContainerOperation::getMapping()->getVolume(sourceId));
+    receiver.get()->setValue(getMapping()->getVolume(sourceId));
 }

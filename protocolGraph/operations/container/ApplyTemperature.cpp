@@ -40,5 +40,5 @@ ApplyTemperature::ApplyTemperature(int containerId,
 ApplyTemperature::~ApplyTemperature() {}
 
 void ApplyTemperature::execute() throw(std::invalid_argument)  {
-	ContainerOperation::getMapping()->applyTemperature(sourceId, degress.get()->getValue());
+    getMapping()->applyTemperature(sourceId, degress.get()->getValue());
 }

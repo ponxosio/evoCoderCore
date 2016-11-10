@@ -46,5 +46,5 @@ Transfer::~Transfer() {
 }
 
 void Transfer::execute() throw(std::invalid_argument)  {
-	ContainerOperation::getMapping()->transfer(idSource, idTarget, volume.get()->getValue());
+    getMapping()->transfer(idSource, idTarget, volume.get()->getValue());
 }

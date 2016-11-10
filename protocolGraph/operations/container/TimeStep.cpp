@@ -35,6 +35,12 @@ void TimeStep::loadNode(const std::string& line) throw (invalid_argument) {
 
 void TimeStep::execute() throw(std::invalid_argument)  {
 	receiver.get()->setValue(
-			receiver.get()->getValue() + ContainerOperation::getMapping()->timeStept());
+            receiver.get()->getValue() + getMapping()->timeStept());
     LOG(INFO) << "time variable: " << receiver.get()->getValue();
+}
+
+void TimeStep::updateReference(const std::string & reference)
+{
+    ContainerOperation::updateReference(reference);
+    receiver->updateReference(reference);
 }

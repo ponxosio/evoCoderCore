@@ -16,9 +16,6 @@
 #define EXEC_EP			2
 #define DESIGN_TEST		3
 
-/**** TIME VARIABLE ****/
-#define TIME_VARIABLE "actualTime"
-
 //includes
 #include <algorithm>
 #include <string>

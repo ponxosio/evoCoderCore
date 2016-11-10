@@ -46,5 +46,5 @@ void SetContinousFlow::loadNode(const std::string& line)
 }
 
 void SetContinousFlow::execute() throw(std::invalid_argument)  {
-	ContainerOperation::getMapping()->setContinuosFlow(idSource, idTarget, rate.get()->getValue());
+    getMapping()->setContinuosFlow(idSource, idTarget, rate.get()->getValue());
 }

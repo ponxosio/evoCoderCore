@@ -54,5 +54,5 @@ void Mix::loadNode(const std::string& line) throw (invalid_argument) {
 }
 
 void Mix::execute() throw(std::invalid_argument)  {
-	ContainerOperation::getMapping()->mix(idSource1,idSource2,idTarget,volume1.get()->getValue(),volume2.get()->getValue());
+    getMapping()->mix(idSource1,idSource2,idTarget,volume1.get()->getValue(),volume2.get()->getValue());
 }

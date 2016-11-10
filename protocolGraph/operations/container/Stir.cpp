@@ -38,6 +38,5 @@ void Stir::loadNode(const std::string& line) throw (std::invalid_argument) {
 }
 
 void Stir::execute() throw(std::invalid_argument) {
-
-	ContainerOperation::getMapping()->stir(sourceId, intensity.get()->getValue());
+    getMapping()->stir(sourceId, intensity.get()->getValue());
 }

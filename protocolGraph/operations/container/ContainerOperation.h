@@ -5,7 +5,8 @@
  *      Author: angel
  */
 
-#pragma once
+#ifndef SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_CONTAINEROPERATION_H_
+#define SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_CONTAINEROPERATION_H_
 
 #pragma warning( disable : 4290 )
 
@@ -13,7 +14,6 @@
 #include <stdexcept>
 
 //local
-#include "ExecutionServer.h"
 #include "util/Utils.h"
 #include "operables/mathematics/MathematicOperable.h"
 #include "protocolGraph/OperationNode.h"
@@ -31,25 +31,14 @@
  */
 class CONTAINEROPERATION_EXPORT ContainerOperation: public OperationNode {
 public:
-	ContainerOperation() : OperationNode() {}
-	ContainerOperation(const ContainerOperation & obj) : OperationNode(obj) {}
-	ContainerOperation(int idConatiner) : OperationNode(idConatiner) {}
+    ContainerOperation();
+    ContainerOperation(const ContainerOperation & obj);
+    ContainerOperation(int idConatiner);
 
-	virtual ~ContainerOperation(){}
-	
-	virtual inline void updateReference(const std::string & reference) {
-		this->reference = reference;
-	}
+    virtual ~ContainerOperation();
 
-	virtual inline std::shared_ptr<Mapping> getMapping() throw (std::invalid_argument) {
-		try {
-			return ExecutionServer::GetInstance()->getEvoCoder(reference)->getMapping();
-		}
-		catch (std::invalid_argument & e) {
-			throw(std::invalid_argument("ContainerOperation::getMapping(), " + std::string(e.what())));
-		}
-	}
-
+    //overriden
+    virtual void updateReference(const std::string & reference);
 	//pure virtual
 	virtual void execute() throw(std::invalid_argument) = 0;
 	
@@ -59,6 +48,8 @@ public:
 
 protected:
 	std::string reference;
+
+    std::shared_ptr<Mapping> getMapping() throw (std::invalid_argument);
 };
 
 template<class Archive>
@@ -78,3 +69,5 @@ CEREAL_CLASS_VERSION( ContainerOperation, (int)1 );
 #include <cereal/archives/json.hpp>
 // Register DerivedClass
 CEREAL_REGISTER_TYPE_WITH_NAME(ContainerOperation,"ContainerOperation");
+
+#endif /* SRC_FLUIDCONTROL_PROTOCOLGRAPH_OPERATIONS_CONTAINER_CONTAINEROPERATION_H_ */

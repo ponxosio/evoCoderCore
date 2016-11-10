@@ -10,6 +10,9 @@
 
 #pragma warning( disable : 4290 )
 
+/**** TIME VARIABLE ****/
+#define TIME_VARIABLE "actualTime"
+
 #include <string>
 #include  <stdexcept>
 #include <memory>

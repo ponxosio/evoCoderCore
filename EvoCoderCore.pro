@@ -88,7 +88,8 @@ SOURCES += \
     ExecutionServer.cpp \
     util/logutils.cpp \
     plugin/actuators/compoundcontrolplugin.cpp \
-    plugin/actuators/valvecontrolledtwinpump.cpp
+    plugin/actuators/valvecontrolledtwinpump.cpp \
+    protocolGraph/operations/container/containeroperation.cpp
 
 HEADERS +=\
         evocodercore_global.h \

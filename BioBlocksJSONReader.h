@@ -73,20 +73,16 @@ public:
     typedef std::priority_queue<BioBlocks::PipetteOperation, std::vector<BioBlocks::PipetteOperation>, BioBlocks::PipetteOperationComparator> OperationHeap;
 
     static BioBlocksJSONReader* GetInstance() {
-		if (!m_pInstance)
-			m_pInstance = new BioBlocksJSONReader();
-		return m_pInstance;
-	}
-
-    static std::shared_ptr<OperationNode> toOperationNode(const BioBlocks::PipetteOperation & op) {
-        return std::shared_ptr<OperationNode>();
+        if (!m_pInstance)
+            m_pInstance = new BioBlocksJSONReader();
+        return m_pInstance;
     }
 
-	static void freeCommandInterface();
-    //static void setTimeSlice(long timeSlice);
+    static void freeCommandInterface();
+    static void setTimeSlice(long timeSlice);
 
 
-	virtual ~BioBlocksJSONReader();
+    virtual ~BioBlocksJSONReader();
 
     ProtocolGraph* loadFile(const std::string & path) throw(std::invalid_argument);
 
@@ -95,6 +91,8 @@ public:
     float parseFlowRate(const std::string & text) throw (std::invalid_argument);
 
 protected:
+    static long timeSlice;
+
     OperationHeap operationHeap;
     std::vector<std::shared_ptr<OperationNode>> lastOp;
     std::unordered_map<std::string, int> containerMap;
@@ -117,14 +115,13 @@ protected:
 
     std::shared_ptr<OperationNode> createIfBlock(long initTime, long duration, shared_ptr<ComparisonOperable> & inCompare, shared_ptr<ComparisonOperable> & outCompare);
 
+    std::shared_ptr<OperationNode> toOperationNode(const BioBlocks::PipetteOperation & op);
 private:
     //*** SINGLETON ***
-	static BioBlocksJSONReader* m_pInstance;
-    //static long timeSlice;
+    static BioBlocksJSONReader* m_pInstance;
 
-	BioBlocksJSONReader();
+    BioBlocksJSONReader();
     BioBlocksJSONReader(const BioBlocksJSONReader &){}
     BioBlocksJSONReader& operator=(const BioBlocksJSONReader & com){return BioBlocksJSONReader(com);}
     // ****************
 };
-

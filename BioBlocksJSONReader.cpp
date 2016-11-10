@@ -1,20 +1,19 @@
 #include "BioBlocksJSONReader.h"
 
 // STATIC
-
 BioBlocksJSONReader* BioBlocksJSONReader::m_pInstance = NULL;
-//long BioBlocksJSONReader::timeSlice = 1000;
+long BioBlocksJSONReader::timeSlice = 1000;
 
 void BioBlocksJSONReader::freeCommandInterface()
 {
-	if (m_pInstance) {
-		delete m_pInstance;
-	}
+    if (m_pInstance) {
+        delete m_pInstance;
+    }
 }
 
-/*void BioBlocksJSONReader::setTimeSlice(long timeSlice) {
+void BioBlocksJSONReader::setTimeSlice(long timeSlice) {
     BioBlocksJSONReader::timeSlice = timeSlice;
-}*/
+}
 //
 
 using json = nlohmann::json;
@@ -31,8 +30,8 @@ BioBlocksJSONReader::~BioBlocksJSONReader()
 ProtocolGraph* BioBlocksJSONReader::loadFile(const std::string & path) throw(std::invalid_argument)
 {
     ProtocolGraph* protocol = new ProtocolGraph("bioBlocks_graph");
-	std::ifstream in(path);
-	json js;
+    std::ifstream in(path);
+    json js;
 
     containerMap.clear();
     lastOp.clear();
@@ -56,7 +55,7 @@ ProtocolGraph* BioBlocksJSONReader::loadFile(const std::string & path) throw(std
         throw(std::invalid_argument("unknow exception: " + string(e.what())));
     }
 
-	return protocol;
+    return protocol;
 }
 
 void BioBlocksJSONReader::readRefs(const nlohmann::json & js, ProtocolGraph* protocol) throw(std::invalid_argument)
@@ -128,12 +127,12 @@ void BioBlocksJSONReader::parseHeap(OperationHeap & operationHeap, ProtocolGraph
         long lastInitTime = operationHeap.top().timeOfOperation;
         long lastDuration = operationHeap.top().duration;
 
-        std::vector<PipetteOperation> sameBlockOps;
+        std::vector<BioBlocks::PipetteOperation> sameBlockOps;
         std::shared_ptr<ComparisonOperable> lastNotComp;
         std::shared_ptr<OperationNode> lastIf;
 
         while (!operationHeap.empty()) {
-            PipetteOperation actual = operationHeap.top();
+            BioBlocks::PipetteOperation actual = operationHeap.top();
             sameBlockOps.push_back(actual);
             if (lastInitTime != actual.timeOfOperation ||
                 lastDuration != actual.duration ||
@@ -153,8 +152,8 @@ void BioBlocksJSONReader::parseHeap(OperationHeap & operationHeap, ProtocolGraph
                 }
                 lastOp.clear();
 
-                for (PipetteOperation pipette: sameBlockOps) {
-                    std::shared_ptr<OperationNode> pipetteNode = BioBlocksJSONReader::toOperationNode(pipette);
+                for (BioBlocks::PipetteOperation pipette: sameBlockOps) {
+                    std::shared_ptr<OperationNode> pipetteNode = toOperationNode(pipette);
                     protocol->addOperation(pipetteNode);
                     protocol->connectOperation(actualIfBlock, pipetteNode, yesComp);
                     lastOp.push_back(pipetteNode);
@@ -261,7 +260,7 @@ void BioBlocksJSONReader::parsePipette_one2many(const std::string & key,
             string rateStr = from["flow rate"].get<string>();
             float rate = parseFlowRate(rateStr);
 
-            PipetteOperation operation(timeInit, duration, containerSource, containerTarget, rate, true);
+            BioBlocks::PipetteOperation operation(timeInit, duration, containerSource, containerTarget, rate, true);
             operationHeap.push(operation);
         } else {
             string sourceName = from.get<string>();
@@ -269,7 +268,7 @@ void BioBlocksJSONReader::parsePipette_one2many(const std::string & key,
             int containerSource = containerMap.at(sourceName);
             float volume = parseVolume((*itto)["volume"]);
 
-            PipetteOperation operation(timeInit, duration, containerSource, containerTarget, volume, false);
+            BioBlocks::PipetteOperation operation(timeInit, duration, containerSource, containerTarget, volume, false);
             operationHeap.push(operation);
         }
 
@@ -298,13 +297,13 @@ void BioBlocksJSONReader::parsePipette_many2one(const std::string & key,
             string rateStr = value["flow rate"].get<string>();
             float rate = parseFlowRate(rateStr);
 
-            PipetteOperation operation(timeInit, duration, containerSource, containerTarget, rate, true);
+            BioBlocks::PipetteOperation operation(timeInit, duration, containerSource, containerTarget, rate, true);
             operationHeap.push(operation);
         }
         else {
             float volume = parseVolume((*itfrom)["volume"]);
 
-            PipetteOperation operation(timeInit, duration, containerSource, containerTarget, volume, false);
+            BioBlocks::PipetteOperation operation(timeInit, duration, containerSource, containerTarget, volume, false);
             operationHeap.push(operation);
         }
     }
@@ -330,7 +329,7 @@ void BioBlocksJSONReader::parsePipette_one2one(const std::string & key,
         string rateStr = value["flow rate"].get<string>();
         float rate = parseFlowRate(rateStr);
 
-        PipetteOperation operation(timeInit, duration, containerSource, containerTarget, rate, true);
+        BioBlocks::PipetteOperation operation(timeInit, duration, containerSource, containerTarget, rate, true);
         operationHeap.push(operation);
     } else {
         string sourceName = from.get<string>();
@@ -338,7 +337,7 @@ void BioBlocksJSONReader::parsePipette_one2one(const std::string & key,
         int containerSource = containerMap.at(sourceName);
 
         float volume = parseVolume(value["volume"]);
-        PipetteOperation operation(timeInit, duration, containerSource, containerTarget, volume, false);
+        BioBlocks::PipetteOperation operation(timeInit, duration, containerSource, containerTarget, volume, false);
         operationHeap.push(operation);
     }
 }
@@ -428,4 +427,15 @@ float BioBlocksJSONReader::toMillisecondsPower(std::string unit) throw (std::inv
         throw (new std::invalid_argument("unknow time units: " + unit));
     }
     return power;
+}
+
+std::shared_ptr<OperationNode> BioBlocksJSONReader::toOperationNode(const BioBlocks::PipetteOperation & op) {
+    std::shared_ptr<MathematicOperable> rate = std::make_shared<ConstantNumber>(op.rate);
+    std::shared_ptr<OperationNode> rtnNode;
+    if (op.continuos) {
+        rtnNode = std::shared_ptr<OperationNode>(new SetContinousFlow(graph_sequence.getNextValue(), op.source, op.destination, rate));
+    } else {
+        rtnNode = std::shared_ptr<OperationNode>(new Transfer(graph_sequence.getNextValue(), op.source, op.destination, rate));
+    }
+    return rtnNode;
 }

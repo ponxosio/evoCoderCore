@@ -15,10 +15,9 @@
 #include <stdexcept>
 
 //local
-#include "ExecutionServer.h"
 #include "util/Utils.h"
 #include "operables/VariableTable.h"
-#include "MathematicOperable.h"
+#include "operables/mathematics/MathematicOperable.h"
 
 //cereal
 #include <cereal/cereal.hpp>
@@ -81,16 +80,7 @@ protected:
 	 */
 	std::string reference;
 
-	inline std::shared_ptr<VariableTable> getVariableTable() throw (std::invalid_argument) {
-        try {
-			return ExecutionServer::GetInstance()->getEvoCoder(reference)->getVariableTable();
-		}
-		catch (std::invalid_argument & e)
-		{
-			throw(std::invalid_argument("VariableEntry::getVariableTable(), " + std::string(e.what())));
-        }
-        return NULL;
-	}
+    std::shared_ptr<VariableTable> getVariableTable() throw (std::invalid_argument);
 };
 
 template<class Archive>
