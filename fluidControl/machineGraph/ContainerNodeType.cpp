@@ -105,10 +105,10 @@ bool ContainerNodeType::isCompatibleContainer(ContainerType container) {
 	if (this->containerType != container) {
 		switch (container) {
 		case inlet:
-			compatible = ((this->containerType == bidirectional_switch)
+            /*compatible = ((this->containerType == bidirectional_switch)
 					|| (this->containerType == convergent_switch_inlet)
 					|| (this->containerType == divergent_switch_sink)
-					|| (this->containerType == divergent_switch) || (this->containerType == flow));
+                    || (this->containerType == divergent_switch) || (this->containerType == flow));*/
 			break;
 		case flow:
 			compatible = (this->containerType == bidirectional_switch)

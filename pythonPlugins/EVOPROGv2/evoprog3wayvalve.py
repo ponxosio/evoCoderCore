@@ -11,6 +11,7 @@ class Evoprog3WayValve(Control):
 		self.availablePos.remove(self.closePos)
 		self.motorPositions = [0,1,2,3]
 		self.map = {}
+		self.lastPosition = self.closePos
 
 	@classmethod
 	def getParamsType(cls):
@@ -47,11 +48,12 @@ class Evoprog3WayValve(Control):
 		if (idSource, idTarget) in self.map:
 			valvePos = self.map[(idSource, idTarget)]
 		
-		if valvePos != -1:
+		if valvePos != -1 and self.lastPosition != valvePos:
 			command = "M " + str(self.address) + " " + str(valvePos) + "\r"
 			print command
 			communications.sendString(command)
 			communications.synch()
+			self.lastPosition = valvePos
 
 	def clearConnections(self):
 		"""
