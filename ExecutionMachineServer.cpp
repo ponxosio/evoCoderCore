@@ -61,6 +61,7 @@ int ExecutionMachineServer::getMachineComId(const string & machineName) throw (s
 void ExecutionMachineServer::changeMachineComId(const std::string & name, int id) {
     auto it = machineMap->find(name);
     if (it != machineMap->end()) {
+        get<0>(it->second) = id;
         std::shared_ptr<ExecutableMachineGraph> exMachine = get<1>(it->second);
         exMachine->updateCommunicationsInterface(id);
     } else {

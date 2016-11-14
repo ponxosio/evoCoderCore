@@ -45,6 +45,7 @@ public:
 
 	Flow<Edge>* getMappedEdge(MachineGraph::ContainerEdgePtr skectchEdge)throw(std::invalid_argument);
 	int getMappedContainerId(int sketchContainerId) throw(std::invalid_argument);
+    void cleanUsedResources();
 
 protected:
 	std::unordered_map<int,int>* containersMap;

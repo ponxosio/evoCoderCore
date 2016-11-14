@@ -659,3 +659,7 @@ std::string Mapping::printMappingTable() {
     }
     return stream.str();
 }
+
+void Mapping::cleanUsedResources() {
+    engine->cleanUsedResources();
+}

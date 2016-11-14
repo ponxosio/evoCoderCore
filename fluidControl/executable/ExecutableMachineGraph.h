@@ -122,6 +122,8 @@ public:
 
 	bool isEdgeAvailable(ExecutableContainerEdgePtr edge);
 	bool isEdgeAvailable(int idSource, int idTarget);
+
+    void clearUsedResources();
 	//
 
 	//inlines

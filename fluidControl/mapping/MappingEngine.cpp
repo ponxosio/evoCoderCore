@@ -302,6 +302,10 @@ bool MappingEngine::isAvailable(std::shared_ptr<Flow<Edge>> actualFlow, MachineG
 	return available;
 }
 
+void MappingEngine::cleanUsedResources() {
+    machine->clearUsedResources();
+}
+
 /*bool MappingEngine::isAvailable(const Flow<Edge> actualFlow, MachineGraph::ContainerEdgePtr actualEdge)
 {
     bool available = true;

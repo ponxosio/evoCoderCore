@@ -35,6 +35,16 @@ typedef struct {
 	}
 } PairIntIntHashFunction;
 
+typedef struct {
+    //cantor paring function
+    size_t operator()(std::tuple<long, long> x) const throw () {
+        long k1 = std::get<0>(x);
+        long k2 = std::get<1>(x);
+        size_t h = (0.5 * (k1 + k2) * (k1 + k2 + 1)) + k2;
+        return h;
+    }
+} PairLongLongHashFunction;
+
 using namespace std;
 
 /**

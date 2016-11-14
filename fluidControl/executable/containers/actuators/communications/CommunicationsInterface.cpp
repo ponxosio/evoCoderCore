@@ -61,6 +61,8 @@ int CommunicationsInterface::addCommandSenderTestExec(CommandSender * exec, Comm
 
 	communicationMap->insert(std::make_pair(nextId, exec));
 	testCommunicationMap->insert(std::make_pair(nextId, test));
+    lastId++;
+    testLastId++;
 
 	return nextId;
 }

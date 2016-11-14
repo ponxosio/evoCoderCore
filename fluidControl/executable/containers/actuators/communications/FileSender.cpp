@@ -37,7 +37,7 @@ FileSender::~FileSender() {
 unsigned long FileSender::sendString(const char* str) {
     LOG(DEBUG) << "sending: " << str;
     if (outFile.is_open()) {
-		outFile << str << "\n";
+        outFile << str << "\n";
 	} else {
 		throw(std::ios_base::failure("the connection must be opened first"));
 	}

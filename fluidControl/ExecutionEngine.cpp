@@ -50,18 +50,21 @@ bool ExecutionEngine::exec_general() throw (std::runtime_error) {
 		Sleep(3000);
 		
 		correct = exec();
-		mapping->stopCommunications();
+        mapping->stopCommunications();
+        mapping->cleanUsedResources();
 	}
 	catch (std::invalid_argument& e) {
+        mapping->cleanUsedResources();
 		throw(std::runtime_error("exception while executing, " + std::string(e.what())));
 	}
 	catch (std::ios_base::failure& e) {
+        mapping->cleanUsedResources();
 		throw(std::runtime_error("exception while connecting, " + std::string(e.what())));
 	}
 	catch (std::runtime_error & e) {
+        mapping->cleanUsedResources();
 		throw(std::runtime_error("exception while executing, " + std::string(e.what())));
-	}
-
+    }
 	return		correct;
 }
 
@@ -114,14 +117,18 @@ bool ExecutionEngine::test() throw (std::runtime_error) {
 		mapping->startCommunications();
 		correct = exec();
 		mapping->stopCommunications();
-	}
-	catch (std::invalid_argument& e) {
+        mapping->cleanUsedResources();
+
+    } catch (std::invalid_argument& e) {
+        mapping->cleanUsedResources();
 		throw(std::runtime_error("exception while executing, " + std::string(e.what())));
 	}
 	catch (std::ios_base::failure& e) {
+        mapping->cleanUsedResources();
 		throw(std::runtime_error("exception while connecting, " + std::string(e.what())));
 	}
 	catch (std::runtime_error & e) {
+        mapping->cleanUsedResources();
 		throw(std::runtime_error("exception while executing, " + std::string(e.what())));
 	}
 	return correct;

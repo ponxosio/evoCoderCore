@@ -425,3 +425,8 @@ std::string ExecutableMachineGraph::getAlias(int id) {
     }
     return vuelta;
 }
+
+void ExecutableMachineGraph::clearUsedResources() {
+    usedNodes->clear();
+    usedEges->clear();
+}

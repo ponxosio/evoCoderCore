@@ -82,6 +82,7 @@ public:
 	void printSketch(const std::string & path);
 	void startCommunications();
 	void stopCommunications();
+    void cleanUsedResources();
 
 	inline void setTimestamp(long actual) {
 		this->lastTimestamp = actual;
