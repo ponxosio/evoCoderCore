@@ -474,8 +474,10 @@ void Mapping::exec_setContinuosFlow(int idSource, int idTarget, double rate) thr
 			actual->getIdTarget());
 
 		if (source->getType()->hasMovementType(MovementType::continuous)) {
-			source->setPositionExtract(actual->getIdSource(), actual->getIdTarget());
-			target->setPositionInject(actual->getIdSource(), actual->getIdTarget());
+            if (rate > 0) {
+                source->setPositionExtract(actual->getIdSource(), actual->getIdTarget());
+                target->setPositionInject(actual->getIdSource(), actual->getIdTarget());
+            }
 			source->extractLiquid(rate);
 			target->receiveLiquid(rate);
 

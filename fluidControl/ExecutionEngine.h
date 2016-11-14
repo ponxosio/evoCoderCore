@@ -76,6 +76,8 @@ public:
 	bool exec_ep() throw (std::runtime_error);
 
 	bool sketcher();
+
+    void printProtocol(const std::string & path);
 	/**
 	 * Tries to execute a test of the protocol on the machine
 	 * @return true if all was correct, false otherwise
@@ -92,7 +94,6 @@ public:
 	{
 		return mapping;
 	}
-
 protected:
 	/**
 	 * protocol graph with the protocol being executed

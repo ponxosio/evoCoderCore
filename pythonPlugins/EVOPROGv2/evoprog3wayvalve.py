@@ -11,7 +11,7 @@ class Evoprog3WayValve(Control):
 		self.availablePos.remove(self.closePos)
 		self.motorPositions = [0,1,2,3]
 		self.map = {}
-		self.lastPosition = self.closePos
+		self.lastPosition = -1
 
 	@classmethod
 	def getParamsType(cls):
@@ -30,9 +30,7 @@ class Evoprog3WayValve(Control):
 		"""
 			must register a new connection between idSource container and idTarget container
 		"""
-		if pos != -1:
-			if pos in self.availablePos :
-				self.map[(idSource, idTarget)] = self.motorPositions[pos]
+		self.map[(idSource, idTarget)] = pos
 
 	def setConnection(self, idSource, idTarget, communications):
 		"""

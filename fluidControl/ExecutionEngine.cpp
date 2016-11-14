@@ -29,6 +29,10 @@ ExecutionEngine::~ExecutionEngine() {
 	//delete mapping;
 }
 
+void ExecutionEngine::printProtocol(const std::string & path) {
+    protocol->printProtocol(path);
+}
+
 bool ExecutionEngine::exec_general() throw (std::runtime_error) {
 	bool correct = false;
 	CommunicationsInterface::GetInstance()->setTesting(false);

@@ -103,13 +103,13 @@ void BioBlocksJSONReader::readInstructions(const nlohmann::json & js, OperationH
 
 void BioBlocksJSONReader::parseHeap(OperationHeap & operationHeap, ProtocolGraph* protocol) {
     if (!operationHeap.empty()) {
-        std::shared_ptr<MathematicOperable> endTime(new ConstantNumber(finishTime));
+        std::shared_ptr<MathematicOperable> endTime(new ConstantNumber(finishTime + 2*timeSlice));
         std::shared_ptr<VariableEntry> time(
             new VariableEntry(TIME_VARIABLE));
         std::shared_ptr<MathematicOperable> mtime(
                     new VariableEntry(TIME_VARIABLE));
         std::shared_ptr<ComparisonOperable> comp1(
-                    new SimpleComparison(false, mtime, comparison::less, endTime));
+                    new SimpleComparison(false, mtime, comparison::less_equal, endTime));
 
         ProtocolGraph::ProtocolNodePtr loop1 = std::make_shared<LoopNode>(graph_sequence.getNextValue(), comp1);
 
@@ -143,19 +143,28 @@ void BioBlocksJSONReader::parseHeap(OperationHeap & operationHeap, ProtocolGraph
                 }
                 lastOp.clear();
 
+                std::shared_ptr<OperationNode> lastYesBranch = actualIfBlock;
+                std::shared_ptr<OperationNode> lastNoBranch = actualIfBlock;
+                std::shared_ptr<ComparisonOperable> lastYesComp = yesComp;
+                std::shared_ptr<ComparisonOperable> lastNoComp = noComp;
+
                 for (BioBlocks::PipetteOperation pipette: sameBlockOps) {
                     std::shared_ptr<OperationNode> pipetteNode = toOperationNode(pipette);
                     protocol->addOperation(pipetteNode);
-                    protocol->connectOperation(actualIfBlock, pipetteNode, yesComp);
+                    protocol->connectOperation(lastYesBranch, pipetteNode, lastYesComp);
 
                     pipette.rate = 0;
                     std::shared_ptr<OperationNode> pipetteNodeStop = toOperationNode(pipette);
                     protocol->addOperation(pipetteNodeStop);
-                    protocol->connectOperation(actualIfBlock, pipetteNodeStop, noComp);
+                    protocol->connectOperation(lastNoBranch, pipetteNodeStop, lastNoComp);
 
-                    lastOp.push_back(pipetteNodeStop);
-                    lastOp.push_back(pipetteNode);
+                    lastYesBranch = pipetteNode;
+                    lastNoBranch = pipetteNodeStop;
+                    lastYesComp = tautology;
+                    lastNoComp = tautology;
                 }
+                lastOp.push_back(lastYesBranch);
+                lastOp.push_back(lastNoBranch);
                 sameBlockOps.clear();
 
                 lastComp = tautology;
@@ -179,19 +188,28 @@ void BioBlocksJSONReader::parseHeap(OperationHeap & operationHeap, ProtocolGraph
             }
             lastOp.clear();
 
+            std::shared_ptr<OperationNode> lastYesBranch = actualIfBlock;
+            std::shared_ptr<OperationNode> lastNoBranch = actualIfBlock;
+            std::shared_ptr<ComparisonOperable> lastYesComp = yesComp;
+            std::shared_ptr<ComparisonOperable> lastNoComp = noComp;
+
             for (BioBlocks::PipetteOperation pipette: sameBlockOps) {
                 std::shared_ptr<OperationNode> pipetteNode = toOperationNode(pipette);
                 protocol->addOperation(pipetteNode);
-                protocol->connectOperation(actualIfBlock, pipetteNode, yesComp);
+                protocol->connectOperation(lastYesBranch, pipetteNode, lastYesComp);
 
                 pipette.rate = 0;
                 std::shared_ptr<OperationNode> pipetteNodeStop = toOperationNode(pipette);
                 protocol->addOperation(pipetteNodeStop);
-                protocol->connectOperation(actualIfBlock, pipetteNodeStop, noComp);
+                protocol->connectOperation(lastNoBranch, pipetteNodeStop, lastNoComp);
 
-                lastOp.push_back(pipetteNodeStop);
-                lastOp.push_back(pipetteNode);
+                lastYesBranch = pipetteNode;
+                lastNoBranch = pipetteNodeStop;
+                lastYesComp = tautology;
+                lastNoComp = tautology;
             }
+            lastOp.push_back(lastYesBranch);
+            lastOp.push_back(lastNoBranch);
             sameBlockOps.clear();
 
             lastComp = tautology;
@@ -225,9 +243,9 @@ std::shared_ptr<OperationNode> BioBlocksJSONReader::createIfBlock(long initTime,
             shared_ptr<MathematicOperable>(new VariableEntry(TIME_VARIABLE));
 
     shared_ptr<ComparisonOperable> compareInit =
-            shared_ptr<ComparisonOperable>(new SimpleComparison(false, vTime, comparison::greater, init));
+            shared_ptr<ComparisonOperable>(new SimpleComparison(false, vTime, comparison::greater_equal, init));
     shared_ptr<ComparisonOperable> compareEnd =
-            shared_ptr<ComparisonOperable>(new SimpleComparison(false, vTime, comparison::less_equal, end));
+            shared_ptr<ComparisonOperable>(new SimpleComparison(false, vTime, comparison::less, end));
     shared_ptr<ComparisonOperable> andCompare =
             shared_ptr<ComparisonOperable>(new BooleanComparison(false, compareInit, logical::BooleanOperator::conjunction, compareEnd));
     shared_ptr<ComparisonOperable> notAndCompare =

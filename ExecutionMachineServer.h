@@ -37,6 +37,7 @@ public:
 	std::string addNewMachine(const std::string & jsonFilePath);
 	std::shared_ptr<ExecutableMachineGraph> getMachine(const std::string & machineName) throw (std::invalid_argument);
 	int getMachineComId(const std::string & name);
+    void changeMachineComId(const std::string & name, int id);
 	std::vector<std::shared_ptr<ExecutableMachineGraph>> getAvailableMachines();
 
 	//getter & setter

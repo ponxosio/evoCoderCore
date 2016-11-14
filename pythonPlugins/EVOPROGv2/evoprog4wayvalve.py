@@ -11,7 +11,7 @@ class Evoprog4WayValve(Control):
 		self.availablePos.remove(self.closePos)
 		self.motorPositions = [0,1,2,3,4]
 		self.map = {}
-		self.lastPosition = self.closePos
+		self.lastPosition = -1
 
 	@classmethod
 	def getParamsType(cls):
