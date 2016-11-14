@@ -21,6 +21,7 @@ Mapping::Mapping(std::shared_ptr<ExecutableMachineGraph> machine, const string &
 		this->communicationsInterfaces->push_back(*it);
 	}
 
+    this->sleepMs = 1000;
 }
 
 Mapping::~Mapping() {
@@ -229,6 +230,22 @@ double Mapping::timeStept() {
 		break;
 	}
 	return vuelta;
+}
+
+void Mapping::setTimeStep(long sleepMs) {
+    switch (operation) {
+    case mapping::sketch:
+        sketching_setTimeStep(sleepMs);
+        break;
+    case mapping::exec_general:
+        exec_setTimeStep(sleepMs);
+        break;
+    case mapping::exec_ep:
+        exec_setTimeStep(sleepMs);
+        break;
+    default:
+        break;
+    }
 }
 
 //SKETCH
@@ -456,6 +473,11 @@ double Mapping::sketching_timeStep() {
 	return 1;
 }
 
+void Mapping::sketching_setTimeStep(long sleepMs) {
+    LOG(DEBUG) << "sketching setTimeStept";
+    this->sleepMs = sleepMs;
+}
+
 //EXEC
 void Mapping::exec_setContinuosFlow(int idSource, int idTarget, double rate) throw (std::runtime_error) {
     LOG(INFO) << "exec setContinousFlow(" << patch::to_string(idSource) << ", "
@@ -605,19 +627,27 @@ double Mapping::exec_timeStep() {
     LOG(INFO) << "executing timeStept:";
     long msPassed;
 	if (this->testing) {
-		msPassed = SLEEP_MS;
+        msPassed = sleepMs;
 	}
 	else {
 
 		long tempTimestamp = Utils::getCurrentTimeMilis();
 		msPassed = tempTimestamp - lastTimestamp;
+        if ((sleepMs - msPassed) > 0) {
+            Sleep(sleepMs - msPassed);
+            msPassed = sleepMs;
+        }
+        tempTimestamp = Utils::getCurrentTimeMilis();
 		lastTimestamp = tempTimestamp;
-		LOG(DEBUG) << "executing timeStept: passed " << msPassed << " ms";
+        LOG(DEBUG) << "executing timeStept: passed " << msPassed  << " ms";
 	}
-
 	cfEngine->updateVolumens(msPassed);
-
 	return (msPassed);
+}
+
+void Mapping::exec_setTimeStep(long sleepMs) {
+    LOG(INFO) << "executing setTimeStept:";
+    this->sleepMs = sleepMs;
 }
 
 //MISCELANEOUS

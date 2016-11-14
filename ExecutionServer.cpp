@@ -101,13 +101,15 @@ std::string ExecutionServer::addProtocolOnExistingMachine(std::shared_ptr<Protoc
     return executionReference;
 }
 
-std::string ExecutionServer::addBioBlocksProtocolOnNewMachine(const std::string & bioBlocksJson, const std::string & machineJson) {
-    std::shared_ptr<ProtocolGraph> translatedProtocol(BioBlocksJSONReader::GetInstance()->loadFile(bioBlocksJson));
+std::string ExecutionServer::addBioBlocksProtocolOnNewMachine(const std::string & bioBlocksJson, const std::string & machineJson, long timeSlice) {
+    BioBlocksJSONReader reader(bioBlocksJson, timeSlice);
+    std::shared_ptr<ProtocolGraph> translatedProtocol = reader.getProtocol();
     return addProtocolOnNewMachine(translatedProtocol, machineJson);
 }
 
-std::string ExecutionServer::addBioBlocksProtocolOnExistingMachine(const std::string & bioBlocksJson, const std::string & machineReference) throw (std::invalid_argument) {
-    std::shared_ptr<ProtocolGraph> translatedProtocol(BioBlocksJSONReader::GetInstance()->loadFile(bioBlocksJson));
+std::string ExecutionServer::addBioBlocksProtocolOnExistingMachine(const std::string & bioBlocksJson, const std::string & machineReference, long timeSlice) throw (std::invalid_argument) {
+    BioBlocksJSONReader reader(bioBlocksJson, timeSlice);
+    std::shared_ptr<ProtocolGraph> translatedProtocol = reader.getProtocol();
     return addProtocolOnExistingMachine(translatedProtocol, machineReference);
 }
 

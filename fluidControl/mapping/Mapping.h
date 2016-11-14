@@ -10,8 +10,6 @@
 
 #pragma warning( disable : 4290 )
 
-#define SLEEP_MS 1000
-
 #include <stdexcept>
 #include <sstream>
 #include <vector>
@@ -45,7 +43,9 @@ enum MappingOperation {
 
 class MAPPING_EXPORT Mapping {
 public:
-	Mapping() {}
+    Mapping() {
+        this->sleepMs = 1000;
+    }
 	Mapping(std::shared_ptr<ExecutableMachineGraph> machine, const std::string & name, const std::vector<int> & communicationInterface);
 	virtual ~Mapping();
 
@@ -62,6 +62,7 @@ public:
 	double measureOD(int id) throw (std::runtime_error);
 
 	double timeStept();
+    void setTimeStep(long sleepMs);
 
     //miscelaneous
     std::string printMappingTable();
@@ -103,6 +104,7 @@ protected:
 	
 	std::vector<int>* communicationsInterfaces;
 	long lastTimestamp;
+    long sleepMs;
 
 	//SKETCHING
 	void sketching_setContinuosFlow(int idSource, int idTarget, double rate);
@@ -116,6 +118,7 @@ protected:
 
 	void sketching_measureOD(int id);
 	double sketching_timeStep();
+    void sketching_setTimeStep(long sleepMs);
 
 	void transformSourceContainer(int idSource, int idTarget, MachineGraph::ContainerNodePtr sourceNode, MovementType desiredType);
 	void transformTargetContainer(int idSource, int idTarget, MachineGraph::ContainerNodePtr targetNode);
@@ -133,6 +136,7 @@ protected:
 	double exec_measureOD(int id) throw (std::runtime_error);
 
 	double exec_timeStep();
+    void exec_setTimeStep(long sleepMs);
 };
 
 #endif /* SRC_FLUIDCONTROL_MAPPING_H_ */

@@ -89,7 +89,8 @@ SOURCES += \
     util/logutils.cpp \
     plugin/actuators/compoundcontrolplugin.cpp \
     plugin/actuators/valvecontrolledtwinpump.cpp \
-    protocolGraph/operations/container/containeroperation.cpp
+    protocolGraph/operations/container/containeroperation.cpp \
+    protocolGraph/operations/container/settimestep.cpp
 
 HEADERS +=\
         evocodercore_global.h \
@@ -182,7 +183,8 @@ HEADERS +=\
     ExecutionServer.h \
     util/logutils.h \
     plugin/actuators/compoundcontrolplugin.h \
-    plugin/actuators/valvecontrolledtwinpump.h
+    plugin/actuators/valvecontrolledtwinpump.h \
+    protocolGraph/operations/container/settimestep.h
 
 unix {
     target.path = /usr/lib
