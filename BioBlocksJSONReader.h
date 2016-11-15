@@ -74,6 +74,9 @@ public:
 
     std::shared_ptr<ProtocolGraph> getProtocol();
 
+    float parseVolume(const std::string & text);
+    float parseTime(const std::string & text);
+    float parseFlowRate(const std::string & text) throw (std::invalid_argument);
 protected:
     std::shared_ptr<ProtocolGraph> protocol;
     std::unordered_map<std::string, int> containerMap;
@@ -117,9 +120,6 @@ protected:
 
     float toMillilitersPower(std::string unit) throw (std::invalid_argument);
     float toMillisecondsPower(std::string unit) throw (std::invalid_argument);
-    float parseVolume(const std::string & text);
-    float parseTime(const std::string & text);
-    float parseFlowRate(const std::string & text) throw (std::invalid_argument);
 
     std::shared_ptr<OperationNode> toOperationNode(const BioBlocks::PipetteOperation & op);
 };

@@ -494,7 +494,7 @@ float BioBlocksJSONReader::parseFlowRate(const std::string & text) throw (std::i
         string volumeUnit = units.substr(0, posSep);
         string timeUnit = units.substr(posSep + 1);
 
-        value = value * toMillilitersPower(volumeUnit) * (toMillisecondsPower(timeUnit) * 1.0e-1);
+        value = value * (toMillilitersPower(volumeUnit)/toMillisecondsPower(timeUnit));
     } else {
         throw(std::invalid_argument("flow rate units with wrong format, no /"));
     }
