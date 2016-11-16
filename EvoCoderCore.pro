@@ -90,7 +90,8 @@ SOURCES += \
     plugin/actuators/compoundcontrolplugin.cpp \
     plugin/actuators/valvecontrolledtwinpump.cpp \
     protocolGraph/operations/container/containeroperation.cpp \
-    protocolGraph/operations/container/settimestep.cpp
+    protocolGraph/operations/container/settimestep.cpp \
+    fluidControl/mapping/activeflowanalizer.cpp
 
 HEADERS +=\
         evocodercore_global.h \
@@ -184,7 +185,8 @@ HEADERS +=\
     util/logutils.h \
     plugin/actuators/compoundcontrolplugin.h \
     plugin/actuators/valvecontrolledtwinpump.h \
-    protocolGraph/operations/container/settimestep.h
+    protocolGraph/operations/container/settimestep.h \
+    fluidControl/mapping/activeflowanalizer.h
 
 unix {
     target.path = /usr/lib

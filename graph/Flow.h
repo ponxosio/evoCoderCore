@@ -11,6 +11,7 @@
 #pragma warning( disable : 4290 )
 
 #include <vector>
+#include <cmath>
 
 // boost library
 #include <boost/static_assert.hpp>
@@ -75,20 +76,8 @@ public:
 		return paths;
 	}
 
-	inline bool operator == (const Flow<EdgeType>& rhs) {
-		bool equal = (this->idStart == rhs.idStart) && (this->idFinish == rhs.idFinish);
-		if (equal) {
-			for (auto its = this->paths.begin(); equal && its != this->paths.end(); ++its) {
-				bool finded = false;
-				FlowEdgePtr actuals = *its;
-				for (auto itr = rhs.paths.begin(); !finded && its != rhs.paths.end(); ++its) {
-					FlowEdgePtr actualr = *itr;
-					finded = actuals->equals(*(actualr.get()));
-				}
-				equal = finded;
-			}
-		}
-	}
+    bool operator == (const Flow<EdgeType>& rhs);
+    size_t operator() (const Flow<EdgeType> & flow) const;
 protected:
 	int idStart;
 	int idFinish;
@@ -186,6 +175,39 @@ std::string Flow<EdgeType>::toText() {
 		text += actual->toText();
 	}
 	return text;
+}
+
+template<class EdgeType>
+size_t Flow<EdgeType>::operator() (const Flow<EdgeType> & flow) const {
+    size_t hash = 0;
+
+    int size = flow.paths.size();
+    for (int i = 0; i < size; i++) {
+        float base = pow(10, i);
+        FlowEdgePtr node = flow.paths.at(i);
+
+        hash += node->getIdSource() * base;
+        if (i == (size - 1)) {
+            hash += node->getIdTarget() * base * 10;
+        }
+    }
+    return hash;
+}
+
+template<class EdgeType>
+bool Flow<EdgeType>::operator == (const Flow<EdgeType>& rhs) {
+    bool equal = (this->idStart == rhs.idStart) && (this->idFinish == rhs.idFinish);
+    if (equal) {
+        for (auto its = this->paths.begin(); equal && its != this->paths.end(); ++its) {
+            bool finded = false;
+            FlowEdgePtr actuals = *its;
+            for (auto itr = rhs.paths.begin(); !finded && its != rhs.paths.end(); ++its) {
+                FlowEdgePtr actualr = *itr;
+                finded = actuals->equals(*(actualr.get()));
+            }
+            equal = finded;
+        }
+    }
 }
 
 #endif /* SRC_GRAPH_FLOW_H_ */
