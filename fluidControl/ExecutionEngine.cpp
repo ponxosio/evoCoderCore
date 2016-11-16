@@ -39,6 +39,7 @@ bool ExecutionEngine::exec_general() throw (std::runtime_error) {
 	mapping->settesting(false);
 	try {
 		sketcher();
+        analizeFlows();
 		mapping->doMapping();
 
 		table.get()->clear();
@@ -74,6 +75,7 @@ bool ExecutionEngine::exec_ep() throw (std::runtime_error) {
 	mapping->settesting(false);
 	try {
 		sketcher();
+        analizeFlows();
 		mapping->doMapping();
 
 		table.get()->clear();
@@ -101,7 +103,7 @@ bool ExecutionEngine::test() throw (std::runtime_error) {
 	CommunicationsInterface::GetInstance()->setTesting(true);
 	try {
 		sketcher();
-
+        analizeFlows();
         LOG(INFO) << "printing minimal machine...";
         mapping->printSketch("sketch_protocol.graph");
 
@@ -191,4 +193,16 @@ void ExecutionEngine::addAvailableEdges(ProtocolNodeQueue & nodes) {
 void ExecutionEngine::initilizeTime() {
 	table->setValue(TIME_VARIABLE, 0.0);
 	mapping->setTimestamp(Utils::getCurrentTimeMilis());
+}
+
+bool ExecutionEngine::analizeFlows() {
+    LOG(DEBUG) << "analizing active flows";
+    bool correct;
+
+    mapping->setAnalizeFlowInTime();
+    table.get()->clear();
+    initilizeTime();
+
+    correct = exec();
+    return correct;
 }

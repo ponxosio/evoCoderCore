@@ -117,6 +117,8 @@ protected:
 	void initilizeTime();
 	void addAvailableEdges(ProtocolNodeQueue & nodes);
 
+    bool analizeFlows();
+
 	//exec methods
 	bool exec();
 

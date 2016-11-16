@@ -69,6 +69,7 @@ public:
 
 	void printMachine(const std::string & path);
 
+    typename ContainerEdgePtr getEdge(int idSource, int idTarget) throw (std::invalid_argument);
 	/**
 	 * return if a certain container already exists in the machine
 	 * @param idContainer ID of the container

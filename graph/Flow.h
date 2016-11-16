@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <cmath>
+#include <string>
 
 // boost library
 #include <boost/static_assert.hpp>
@@ -76,8 +77,7 @@ public:
 		return paths;
 	}
 
-    bool operator == (const Flow<EdgeType>& rhs);
-    size_t operator() (const Flow<EdgeType> & flow) const;
+    bool operator == (const Flow<EdgeType>& rhs) const;
 protected:
 	int idStart;
 	int idFinish;
@@ -178,24 +178,7 @@ std::string Flow<EdgeType>::toText() {
 }
 
 template<class EdgeType>
-size_t Flow<EdgeType>::operator() (const Flow<EdgeType> & flow) const {
-    size_t hash = 0;
-
-    int size = flow.paths.size();
-    for (int i = 0; i < size; i++) {
-        float base = pow(10, i);
-        FlowEdgePtr node = flow.paths.at(i);
-
-        hash += node->getIdSource() * base;
-        if (i == (size - 1)) {
-            hash += node->getIdTarget() * base * 10;
-        }
-    }
-    return hash;
-}
-
-template<class EdgeType>
-bool Flow<EdgeType>::operator == (const Flow<EdgeType>& rhs) {
+bool Flow<EdgeType>::operator == (const Flow<EdgeType>& rhs) const{
     bool equal = (this->idStart == rhs.idStart) && (this->idFinish == rhs.idFinish);
     if (equal) {
         for (auto its = this->paths.begin(); equal && its != this->paths.end(); ++its) {
@@ -208,6 +191,7 @@ bool Flow<EdgeType>::operator == (const Flow<EdgeType>& rhs) {
             equal = finded;
         }
     }
+    return equal;
 }
 
 #endif /* SRC_GRAPH_FLOW_H_ */

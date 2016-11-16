@@ -10,7 +10,7 @@
 Mapping::Mapping(std::shared_ptr<ExecutableMachineGraph> machine, const string & name, const std::vector<int> & communicationInterface) {
 	this->machine = machine;
 	this->sketch = new MachineGraph(name);
-	this->operation = mapping::sketch;
+    this->operation = MappingOperation::sketch;
 	this->engine = new MappingEngine(this->sketch, machine);
 	this->cfEngine = new ContinuousFlowEngine(machine);
 	this->lastTimestamp = -1;
@@ -33,27 +33,35 @@ Mapping::~Mapping() {
 
 //OPERATIONS
 bool Mapping::isSketching() {
-	return (operation == mapping::sketch);
+    return (operation == MappingOperation::sketch);
 }
 
 void Mapping::setSketching() {
-	operation = mapping::sketch;
+    operation = MappingOperation::sketch;
 }
 
 bool Mapping::isExec_ep() {
-	return (operation == mapping::exec_ep);
+    return (operation == MappingOperation::exec_ep);
 }
 
 void Mapping::setExec_ep() {
-	operation = mapping::exec_ep;
+    operation = MappingOperation::exec_ep;
 }
 
 bool Mapping::isExec_general() {
-	return (operation == mapping::exec_general);
+    return (operation == MappingOperation::exec_general);
 }
 
 void Mapping::setExec_general() {
-	operation = mapping::exec_general;
+    operation = MappingOperation::exec_general;
+}
+
+bool Mapping::isAnalizeFlowInTime() {
+    return (operation == MappingOperation::analizeFlowsInTime);
+}
+
+void Mapping::setAnalizeFlowInTime() {
+    operation = MappingOperation::analizeFlowsInTime;
 }
 
 void Mapping::doMapping() throw (std::invalid_argument) {
@@ -66,15 +74,18 @@ void Mapping::doMapping() throw (std::invalid_argument) {
 void Mapping::setContinuosFlow(int idSource, int idTarget, double rate) throw (std::runtime_error) {
 
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		sketching_setContinuosFlow(idSource, idTarget, rate);
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		exec_setContinuosFlow(idSource, idTarget, rate);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		exec_setContinuosFlow(idSource, idTarget, rate);
 		break;
+    case MappingOperation::analizeFlowsInTime:
+        analizing_setContinuosFlow(idSource, idTarget, rate);
+        break;
 	default:
 		break;
 	}
@@ -83,13 +94,13 @@ void Mapping::setContinuosFlow(int idSource, int idTarget, double rate) throw (s
 void Mapping::transfer(int idSource, int idTarget, double volume) throw (std::runtime_error) {
 
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		sketching_transfer(idSource, idTarget, volume);
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		exec_transfer(idSource, idTarget, volume);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		exec_transfer(idSource, idTarget, volume);
 		break;
 	default:
@@ -99,13 +110,13 @@ void Mapping::transfer(int idSource, int idTarget, double volume) throw (std::ru
 
 void Mapping::mix(int source1, int source2, int target, double volume1, double volume2) throw (std::runtime_error) {
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		sketching_mix(source1, source2, target, volume1, volume2);
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		exec_mix(source1, source2, target, volume1, volume2);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		exec_mix(source1, source2, target, volume1, volume2);
 		break;
 	default:
@@ -115,13 +126,13 @@ void Mapping::mix(int source1, int source2, int target, double volume1, double v
 
 void Mapping::applyLight(int id, double wavelength, double intensity) throw (std::runtime_error) {
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		sketching_applyLight(id, wavelength, intensity);
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		exec_applyLight(id, wavelength, intensity);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		exec_applyLight(id, wavelength, intensity);
 		break;
 	default:
@@ -131,13 +142,13 @@ void Mapping::applyLight(int id, double wavelength, double intensity) throw (std
 
 void Mapping::applyTemperature(int id, double degrees) throw (std::runtime_error) {
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		sketching_applyTemperature(id, degrees);
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		exec_applyTemperature(id, degrees);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		exec_applyTemperature(id, degrees);
 		break;
 	default:
@@ -147,13 +158,13 @@ void Mapping::applyTemperature(int id, double degrees) throw (std::runtime_error
 
 void Mapping::stir(int id, double intensity) throw (std::runtime_error) {
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		sketching_stir(id);
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		exec_stir(id, intensity);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		exec_stir(id, intensity);
 		break;
 	default:
@@ -165,12 +176,12 @@ double Mapping::getVolume(int id) {
 	double vuelta = -1.0;
 
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		vuelta = exec_getVolume(id);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		vuelta = exec_getVolume(id);
 		break;
 	default:
@@ -183,13 +194,13 @@ double Mapping::measureOD(int id) throw (std::runtime_error) {
 	double vuelta = -1.0;
 
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		sketching_measureOD(id);
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		vuelta = exec_measureOD(id);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		vuelta = exec_measureOD(id);
 		break;
 	default:
@@ -200,13 +211,13 @@ double Mapping::measureOD(int id) throw (std::runtime_error) {
 
 void Mapping::loadContainer(int containerID, double volume) {
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		sketching_loadContainer(containerID, volume);
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		exec_loadContainer(containerID, volume);
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		exec_loadContainer(containerID, volume);
 		break;
 	default:
@@ -214,18 +225,26 @@ void Mapping::loadContainer(int containerID, double volume) {
 	}
 }
 
-double Mapping::timeStept() {
+double Mapping::timeStept() throw (std::runtime_error){
 	double vuelta = -1.0;
 	switch (operation) {
-	case mapping::sketch:
+    case MappingOperation::sketch:
 		vuelta = sketching_timeStep();
 		break;
-	case mapping::exec_general:
+    case MappingOperation::exec_general:
 		vuelta = exec_timeStep();
 		break;
-	case mapping::exec_ep:
+    case MappingOperation::exec_ep:
 		vuelta = exec_timeStep();
 		break;
+    case MappingOperation::analizeFlowsInTime:
+        try {
+            vuelta = analizing_timeStep();
+        } catch (std::runtime_error & e) {
+            throw(std::runtime_error(e.what()));
+        }
+        break;
+
 	default:
 		break;
 	}
@@ -234,14 +253,17 @@ double Mapping::timeStept() {
 
 void Mapping::setTimeStep(long sleepMs) {
     switch (operation) {
-    case mapping::sketch:
+    case MappingOperation::sketch:
         sketching_setTimeStep(sleepMs);
         break;
-    case mapping::exec_general:
+    case MappingOperation::exec_general:
         exec_setTimeStep(sleepMs);
         break;
-    case mapping::exec_ep:
+    case MappingOperation::exec_ep:
         exec_setTimeStep(sleepMs);
+        break;
+    case MappingOperation::analizeFlowsInTime:
+        analizing_setTimeStep(sleepMs);
         break;
     default:
         break;
@@ -650,6 +672,39 @@ void Mapping::exec_setTimeStep(long sleepMs) {
     this->sleepMs = sleepMs;
 }
 
+//ANALIZING FLOWS
+void Mapping::analizing_setContinuosFlow(int idSource, int idTarget, double rate) throw (std::runtime_error) {
+    try {
+        MachineGraph::ContainerEdgePtr edge = sketch->getEdge(idSource, idTarget);
+        if (rate > 0) {
+            actualFlowGenerator.addEdge(edge);
+        } else {
+            actualFlowGenerator.removeEdge(edge);
+        }
+    } catch (std::invalid_argument & e) {
+        throw(std::runtime_error("error ocurred while analizing the setContinuousFlow(" +
+                                 patch::to_string(idSource) + "," +
+                                 patch::to_string(idTarget) + "," +
+                                 patch::to_string(rate) + ") :" +
+                                 std::string(e.what())));
+    }
+}
+
+double Mapping::analizing_timeStep() throw (std::runtime_error){
+    try {
+        Flow<EdgeType> flow = actualFlowGenerator.makePossibleFlowsBacktraking();
+        existingFlowsSet.insert(flow);
+        actualFlowGenerator.clearEdges();
+    } catch(std::runtime_error & e) {
+        throw(std::runtime_error("exception while executing timeStep(), " +
+                                 std::string(e.what())));
+    }
+}
+
+void Mapping::analizing_setTimeStep(long sleepMs) {
+    this->sleepMs = sleepMs;
+}
+
 //MISCELANEOUS
 void Mapping::printSketch(const std::string& path) {
 	sketch->printMachine(path);
@@ -691,5 +746,6 @@ std::string Mapping::printMappingTable() {
 }
 
 void Mapping::cleanUsedResources() {
+
     engine->cleanUsedResources();
 }

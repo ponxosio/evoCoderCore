@@ -126,7 +126,7 @@ public:
 	 */
 	inline virtual bool isEdge (const std::string & line) {
 		return (line.find("->") != std::string::npos);
-	}
+    }
 
 	//SERIALIZATIoN
 	template<class Archive>

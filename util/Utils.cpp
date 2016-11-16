@@ -89,3 +89,20 @@ bool Utils::starts_with(std::string const &a, std::string const &b) {
 	}
 	return starts;
 }
+
+size_t Utils::strToSizeT(const std::string & str) throw(std::invalid_argument) {
+    size_t value;
+    if (sscanf(str.c_str(), "%zu", &value)) {
+        return value;
+    }  else {
+        throw(std::invalid_argument("\"" + str + "\" not a number."));
+    }
+}
+
+size_t Utils::cantorParingFunction(int k1, int k2) {
+    return (0.5 * (k1 + k2) * (k1 + k2 + 1)) + k2;
+}
+
+size_t Utils::cantorParingFunction(long k1, long k2) {
+    return (0.5 * (k1 + k2) * (k1 + k2 + 1)) + k2;
+}

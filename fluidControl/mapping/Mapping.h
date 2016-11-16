@@ -29,20 +29,24 @@
 #include "fluidControl/machineGraph/MachineGraph.h"
 #include "MappingEngine.h"
 #include "ContinuousFlowEngine.h"
+#include "graph/flowgenerator.h"
+#include "graph/flowhash.h"
 
 #include "evocodercore_global.h"
 
-namespace mapping {
 /*** Enum for the operation the mapping will do ***/
-enum MappingOperation {
+typedef enum MappingOperation_ {
 	sketch,
 	exec_ep,
-	exec_general,
-};
-}
+    exec_general,
+    analizeFlowsInTime
+} MappingOperation;
+
 
 class MAPPING_EXPORT Mapping {
 public:
+    typedef Edge EdgeType;
+
     Mapping() {
         this->sleepMs = 1000;
     }
@@ -61,7 +65,7 @@ public:
 	double getVolume(int id);
 	double measureOD(int id) throw (std::runtime_error);
 
-	double timeStept();
+    double timeStept() throw (std::runtime_error);
     void setTimeStep(long sleepMs);
 
     //miscelaneous
@@ -79,6 +83,9 @@ public:
 	bool isExec_general();
 	void setExec_general();
 
+    bool isAnalizeFlowInTime();
+    void setAnalizeFlowInTime();
+
 	//miscellaneous
 	void printSketch(const std::string & path);
 	void startCommunications();
@@ -93,11 +100,14 @@ public:
 		this->testing = testing;
 	}
 protected:
-	mapping::MappingOperation operation;
+    MappingOperation operation;
 	bool testing;
 	
 	MappingEngine* engine;
-	ContinuousFlowEngine* cfEngine;
+    ContinuousFlowEngine* cfEngine;
+
+    FlowGenerator<EdgeType> actualFlowGenerator;
+    std::unordered_set<Flow<EdgeType>, FlowHash<EdgeType>> existingFlowsSet;
 	
 	MachineGraph* sketch;
 	std::shared_ptr<ExecutableMachineGraph> machine;
@@ -137,6 +147,12 @@ protected:
 
 	double exec_timeStep();
     void exec_setTimeStep(long sleepMs);
+
+    //ANALIZING FLOWS
+    void analizing_setContinuosFlow(int idSource, int idTarget, double rate) throw (std::runtime_error);
+
+    double analizing_timeStep() throw (std::runtime_error);
+    void analizing_setTimeStep(long sleepMs);
 };
 
 #endif /* SRC_FLUIDCONTROL_MAPPING_H_ */

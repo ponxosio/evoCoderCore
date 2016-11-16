@@ -8,7 +8,7 @@
 #ifndef SRC_UTIL_UTILS_H_
 #define SRC_UTIL_UTILS_H_
 
-#include <stdio.h>
+#include <cstdio>
 #include <chrono>
 #include <string>
 #include <iostream>
@@ -24,26 +24,6 @@
 #include <easylogging++.h>
 
 #include "evocodercore_global.h"
-
-typedef struct {
-	//cantor paring function
-	size_t operator()(std::tuple<int, int> x) const throw () {
-		int k1 = std::get<0>(x);
-		int k2 = std::get<1>(x);
-		size_t h = (0.5 * (k1 + k2) * (k1 + k2 + 1)) + k2;
-		return h;
-	}
-} PairIntIntHashFunction;
-
-typedef struct {
-    //cantor paring function
-    size_t operator()(std::tuple<long, long> x) const throw () {
-        long k1 = std::get<0>(x);
-        long k2 = std::get<1>(x);
-        size_t h = (0.5 * (k1 + k2) * (k1 + k2 + 1)) + k2;
-        return h;
-    }
-} PairLongLongHashFunction;
 
 using namespace std;
 
@@ -99,11 +79,32 @@ public:
 	static bool ends_with(std::string const &a, std::string const &b);
 
 	static bool starts_with(std::string const &a, std::string const &b);
+
+    static size_t strToSizeT(const std::string & str) throw(std::invalid_argument);
+
+    static size_t cantorParingFunction(int k1, int k2);
+    static size_t cantorParingFunction(long k1, long k2);
 private:
 	Utils();
 	virtual ~Utils();
 };
 
+typedef struct {
+    //cantor paring function
+    size_t operator()(std::tuple<int, int> x) const throw () {
+        int k1 = std::get<0>(x);
+        int k2 = std::get<1>(x);
+        return Utils::cantorParingFunction(k1, k2);
+    }
+} PairIntIntHashFunction;
 
+typedef struct {
+    //cantor paring function
+    size_t operator()(std::tuple<long, long> x) const throw () {
+        long k1 = std::get<0>(x);
+        long k2 = std::get<1>(x);
+        return Utils::cantorParingFunction(k1, k2);
+    }
+} PairLongLongHashFunction;
 
 #endif /* SRC_UTIL_UTILS_H_ */
