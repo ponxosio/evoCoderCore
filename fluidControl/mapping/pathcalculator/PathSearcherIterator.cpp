@@ -41,9 +41,9 @@ int PathSearcherIterator::hasNext(std::unordered_set<int> visitados)
 	return has;
 }
 
-std::shared_ptr<Flow<Edge>> PathSearcherIterator::next() throw (std::runtime_error)
+ExecutableMachineGraph::ExecutableContainerFlowPtr PathSearcherIterator::next() throw (std::runtime_error)
 {
-	std::shared_ptr<Flow<Edge>> next;
+    ExecutableMachineGraph::ExecutableContainerFlowPtr next;
 	if (lastPosition < engine->getAvialableFlows()->size()) {
 		next = engine->getAvialableFlows()->at(lastPosition);
 	} else {
@@ -53,9 +53,9 @@ std::shared_ptr<Flow<Edge>> PathSearcherIterator::next() throw (std::runtime_err
 	return next;
 }
 
-std::shared_ptr<Flow<Edge>> PathSearcherIterator::next(std::unordered_set<int> visitados) throw(std::runtime_error)
+ExecutableMachineGraph::ExecutableContainerFlowPtr PathSearcherIterator::next(std::unordered_set<int> visitados) throw(std::runtime_error)
 {
-	std::shared_ptr<Flow<Edge>> next;
+    ExecutableMachineGraph::ExecutableContainerFlowPtr next;
 	if (lastPosition < engine->getAvialableFlows()->size()) {
 		next = engine->getAvialableFlows()->at(lastPosition);
 	}

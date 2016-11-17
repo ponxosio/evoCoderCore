@@ -506,8 +506,8 @@ void Mapping::exec_setContinuosFlow(int idSource, int idTarget, double rate) thr
 		<< patch::to_string(idTarget) << ", " + patch::to_string(rate)
 		<< ")";
 
-	Flow<Edge>::FlowEdgePtr edge = std::make_shared<Edge>(idSource, idTarget);
-	Flow<Edge>* flow = engine->getMappedEdge(edge);
+    MachineGraph::ContainerEdgePtr edge = std::make_shared<MachineGraph::EdgeType>(idSource, idTarget);
+    ExecutableMachineGraph::ExecutableContainerFlow* flow = engine->getMappedEdge(edge);
 
 	for (auto it = flow->getPaths().begin(); it != flow->getPaths().end();
 		++it) {
@@ -539,7 +539,7 @@ void Mapping::exec_transfer(int idSource, int idTarget, double volume) throw (st
 		<< ")";
 
 	Flow<Edge>::FlowEdgePtr edge = std::make_shared<Edge>(idSource, idTarget);
-	Flow<Edge>* flow = engine->getMappedEdge(edge);
+    ExecutableMachineGraph::ExecutableContainerFlow* flow = engine->getMappedEdge(edge);
 
 	for (auto it = flow->getPaths().begin(); it != flow->getPaths().end();
 		++it) {
@@ -692,9 +692,12 @@ void Mapping::analizing_setContinuosFlow(int idSource, int idTarget, double rate
 
 double Mapping::analizing_timeStep() throw (std::runtime_error){
     try {
-        Flow<EdgeType> flow = actualFlowGenerator.makePossibleFlowsBacktraking();
-        existingFlowsSet.insert(flow);
-        actualFlowGenerator.clearEdges();
+        std::shared_ptr<Flow<EdgeType>> flow = actualFlowGenerator.makePossibleFlowsBacktraking();
+        if (flow && existingFlowsSet.find(flow) == existingFlowsSet.end()) {
+            existingFlowsSet.insert(flow);
+        }
+        //actualFlowGenerator.clearEdges();
+        return sleepMs;
     } catch(std::runtime_error & e) {
         throw(std::runtime_error("exception while executing timeStep(), " +
                                  std::string(e.what())));
@@ -746,6 +749,6 @@ std::string Mapping::printMappingTable() {
 }
 
 void Mapping::cleanUsedResources() {
-
-    engine->cleanUsedResources();
+    actualFlowGenerator.clearEdges();
+    clearFlowGenerator();
 }

@@ -15,19 +15,17 @@
 #include "graph/Flow.h"
 #include "util/Utils.h"
 
-#include "evocodercore_global.h"
-
-template<class EdgeType> class  FLOWGENERATOR_EXPORT FlowGenerator {
+template<class EdgeType> class  FlowGenerator {
     // Restrict this template for using only types derived from edge Interfaces
     BOOST_STATIC_ASSERT((boost::is_base_of<Edge, EdgeType>::value));
 
 public:
-    typedef std::unordered_set<std::shared_ptr<EdgeType>, EdgeHash<EdgeType>> EdgesSet;
+    typedef std::unordered_map<std::shared_ptr<EdgeType>, int, EdgeHash<EdgeType>, EdgeHash<EdgeType>> EdgesSet;
 
     FlowGenerator();
     virtual ~FlowGenerator();
 
-    Flow<EdgeType> makePossibleFlowsBacktraking() throw(std::runtime_error);
+    std::shared_ptr<Flow<EdgeType>> makePossibleFlowsBacktraking() throw(std::runtime_error);
     void addEdge(std::shared_ptr<EdgeType> edge);
     void removeEdge(std::shared_ptr<EdgeType> edge);
     void clearEdges();
@@ -51,54 +49,72 @@ FlowGenerator<EdgeType>::~FlowGenerator() {
 }
 
 template<class EdgeType>
-Flow<EdgeType> FlowGenerator<EdgeType>::makePossibleFlowsBacktraking() throw(std::runtime_error){
-    EdgesSet tempSet(edgesSet);
+std::shared_ptr<Flow<EdgeType>> FlowGenerator<EdgeType>::makePossibleFlowsBacktraking() throw(std::runtime_error){
+    if (!edgesSet.empty()) {
+        EdgesSet tempSet(edgesSet);
 
-    bool finded = false;
-    std::vector<std::shared_ptr<EdgeType>> calculatedFlow;
-    for (auto it = edgesSet.begin(); !finded && (it != edgesSet.end()); ++it) {
-        std::shared_ptr<EdgeType> initFlowEdge = *it;
+        bool finded = false;
+        std::vector<std::shared_ptr<EdgeType>> calculatedFlow;
+        for (auto it = edgesSet.begin(); !finded && (it != edgesSet.end()); ++it) {
+            std::shared_ptr<EdgeType> initFlowEdge = it->first;
 
-        //add solution
-        auto itTemp = tempSet.find(initFlowEdge);
-        tempSet.erase(itTemp);
-        calculatedFlow.push_back(initFlowEdge);
+            //add solution
+            auto itTemp = tempSet.find(initFlowEdge);
+            tempSet.erase(itTemp);
+            calculatedFlow.push_back(initFlowEdge);
 
-        //recursive call
-        finded = makePossibleFlows_recursive(calculatedFlow, initFlowEdge, tempSet);
+            //recursive call
+            finded = makePossibleFlows_recursive(calculatedFlow, initFlowEdge, tempSet);
 
-        //remove solution if failure
-        if (!finded) {
-            tempSet.insert(initFlowEdge);
-            calculatedFlow.pop_back();
+            //remove solution if failure
+            if (!finded) {
+                tempSet.insert(std::make_pair(initFlowEdge,1));
+                calculatedFlow.pop_back();
+            }
         }
-    }
 
-    if (finded) {
-        //construct solution
-        int idSource = calculatedFlow.at(0)->getIdSource();
-        int idTarget = calculatedFlow.back()->getIdTarget();
-        Flow<EdgeType> flow(idSource, idTarget, calculatedFlow);
+        if (finded) {
+            //construct solution
+            int idSource = calculatedFlow.at(0)->getIdSource();
+            int idTarget = calculatedFlow.back()->getIdTarget();
 
-        return flow;
+            return std::make_shared<Flow<EdgeType>>(idSource, idTarget, calculatedFlow);
+        } else {
+            std::string edgesSetStr = "";
+            for (auto it: edgesSet) {
+                std::shared_ptr<Edge> edge = it.first;
+                edgesSetStr += edge->toText();
+            }
+            throw (std::runtime_error("imposible to make an unique flow with all the edges in the generator: " + edgesSetStr));
+        }
     } else {
-        std::string edgesSetStr = "";
-        for (std::shared_ptr<EdgeType> edge: edgesSet) {
-            edgesSetStr += edge->toText();
-        }
-        throw (std::runtime_error("imposible to make an unique flow with all the edges in the generator: " + edgesSetStr));
+        std::shared_ptr<Flow<EdgeType>> flow;
+        return flow;
     }
 }
 
 template<class EdgeType>
 void FlowGenerator<EdgeType>::addEdge(std::shared_ptr<EdgeType> edge) {
-    edgesSet.insert(edge);
+    auto it = edgesSet.find(edge);
+    if (it == edgesSet.end()) {
+        edgesSet.insert(std::make_pair(edge,1));
+    } else {
+        int numEdges = it->second;
+        it->second = numEdges + 1;
+    }
 }
 
 template<class EdgeType>
 void FlowGenerator<EdgeType>::removeEdge(std::shared_ptr<EdgeType> edge) {
     auto it = edgesSet.find(edge);
-    edgesSet.erase(it);
+    if (it != edgesSet.end()) {
+        if (it->second == 1) {
+            edgesSet.erase(it);
+        } else {
+            int numEdges = it->second;
+            it->second = numEdges - 1;
+        }
+    }
 }
 
 template<class EdgeType>
@@ -115,7 +131,7 @@ bool FlowGenerator<EdgeType>::makePossibleFlows_recursive(std::vector<std::share
     if(!remaininEdgesSet.empty()) {
         EdgesSet tempSet(remaininEdgesSet);
         for(auto it = remaininEdgesSet.begin(); !finish && it != remaininEdgesSet.end(); ++it) {
-            std::shared_ptr<EdgeType> actualFlowEdge = *it;
+            std::shared_ptr<EdgeType> actualFlowEdge = it->first;
 
             //check compatibility
             if (lastEdgeProcessed->getIdTarget() == actualFlowEdge->getIdSource()) {
@@ -129,7 +145,7 @@ bool FlowGenerator<EdgeType>::makePossibleFlows_recursive(std::vector<std::share
 
                 //remove solution if failure
                 if (!finish) {
-                    tempSet.insert(actualFlowEdge);
+                    tempSet.insert(std::make_pair(actualFlowEdge, 1));
                     processedFlow.pop_back();
                 }
             }

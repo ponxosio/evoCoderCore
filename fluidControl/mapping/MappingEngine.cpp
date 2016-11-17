@@ -16,7 +16,7 @@ MappingEngine::MappingEngine(MachineGraph* sketch,
 
 	this->containersMap = new std::unordered_map<int,int>();
 	this->numberSolutionsMap = new std::unordered_map<int,int>();
-	this->edgeFlowMap = new std::unordered_map<std::pair<int,int>, Flow<Edge>*, PairIntIntHashFunction>();
+    this->edgeFlowMap = new std::unordered_map<std::pair<int,int>, Flow<ConditionalFlowEdge>*, PairIntIntHashFunction>();
 }
 
 MappingEngine::~MappingEngine() {
@@ -55,7 +55,7 @@ bool MappingEngine::mapSubgraph(MachineGraph::ContainerEdgeVector& edges, Execut
 
 		shared_ptr<SearcherIterator> it = getAvailableFlows(actual);
 		while (!success && it->hasNext()) {
-			shared_ptr<Flow<Edge>> actualFlow = it->next();
+            ExecutableMachineGraph::ExecutableContainerFlowPtr actualFlow = it->next();
 			if (isAvailable(actualFlow, actual)) {
 				addSolution(actual, *(actualFlow.get()));
 				success = mapSubgraph(edges, machineNodes);
@@ -101,8 +101,8 @@ bool MappingEngine::mapSubgraph(MachineGraph::ContainerEdgeVector& edges, Execut
     return success;
 }*/
 
-void MappingEngine::addSolution(MachineGraph::ContainerEdgePtr edge, const Flow<Edge> & flow) throw(std::invalid_argument){
-	Flow<Edge>* ptrFlow = new Flow<Edge>(flow);
+void MappingEngine::addSolution(MachineGraph::ContainerEdgePtr edge, const Flow<ConditionalFlowEdge> & flow) throw(std::invalid_argument){
+    Flow<ConditionalFlowEdge>* ptrFlow = new Flow<ConditionalFlowEdge>(flow);
 	edgeFlowMap->insert(make_pair(std::pair<int,int>(edge->getIdSource(), edge->getIdTarget()), ptrFlow));
 
     LOG(DEBUG) << "mapped: sketch: " << edge->toText() << ", machine: " << ptrFlow->toText();
@@ -159,7 +159,7 @@ void MappingEngine::removeSolution(MachineGraph::ContainerEdgePtr edge) {
 	}
 
 	std::pair<int,int> flowsKey(edge->getIdSource(), edge->getIdTarget());
-	Flow<Edge>* flow = edgeFlowMap->find(flowsKey)->second;
+    Flow<ConditionalFlowEdge>* flow = edgeFlowMap->find(flowsKey)->second;
 
 	unsetNodesUsed(*flow);
 
@@ -194,7 +194,7 @@ void MappingEngine::removeSolution(MachineGraph::ContainerEdgePtr edge) {
 //	return success;
 //}
 
-Flow<Edge>* MappingEngine::getMappedEdge(MachineGraph::ContainerEdgePtr skectchEdge) throw(std::invalid_argument) {
+ExecutableMachineGraph::ExecutableContainerFlow* MappingEngine::getMappedEdge(MachineGraph::ContainerEdgePtr skectchEdge) throw(std::invalid_argument) {
 	auto it = edgeFlowMap->find(std::pair<int,int>(skectchEdge->getIdSource(), skectchEdge->getIdTarget()));
 	if (it == edgeFlowMap->end()) {
 		throw(std::invalid_argument(
@@ -213,8 +213,8 @@ int MappingEngine::getMappedContainerId(int sketchContainerId) throw(std::invali
 	return it->second;
 }
 
-void MappingEngine::setNodesUsed(const Flow<Edge>& flow) {
-	Flow<Edge>::FlowEdgeVector edges = flow.getPaths();
+void MappingEngine::setNodesUsed(const Flow<ConditionalFlowEdge>& flow) {
+    Flow<ConditionalFlowEdge>::FlowEdgeVector edges = flow.getPaths();
 	for(auto it = edges.begin(); it != edges.end(); ++it) {
         machine->addUsedEdge((*it)->getIdSource(), (*it)->getIdTarget());
         machine->addUsedNode((*it)->getIdSource());
@@ -222,8 +222,8 @@ void MappingEngine::setNodesUsed(const Flow<Edge>& flow) {
 	}
 }
 
-void MappingEngine::unsetNodesUsed(const Flow<Edge>& flow) {
-	Flow<Edge>::FlowEdgeVector edges = flow.getPaths();
+void MappingEngine::unsetNodesUsed(const Flow<ConditionalFlowEdge>& flow) {
+    Flow<ConditionalFlowEdge>::FlowEdgeVector edges = flow.getPaths();
 	for (auto it = edges.begin(); it != edges.end(); ++it) {
         machine->removeUsedEdge((*it)->getIdSource(), (*it)->getIdTarget());
         machine->removeUsedNode((*it)->getIdSource());
@@ -231,7 +231,7 @@ void MappingEngine::unsetNodesUsed(const Flow<Edge>& flow) {
 	}
 }
 
-std::shared_ptr<SearcherIterator> MappingEngine::getAvailableFlows(ExecutableMachineGraph::ExecutableContainerEdgePtr actual) {
+std::shared_ptr<SearcherIterator> MappingEngine::getAvailableFlows(MachineGraph::ContainerEdgePtr actual) {
 
 	if (!isMapped(actual->getIdSource()) && !isMapped(actual->getIdTarget())) {
 		shared_ptr<ContainerNodeType> typeSource = sketch->getContainer(actual->getIdSource())->getType();
@@ -277,12 +277,12 @@ std::shared_ptr<SearcherIterator> MappingEngine::getAvailableFlows(ExecutableMac
     }
 }*/
 
-bool MappingEngine::isAvailable(std::shared_ptr<Flow<Edge>> actualFlow, MachineGraph::ContainerEdgePtr actualEdge)
+bool MappingEngine::isAvailable(ExecutableMachineGraph::ExecutableContainerFlowPtr actualFlow, MachineGraph::ContainerEdgePtr actualEdge)
 {
 	bool available = true;
 	int idStart = actualFlow->getIdStart();
 	int idFinish = actualFlow->getIdFinish();
-	Flow<Edge>::FlowEdgeVector paths = actualFlow->getPaths();
+    ExecutableMachineGraph::ExecutableContainerFlow::FlowEdgeVector paths = actualFlow->getPaths();
 
 	if (!isMapped(actualEdge->getIdSource())) {
         available = available && machine->isNodeAvailable(idStart);

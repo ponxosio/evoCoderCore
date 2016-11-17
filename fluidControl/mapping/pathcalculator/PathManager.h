@@ -12,7 +12,6 @@
 #include "fluidControl/executable/ExecutableMachineGraph.h"
 #include "fluidControl/machineGraph/ContainerNodeType.h"
 
-#include "PathSearcher.h"
 #include "SimplePathSearcher.h"
 #include "PathSearcherIterator.h"
 

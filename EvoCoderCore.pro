@@ -38,13 +38,10 @@ SOURCES += \
     fluidControl/machineGraph/ContainerNode.cpp \
     fluidControl/machineGraph/ContainerNodeType.cpp \
     fluidControl/machineGraph/MachineGraph.cpp \
-    fluidControl/mapping/pathcalculator/IdSearcher.cpp \
     fluidControl/mapping/pathcalculator/PathManager.cpp \
-    fluidControl/mapping/pathcalculator/PathSearcher.cpp \
     fluidControl/mapping/pathcalculator/PathSearcherIterator.cpp \
     fluidControl/mapping/pathcalculator/SearcherIterator.cpp \
     fluidControl/mapping/pathcalculator/SimplePathSearcher.cpp \
-    fluidControl/mapping/pathcalculator/TypeSearcher.cpp \
     fluidControl/mapping/ContinuousFlowEngine.cpp \
     fluidControl/mapping/Mapping.cpp \
     fluidControl/mapping/MappingEngine.cpp \
@@ -90,7 +87,10 @@ SOURCES += \
     plugin/actuators/compoundcontrolplugin.cpp \
     plugin/actuators/valvecontrolledtwinpump.cpp \
     protocolGraph/operations/container/containeroperation.cpp \
-    protocolGraph/operations/container/settimestep.cpp
+    protocolGraph/operations/container/settimestep.cpp \
+    fluidControl/executable/conditionalflowedge.cpp \
+    fluidControl/mapping/pathcalculator/IdSearcher.cpp \
+    fluidControl/mapping/pathcalculator/TypeSearcher.cpp
 
 HEADERS +=\
         evocodercore_global.h \
@@ -119,14 +119,11 @@ HEADERS +=\
     fluidControl/machineGraph/ContainerNode.h \
     fluidControl/machineGraph/ContainerNodeType.h \
     fluidControl/machineGraph/MachineGraph.h \
-    fluidControl/mapping/pathcalculator/IdSearcher.h \
     fluidControl/mapping/pathcalculator/PathManager.h \
-    fluidControl/mapping/pathcalculator/PathSearcher.h \
     fluidControl/mapping/pathcalculator/PathSearcherIterator.h \
     fluidControl/mapping/pathcalculator/SearcherInterface.h \
     fluidControl/mapping/pathcalculator/SearcherIterator.h \
     fluidControl/mapping/pathcalculator/SimplePathSearcher.h \
-    fluidControl/mapping/pathcalculator/TypeSearcher.h \
     fluidControl/mapping/ContinuousFlowEngine.h \
     fluidControl/mapping/Mapping.h \
     fluidControl/mapping/MappingEngine.h \
@@ -187,7 +184,10 @@ HEADERS +=\
     protocolGraph/operations/container/settimestep.h \
     graph/flowgenerator.h \
     graph/edgehash.h \
-    graph/flowhash.h
+    graph/flowhash.h \
+    fluidControl/executable/conditionalflowedge.h \
+    fluidControl/mapping/pathcalculator/IdSearcher.h \
+    fluidControl/mapping/pathcalculator/TypeSearcher.h
 
 unix {
     target.path = /usr/lib

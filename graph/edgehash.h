@@ -26,7 +26,22 @@ public:
     }
 
     inline size_t operator()(const EdgeType & edge) const {
-        return Utils::cantorParingFunctions(edge.getIdSource(), edge.getIdTarget());
+        return Utils::cantorParingFunction(edge.getIdSource(), edge.getIdTarget());
+    }
+
+    inline bool operator()(EdgeType* edge1, EdgeType* edge2) const {
+        return (Utils::cantorParingFunction(edge1->getIdSource(), edge1->getIdTarget()) ==
+                Utils::cantorParingFunction(edge2->getIdSource(), edge2->getIdTarget()));
+    }
+
+    inline bool operator()(std::shared_ptr<EdgeType> edge1, std::shared_ptr<EdgeType> edge2) const {
+        return (Utils::cantorParingFunction(edge1->getIdSource(), edge1->getIdTarget()) ==
+                Utils::cantorParingFunction(edge2->getIdSource(), edge2->getIdTarget()));
+    }
+
+    inline bool operator()(const EdgeType & edge1, const EdgeType & edge2) const {
+        return (Utils::cantorParingFunction(edge1.getIdSource(), edge1.getIdTarget()) ==
+                Utils::cantorParingFunction(edge2.getIdSource(), edge2.getIdTarget()));
     }
 };
 

@@ -21,8 +21,8 @@ public:
 	int hasNext();
 	int hasNext(std::unordered_set<int> visitados);
 
-	std::shared_ptr<Flow<Edge>> next() throw (std::runtime_error);
-	std::shared_ptr<Flow<Edge>> next(std::unordered_set<int> visitados) throw (std::runtime_error);
+    ExecutableMachineGraph::ExecutableContainerFlowPtr next() throw (std::runtime_error);
+    ExecutableMachineGraph::ExecutableContainerFlowPtr next(std::unordered_set<int> visitados) throw (std::runtime_error);
 	
 	void begin();
 	bool hasEnded();

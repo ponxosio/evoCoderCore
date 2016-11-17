@@ -32,18 +32,21 @@ class MACHINEGRAPH_EXPORT MachineGraph {
 public:
 	
 	//Type defs
-	typedef Graph<ContainerNode,Edge>::NodeTypePtr ContainerNodePtr;
-	typedef Graph<ContainerNode, Edge>::EdgeTypePtr ContainerEdgePtr;
+    typedef Edge EdgeType;
+    typedef ContainerNode NodeType;
 
-	typedef Graph<ContainerNode, Edge>::NodeVector ContainerNodeVector;
-	typedef Graph<ContainerNode, Edge>::EdgeVector ContainerEdgeVector;
+    typedef Graph<NodeType,EdgeType>::NodeTypePtr ContainerNodePtr;
+    typedef Graph<NodeType, EdgeType>::EdgeTypePtr ContainerEdgePtr;
 
-	typedef Graph<ContainerNode, Edge>::NodeVectorPtr ContainerNodeVectorPtr;
-	typedef Graph<ContainerNode, Edge>::EdgeVectorPtr ContainerEdgeVectorPtr;
+    typedef Graph<NodeType, EdgeType>::NodeVector ContainerNodeVector;
+    typedef Graph<NodeType, EdgeType>::EdgeVector ContainerEdgeVector;
 
-	typedef Graph<ContainerNode, Edge>::SubGraphPtr ContainerSubGraphPtr;
+    typedef Graph<NodeType, EdgeType>::NodeVectorPtr ContainerNodeVectorPtr;
+    typedef Graph<NodeType, EdgeType>::EdgeVectorPtr ContainerEdgeVectorPtr;
 
-	typedef std::shared_ptr<Graph<ContainerNode, Edge>> ContainerNodeGraphPtr;
+    typedef Graph<NodeType, EdgeType>::SubGraphPtr ContainerSubGraphPtr;
+
+    typedef std::shared_ptr<Graph<NodeType, EdgeType>> ContainerNodeGraphPtr;
 	//
 
 	//static

@@ -11,7 +11,7 @@ IdSearcher::IdSearcher(int idInicio, PathManager * manager, int idDestination) t
 
 	this->ended = false;
 	this->it = manager->getPathSearcher(idInicio, false);
-	this->calculatedFlows = std::make_shared<std::vector<std::shared_ptr<Flow<Edge>>>>();
+    this->calculatedFlows = std::make_shared<ExecutableMachineGraph::ExecutableContainerFlowVector>();
 }
 
 IdSearcher::~IdSearcher()
@@ -23,7 +23,7 @@ bool IdSearcher::calculateNextFlow()
 	bool hasNext = false;
 	if (!ended) {
 		if (it->hasNext() != -1) {
-			std::shared_ptr<Flow<Edge>> nextFlow = it->next();
+            ExecutableMachineGraph::ExecutableContainerFlowPtr nextFlow = it->next();
 			if (nextFlow->getIdFinish() == idDestination) {
 				calculatedFlows->push_back(nextFlow);
 				hasNext = true;

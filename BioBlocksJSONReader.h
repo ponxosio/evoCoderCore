@@ -67,7 +67,7 @@ struct PipetteOperation {
 class BIOBLOCKSJSONREADER_EXPORT BioBlocksJSONReader
 {
 public:
-    typedef std::unordered_multimap<std::tuple<long,long>, std::vector<BioBlocks::PipetteOperation>, PairLongLongHashFunction> OperationsMultiMap;
+    typedef std::map<std::tuple<long,long>, std::vector<BioBlocks::PipetteOperation>, PairLongLongCompareFunction> OperationsMultiMap;
 
     BioBlocksJSONReader(const std::string & path, long timeSlice) throw(std::invalid_argument);
     virtual ~BioBlocksJSONReader();

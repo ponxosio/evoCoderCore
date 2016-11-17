@@ -200,6 +200,7 @@ bool ExecutionEngine::analizeFlows() {
     bool correct;
 
     mapping->setAnalizeFlowInTime();
+    mapping->clearFlowGenerator();
     table.get()->clear();
     initilizeTime();
 

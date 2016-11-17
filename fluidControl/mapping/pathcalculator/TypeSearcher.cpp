@@ -15,7 +15,7 @@ TypeSearcher::TypeSearcher( const ExecutableMachineGraph::ExecutableContainerNod
 	this->reverse = reverse;
 
 	this->ended = false;
-	this->calculatedFlows = std::make_shared <std::vector<std::shared_ptr<Flow<Edge>>>>();
+    this->calculatedFlows = std::make_shared <ExecutableMachineGraph::ExecutableContainerFlowVector>();
 
 	for (auto it = pendingNodes.begin(); it != pendingNodes.end(); ++it) {
 		this->pendingNodes.push_back(*it);
@@ -34,7 +34,7 @@ bool TypeSearcher::calculateNextFlow()
 	if (!ended) {
 		if (it) {
 			if (it->hasNext() != -1) {
-				std::shared_ptr<Flow<Edge>> nextFlow = it->next();
+                ExecutableMachineGraph::ExecutableContainerFlowPtr nextFlow = it->next();
 
 				int nodeId = 0;
 				if (!reverse) {

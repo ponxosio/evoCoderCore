@@ -84,6 +84,9 @@ public:
 	 */
 	bool test() throw (std::runtime_error);
 
+    //for testing purposes
+    bool analizeFlows();
+
 	//getters & setters
 	inline std::shared_ptr<VariableTable> getVariableTable()
 	{
@@ -94,6 +97,11 @@ public:
 	{
 		return mapping;
 	}
+    //for testing porposes
+    inline Mapping::FlowSet getFlowSet() {
+        return mapping->getFlowSet();
+    }
+
 protected:
 	/**
 	 * protocol graph with the protocol being executed
@@ -116,8 +124,6 @@ protected:
 	//METHODS
 	void initilizeTime();
 	void addAvailableEdges(ProtocolNodeQueue & nodes);
-
-    bool analizeFlows();
 
 	//exec methods
 	bool exec();

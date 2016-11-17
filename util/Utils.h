@@ -107,4 +107,15 @@ typedef struct {
     }
 } PairLongLongHashFunction;
 
+typedef struct {
+    //cantor paring function
+    bool operator()(const std::tuple<long, long> & x, const std::tuple<long, long> & y) const throw () {
+        long kx1 = std::get<0>(x);
+        long kx2 = std::get<1>(x);
+        long ky1 = std::get<0>(y);
+        long ky2 = std::get<1>(y);
+        return Utils::cantorParingFunction(kx1, kx2) < Utils::cantorParingFunction(ky1, ky2);
+    }
+} PairLongLongCompareFunction;
+
 #endif /* SRC_UTIL_UTILS_H_ */

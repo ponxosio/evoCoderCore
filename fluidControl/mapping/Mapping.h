@@ -46,6 +46,7 @@ typedef enum MappingOperation_ {
 class MAPPING_EXPORT Mapping {
 public:
     typedef Edge EdgeType;
+    typedef std::unordered_set<std::shared_ptr<Flow<EdgeType>>, FlowHash<EdgeType>, FlowHash<EdgeType>> FlowSet;
 
     Mapping() {
         this->sleepMs = 1000;
@@ -92,6 +93,10 @@ public:
 	void stopCommunications();
     void cleanUsedResources();
 
+    inline void clearFlowGenerator() {
+        this->actualFlowGenerator.clearEdges();
+    }
+
 	inline void setTimestamp(long actual) {
 		this->lastTimestamp = actual;
 	}
@@ -99,6 +104,11 @@ public:
 	inline void settesting(bool testing) {
 		this->testing = testing;
 	}
+    //for testing porpuses
+    inline FlowSet getFlowSet() {
+        return existingFlowsSet;
+    }
+
 protected:
     MappingOperation operation;
 	bool testing;
@@ -107,7 +117,7 @@ protected:
     ContinuousFlowEngine* cfEngine;
 
     FlowGenerator<EdgeType> actualFlowGenerator;
-    std::unordered_set<Flow<EdgeType>, FlowHash<EdgeType>> existingFlowsSet;
+    FlowSet existingFlowsSet;
 	
 	MachineGraph* sketch;
 	std::shared_ptr<ExecutableMachineGraph> machine;

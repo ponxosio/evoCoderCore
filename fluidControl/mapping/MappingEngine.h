@@ -43,14 +43,14 @@ public:
 
 	bool startMapping();
 
-	Flow<Edge>* getMappedEdge(MachineGraph::ContainerEdgePtr skectchEdge)throw(std::invalid_argument);
+    ExecutableMachineGraph::ExecutableContainerFlow* getMappedEdge(MachineGraph::ContainerEdgePtr skectchEdge)throw(std::invalid_argument);
 	int getMappedContainerId(int sketchContainerId) throw(std::invalid_argument);
     void cleanUsedResources();
 
 protected:
 	std::unordered_map<int,int>* containersMap;
 	std::unordered_map<int,int>* numberSolutionsMap;
-	std::unordered_map<std::pair<int,int>, Flow<Edge>*, PairIntIntHashFunction>* edgeFlowMap;
+    std::unordered_map<std::pair<int,int>, ExecutableMachineGraph::ExecutableContainerFlow*, PairIntIntHashFunction>* edgeFlowMap;
 
 	MachineGraph* sketch;
 	std::shared_ptr<ExecutableMachineGraph> machine;
@@ -59,19 +59,19 @@ protected:
 	/*bool trySubgraph(Graph<ContainerNode, Edge>::SubGraph & sketchSubgraphs, Graph<ExecutableContainerNode, Edge>::SubGraphPtr machineSubgraphs);*/
 	bool mapSubgraph(MachineGraph::ContainerEdgeVector& edges, ExecutableMachineGraph::ExecutableContainerNodeVectorPtr machineNodes);
 
-	void addSolution(MachineGraph::ContainerEdgePtr edge, const Flow<Edge> & flow) throw(std::invalid_argument);
+    void addSolution(MachineGraph::ContainerEdgePtr edge, const Flow<ConditionalFlowEdge> & flow) throw(std::invalid_argument);
 	void removeSolution(MachineGraph::ContainerEdgePtr edge);
-	void setNodesUsed(const Flow<Edge> & flow);
-	void unsetNodesUsed(const Flow<Edge> & flow);
+    void setNodesUsed(const Flow<ConditionalFlowEdge> & flow);
+    void unsetNodesUsed(const Flow<ConditionalFlowEdge> & flow);
 
-    std::shared_ptr<SearcherIterator> getAvailableFlows(ExecutableMachineGraph::ExecutableContainerEdgePtr actual);
+    std::shared_ptr<SearcherIterator> getAvailableFlows(MachineGraph::ContainerEdgePtr actual);
     //FlowsHeap getAvailableFlows(ExecutableMachineGraph::ExecutableContainerEdgePtr actual);
 
 	inline bool isMapped(int idConatiner) {
 		return (containersMap->find(idConatiner) != containersMap->end());
 	}
 
-    bool isAvailable(std::shared_ptr<Flow<Edge>> actualFlow, MachineGraph::ContainerEdgePtr actualEdge);
+    bool isAvailable(ExecutableMachineGraph::ExecutableContainerFlowPtr actualFlow, MachineGraph::ContainerEdgePtr actualEdge);
     //bool isAvailable(const Flow<Edge> actualFlow, MachineGraph::ContainerEdgePtr actualEdge);
 };
 

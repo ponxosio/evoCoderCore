@@ -19,10 +19,34 @@ public:
     virtual ~FlowHash(){}
 
     inline size_t operator() (const Flow<EdgeType> & flow) const {
+        return this->makeHash(flow);
+    }
+
+    inline size_t operator() (Flow<EdgeType>* flow) const {
+        return this->makeHash(*flow);
+    }
+
+    inline size_t operator() (std::shared_ptr<Flow<EdgeType>> flow) const {
+        return this->makeHash(*flow.get());
+    }
+
+    inline bool operator() (const Flow<EdgeType> & flow1, const Flow<EdgeType> & flow2) const {
+        return (makeHash(flow1) == makeHash(flow2));
+    }
+
+    inline bool operator() (Flow<EdgeType>* flow1, Flow<EdgeType>* flow2) const {
+        return (makeHash(*flow1) == makeHash(*flow2));
+    }
+
+    inline bool operator() (std::shared_ptr<Flow<EdgeType>> flow1, std::shared_ptr<Flow<EdgeType>> flow2) const {
+        return (makeHash(*flow1.get()) == makeHash(*flow2.get()));
+    }
+protected:
+    inline size_t makeHash(const Flow<EdgeType> & flow) const {
         size_t hash = 0;
 
         std::string stack = "";
-        int size = flow.getPaths().size();
+        size_t size = flow.getPaths().size();
         for (int i = 0; i < size; i++) {
             std::shared_ptr<EdgeType> node = flow.getPaths().at(i);
 
