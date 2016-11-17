@@ -52,28 +52,30 @@ public:
     typedef ConditionalFlowEdge EdgeType;
     typedef ExecutableContainerNode NodeType;
 
-    typedef Graph<NodeType, EdgeType>::NodeTypePtr ExecutableContainerNodePtr;
-    typedef Graph<NodeType, EdgeType>::EdgeTypePtr ExecutableContainerEdgePtr;
+    typedef Graph<NodeType, EdgeType>::NodeTypePtr NodePtr;
+    typedef Graph<NodeType, EdgeType>::EdgeTypePtr EdgePtr;
 
-    typedef Graph<NodeType, EdgeType>::NodeVector ExecutableContainerNodeVector;
-    typedef Graph<NodeType, EdgeType>::EdgeVector ExecutableContainerEdgeVector;
+    typedef Graph<NodeType, EdgeType>::NodeVector NodeVector;
+    typedef Graph<NodeType, EdgeType>::EdgeVector EdgeVector;
 
-    typedef Graph<NodeType, EdgeType>::NodeVectorPtr ExecutableContainerNodeVectorPtr;
-    typedef Graph<NodeType, EdgeType>::EdgeVectorPtr ExecutableContainerEdgeVectorPtr;
+    typedef Graph<NodeType, EdgeType>::NodeVectorPtr NodeVectorPtr;
+    typedef Graph<NodeType, EdgeType>::EdgeVectorPtr EdgeVectorPtr;
 
-    typedef Graph<NodeType, EdgeType>::SubGraphPtr ExecutableContainerSubGraphPtr;
+    typedef Graph<NodeType, EdgeType>::SubGraphPtr SubGraphPtr;
 
-    typedef Flow<EdgeType> ExecutableContainerFlow;
-    typedef std::shared_ptr<Flow<EdgeType>> ExecutableContainerFlowPtr;
-    typedef std::vector<ExecutableContainerFlowPtr> ExecutableContainerFlowVector;
+    typedef Flow<EdgeType> FlowType;
+    typedef std::shared_ptr<Flow<EdgeType>> FlowPtr;
+    typedef std::vector<FlowPtr> FlowVector;
 
-    typedef std::priority_queue<ExecutableContainerFlow, vector<ExecutableContainerFlow>, FlowPtrComparator<EdgeType>> FlowHeap;
+    typedef std::priority_queue<FlowType, vector<FlowType>, FlowPtrComparator<EdgeType>> FlowHeap;
 
-    typedef std::shared_ptr<Graph<NodeType, EdgeType>> ExecutableNodeGraphPtr;
+    typedef std::shared_ptr<Graph<NodeType, EdgeType>> GraphPtr;
 
 	typedef std::shared_ptr<std::unordered_set<int>> UsedMapPtr;
 
 	typedef std::shared_ptr<std::unordered_set<std::tuple<int, int>, PairIntIntHashFunction>> UsedEdgeMapPtr;
+
+    typedef ConditionalFlowEdge::AllowedEdgeSet AllowedEdgesSet;
 	//
 
 	//static
@@ -89,10 +91,10 @@ public:
 	//
 
 	//graph's operations
-    void addContainer(ExecutableContainerNodePtr node, const std::string & alias = "");
+    void addContainer(NodePtr node, const std::string & alias = "");
     std::string getAlias(int id);
-	ExecutableContainerNodePtr getContainer(int idConatiner) throw(std::invalid_argument);
-    bool connectExecutableContainer(int idSource, int idTarget, const ExecutableContainerEdgeVector & allowedEdges);
+    NodePtr getContainer(int idConatiner) throw(std::invalid_argument);
+    bool connectExecutableContainer(int idSource, int idTarget, const AllowedEdgesSet & allowedEdges);
 	void printMachine(const std::string & path);
 
 	void updateControlActuators();
@@ -104,17 +106,17 @@ public:
 	FlowHeap getAvailableFlows(
 		const ContainerNodeType & tipoIni,
 		const ContainerNodeType & tipofin,
-		const ExecutableContainerNodeVector & subgraph);
+        const NodeVector & subgraph);
 	FlowHeap getAvailableFlows(int idConatinerInit, const ContainerNodeType & tipofin);
 	FlowHeap getAvailableFlows(const ContainerNodeType & tipoIni, int idContainerFin);
 	FlowHeap getAvailableFlows(int idInit, int idFin);
 
-    ExecutableContainerFlowVector getAllFlows(int idContainer, bool reverse);
+    FlowVector getAllFlows(int idContainer, bool reverse);
 	void getAllFlows_recursive(int idStart, 
-		ExecutableContainerNodePtr actual, 
+        NodePtr actual,
 		unordered_set<int> visited, 
-        ExecutableContainerFlowVector & flows,
-        ExecutableContainerEdgeVector paths,
+        FlowVector & flows,
+        EdgeVector paths,
 		bool reverse);
 
 	void addUsedNode(int nodeId);
@@ -122,13 +124,13 @@ public:
 	void addUsedEdge(int idSorce, int idTarget);
 	void removeUsedEdge(int idSorce, int idTarget);
 
-	ExecutableContainerNodeVector getAllCompatibleNodes(const ContainerNodeType & type, const ExecutableContainerNodeVector & nodeList);
-	ExecutableContainerEdgeVector getAvailableEdges(ExecutableContainerNodePtr actual, bool reversed);
+    NodeVector getAllCompatibleNodes(const ContainerNodeType & type, const NodeVector & nodeList);
+    EdgeVector getAvailableEdges(NodePtr actual, bool reversed);
 
-	bool isNodeAvailable(ExecutableContainerNodePtr node);
+    bool isNodeAvailable(NodePtr node);
 	bool isNodeAvailable(int nodeId);
 
-	bool isEdgeAvailable(ExecutableContainerEdgePtr edge);
+    bool isEdgeAvailable(EdgePtr edge);
 	bool isEdgeAvailable(int idSource, int idTarget);
 
     void clearUsedResources();
@@ -147,10 +149,10 @@ public:
 	}
 
 	//getters & setters
-	inline ExecutableNodeGraphPtr getGraph() {
+    inline GraphPtr getGraph() {
 		return graph;
 	}
-	inline typename ExecutableContainerSubGraphPtr getSubgraphs() {
+    inline typename SubGraphPtr getSubgraphs() {
 		return graph->getSubGraphs();
 	}
 	inline UsedMapPtr getUsedNodes() {
@@ -185,7 +187,7 @@ public:
 protected:
 	std::string name;
     std::unordered_map<int, std::string> idAliasMap;
-	ExecutableNodeGraphPtr graph;
+    GraphPtr graph;
 	UsedMapPtr usedNodes;
 	UsedEdgeMapPtr usedEges;
 
@@ -195,16 +197,16 @@ protected:
 
 	//methods
 	void getAvailableFlows_recursive_type(int idSource, vector<int> & visitados,
-		ExecutableContainerEdgeVector & recorridos,
+        EdgeVector & recorridos,
 		FlowHeap & flows,
-		ExecutableContainerNodePtr actual,
+        NodePtr actual,
 		const ContainerNodeType & destinationType, bool reverse);
 	void getAvailableFlows_recursive_id(int idSource, vector<int> & visitados,
-		ExecutableContainerEdgeVector & recorridos,
+        EdgeVector & recorridos,
 		FlowHeap & flows,
-		ExecutableContainerNodePtr actual, int idDestination);
+        NodePtr actual, int idDestination);
 
-    ExecutableContainerEdgePtr makeEdge(int idSource, int idTarget, const ExecutableContainerEdgeVector & allowedEdges);
+    EdgePtr makeEdge(int idSource, int idTarget, const AllowedEdgesSet & allowedEdges);
 };
 
 template<class Archive>

@@ -22,7 +22,7 @@ public:
 
 	bool calculateNextFlow();
 
-    virtual inline std::shared_ptr<ExecutableMachineGraph::ExecutableContainerFlowVector> getAvialableFlows() {
+    virtual inline std::shared_ptr<ExecutableMachineGraph::FlowVector> getAvialableFlows() {
 		return calculatedFlows;
 	}
 
@@ -40,6 +40,6 @@ protected:
 
 	//internal
 	bool ended;
-    std::shared_ptr<ExecutableMachineGraph::ExecutableContainerFlowVector> calculatedFlows;
+    std::shared_ptr<ExecutableMachineGraph::FlowVector> calculatedFlows;
 };
 

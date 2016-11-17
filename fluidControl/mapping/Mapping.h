@@ -45,8 +45,8 @@ typedef enum MappingOperation_ {
 
 class MAPPING_EXPORT Mapping {
 public:
-    typedef Edge EdgeType;
-    typedef std::unordered_set<std::shared_ptr<Flow<EdgeType>>, FlowHash<EdgeType>, FlowHash<EdgeType>> FlowSet;
+    typedef MappingEngine::EdgeType EdgeType;
+    typedef MappingEngine::FlowSet FlowSet;
 
     Mapping() {
         this->sleepMs = 1000;
@@ -73,7 +73,7 @@ public:
     std::string printMappingTable();
 
 	//operations
-	void doMapping() throw (std::invalid_argument);
+    void doMapping() throw (std::invalid_argument);
 
 	bool isSketching();
 	void setSketching();

@@ -19,7 +19,7 @@ class PathManager;
 class TYPESEARCHER_EXPORT TypeSearcher : public SearcherInterface
 {
 public:
-	TypeSearcher(const ExecutableMachineGraph::ExecutableContainerNodeVector & pendingNodes,
+	TypeSearcher(const ExecutableMachineGraph::NodeVector & pendingNodes,
 		PathManager* manager, 
 		std::shared_ptr<ContainerNodeType> detinationType,
 		std::shared_ptr<ExecutableMachineGraph> machine,
@@ -29,7 +29,7 @@ public:
 
 	virtual bool calculateNextFlow();
 
-    virtual inline std::shared_ptr<ExecutableMachineGraph::ExecutableContainerFlowVector> getAvialableFlows() {
+    virtual inline std::shared_ptr<ExecutableMachineGraph::FlowVector> getAvialableFlows() {
 		return calculatedFlows;
 	}
 
@@ -44,7 +44,7 @@ public:
 protected:
 	int idInicio;
 	bool reverse;
-	ExecutableMachineGraph::ExecutableContainerNodeVector pendingNodes;
+	ExecutableMachineGraph::NodeVector pendingNodes;
 	std::shared_ptr<ContainerNodeType> destinationType;
 	std::shared_ptr<ExecutableMachineGraph> machine;
 	PathManager* manager;
@@ -52,6 +52,6 @@ protected:
 	//internal
 	bool ended;
 	std::shared_ptr<PathSearcherIterator> it;
-    std::shared_ptr<ExecutableMachineGraph::ExecutableContainerFlowVector> calculatedFlows;
+    std::shared_ptr<ExecutableMachineGraph::FlowVector> calculatedFlows;
 };
 

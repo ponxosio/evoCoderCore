@@ -40,14 +40,17 @@ MappingEngine::~MappingEngine() {
 	return success;
 }*/
 
-bool MappingEngine::startMapping() {
+bool MappingEngine::startMapping(const FlowSet & existingFlows) {
 	MachineGraph::ContainerEdgeVector sketchEdgeList(*(sketch->getGraph()->getEdgeList()));
-	ExecutableMachineGraph::ExecutableContainerNodeVectorPtr machineSubgraphs = machine->getGraph()->getAllNodes();
+    ExecutableMachineGraph::NodeVectorPtr machineSubgraphs = machine->getGraph()->getAllNodes();
 
-	return mapSubgraph(sketchEdgeList, machineSubgraphs);
+    return mapSubgraph(sketchEdgeList, machineSubgraphs, existingFlows);
 }
 
-bool MappingEngine::mapSubgraph(MachineGraph::ContainerEdgeVector& edges, ExecutableMachineGraph::ExecutableContainerNodeVectorPtr machineNodes) {
+bool MappingEngine::mapSubgraph(MachineGraph::ContainerEdgeVector& edges,
+                                ExecutableMachineGraph::NodeVectorPtr machineNodes,
+                                const FlowSet & existingFlows)
+{
 	bool success = false;
 	if (!edges.empty()) {
 		MachineGraph::ContainerEdgePtr actual = edges.back();
@@ -55,10 +58,10 @@ bool MappingEngine::mapSubgraph(MachineGraph::ContainerEdgeVector& edges, Execut
 
 		shared_ptr<SearcherIterator> it = getAvailableFlows(actual);
 		while (!success && it->hasNext()) {
-            ExecutableMachineGraph::ExecutableContainerFlowPtr actualFlow = it->next();
+            ExecutableMachineGraph::FlowPtr actualFlow = it->next();
 			if (isAvailable(actualFlow, actual)) {
 				addSolution(actual, *(actualFlow.get()));
-				success = mapSubgraph(edges, machineNodes);
+                success = mapSubgraph(edges, machineNodes, existingFlows);
 				if (!success) {
 					removeSolution(actual);
 				}
@@ -68,7 +71,7 @@ bool MappingEngine::mapSubgraph(MachineGraph::ContainerEdgeVector& edges, Execut
 			edges.push_back(actual);
 		}
 	} else {
-		success = true;
+        success = checkAllFlowsAllowed(existingFlows);
 	}
 	return success;
 }
@@ -194,7 +197,7 @@ void MappingEngine::removeSolution(MachineGraph::ContainerEdgePtr edge) {
 //	return success;
 //}
 
-ExecutableMachineGraph::ExecutableContainerFlow* MappingEngine::getMappedEdge(MachineGraph::ContainerEdgePtr skectchEdge) throw(std::invalid_argument) {
+ExecutableMachineGraph::FlowType* MappingEngine::getMappedEdge(MachineGraph::ContainerEdgePtr skectchEdge) throw(std::invalid_argument) {
 	auto it = edgeFlowMap->find(std::pair<int,int>(skectchEdge->getIdSource(), skectchEdge->getIdTarget()));
 	if (it == edgeFlowMap->end()) {
 		throw(std::invalid_argument(
@@ -277,12 +280,12 @@ std::shared_ptr<SearcherIterator> MappingEngine::getAvailableFlows(MachineGraph:
     }
 }*/
 
-bool MappingEngine::isAvailable(ExecutableMachineGraph::ExecutableContainerFlowPtr actualFlow, MachineGraph::ContainerEdgePtr actualEdge)
+bool MappingEngine::isAvailable(ExecutableMachineGraph::FlowPtr actualFlow, MachineGraph::ContainerEdgePtr actualEdge)
 {
 	bool available = true;
 	int idStart = actualFlow->getIdStart();
 	int idFinish = actualFlow->getIdFinish();
-    ExecutableMachineGraph::ExecutableContainerFlow::FlowEdgeVector paths = actualFlow->getPaths();
+    ExecutableMachineGraph::FlowType::FlowEdgeVector paths = actualFlow->getPaths();
 
 	if (!isMapped(actualEdge->getIdSource())) {
         available = available && machine->isNodeAvailable(idStart);
@@ -330,3 +333,51 @@ void MappingEngine::cleanUsedResources() {
 
     return available;
 }*/
+
+bool MappingEngine::checkAllFlowsAllowed(const FlowSet & existingFlows) {
+    bool allCorrect = true;
+
+    for (auto it = existingFlows.begin(); allCorrect && it != existingFlows.end(); ++it) {
+        MachineGraph::FlowPtr protocolFlow = *it;
+        ExecutableMachineGraph::FlowPtr machineFlow = translateProtocolFlowToMachineFlow(protocolFlow);
+        allCorrect = checkMachineFlowAllowed(machineFlow);
+    }
+    return allCorrect;
+}
+
+ExecutableMachineGraph::FlowPtr MappingEngine::translateProtocolFlowToMachineFlow(MachineGraph::FlowPtr protocolFlow) {
+    ExecutableMachineGraph::FlowPtr translatedFlow =
+            std::make_shared<ExecutableMachineGraph::FlowType>();
+
+    for (MachineGraph::ContainerEdgePtr edge: protocolFlow->getPaths()) {
+        ExecutableMachineGraph::FlowType* translatedEdge = getMappedEdge(edge);
+        translatedFlow->append(*translatedEdge);
+    }
+    return translatedFlow;
+}
+
+bool MappingEngine::checkMachineFlowAllowed(ExecutableMachineGraph::FlowPtr flow2check) {
+    bool allowed = true;
+    ExecutableMachineGraph::EdgeVector path = flow2check->getPaths();
+
+    if (path.size() > 1) {
+        ExecutableMachineGraph::EdgePtr lastEdge = path.at(0);
+        for (auto it = path.begin() + 1; allowed && it != path.end(); ++it) {
+            ExecutableMachineGraph::EdgePtr actualEdge = *it;
+            ConditionalFlowEdge::AllowedEdgeSet allowedSet = actualEdge->getAllowedPreviousEdges();
+
+            if (!allowedSet.empty()) {
+                allowed = (allowedSet.find(lastEdge) != allowedSet.end());
+            }
+        }
+    }
+    return allowed;
+}
+
+
+
+
+
+
+
+

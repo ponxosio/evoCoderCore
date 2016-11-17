@@ -2,7 +2,7 @@
 #include "PathManager.h"
 #include "PathSearcherIterator.h"
 
-TypeSearcher::TypeSearcher( const ExecutableMachineGraph::ExecutableContainerNodeVector & pendingNodes,
+TypeSearcher::TypeSearcher( const ExecutableMachineGraph::NodeVector & pendingNodes,
 	PathManager * manager,
 	std::shared_ptr<ContainerNodeType> detinationType,
 	std::shared_ptr<ExecutableMachineGraph> machine,
@@ -15,7 +15,7 @@ TypeSearcher::TypeSearcher( const ExecutableMachineGraph::ExecutableContainerNod
 	this->reverse = reverse;
 
 	this->ended = false;
-    this->calculatedFlows = std::make_shared <ExecutableMachineGraph::ExecutableContainerFlowVector>();
+    this->calculatedFlows = std::make_shared <ExecutableMachineGraph::FlowVector>();
 
 	for (auto it = pendingNodes.begin(); it != pendingNodes.end(); ++it) {
 		this->pendingNodes.push_back(*it);
@@ -34,7 +34,7 @@ bool TypeSearcher::calculateNextFlow()
 	if (!ended) {
 		if (it) {
 			if (it->hasNext() != -1) {
-                ExecutableMachineGraph::ExecutableContainerFlowPtr nextFlow = it->next();
+                ExecutableMachineGraph::FlowPtr nextFlow = it->next();
 
 				int nodeId = 0;
 				if (!reverse) {
@@ -44,7 +44,7 @@ bool TypeSearcher::calculateNextFlow()
 					nodeId = nextFlow->getIdStart();
 				}
 
-				ExecutableMachineGraph::ExecutableContainerNodePtr endNode = machine->getContainer(nodeId);
+				ExecutableMachineGraph::NodePtr endNode = machine->getContainer(nodeId);
 				if (endNode->getType()->isCompatible(*(destinationType.get()))) {
 					calculatedFlows->push_back(nextFlow);
 					hasNext = true;

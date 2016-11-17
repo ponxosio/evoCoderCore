@@ -62,15 +62,15 @@ ExecutableMachineGraph::~ExecutableMachineGraph() {
 	//delete usedEges;
 }
 
-void ExecutableMachineGraph::addContainer(ExecutableContainerNodePtr node, const std::string & alias) {
+void ExecutableMachineGraph::addContainer(NodePtr node, const std::string & alias) {
 	this->graph->addNode(node);
     if (!alias.empty()) {
         idAliasMap.insert(std::make_pair(node->getContainerId(), std::string(alias)));
     }
 }
 
-typename ExecutableMachineGraph::ExecutableContainerNodePtr ExecutableMachineGraph::getContainer(int idConatiner) throw(std::invalid_argument) {
-	ExecutableContainerNodePtr node = graph->getNode(idConatiner);
+typename ExecutableMachineGraph::NodePtr ExecutableMachineGraph::getContainer(int idConatiner) throw(std::invalid_argument) {
+	NodePtr node = graph->getNode(idConatiner);
 	if (node) {
 		return node;
 	} else {
@@ -78,15 +78,15 @@ typename ExecutableMachineGraph::ExecutableContainerNodePtr ExecutableMachineGra
 	}
 }
 
-bool ExecutableMachineGraph::connectExecutableContainer(int idSource, int idTarget, const ExecutableContainerEdgeVector & allowedEdges) {
+bool ExecutableMachineGraph::connectExecutableContainer(int idSource, int idTarget, const AllowedEdgesSet & allowedEdges) {
 	bool vuelta = false;
 	if (existsContainer(idSource) && existsContainer(idTarget)
 		&& !areConected(idSource, idTarget)) {
-        ExecutableMachineGraph::ExecutableContainerEdgePtr newEdge = makeEdge(idSource, idTarget, allowedEdges);
+        ExecutableMachineGraph::EdgePtr newEdge = makeEdge(idSource, idTarget, allowedEdges);
 		graph->addEdge(newEdge);
 
-		ExecutableContainerNodePtr source = graph->getNode(newEdge->getIdSource());
-		ExecutableContainerNodePtr target = graph->getNode(newEdge->getIdTarget());
+		NodePtr source = graph->getNode(newEdge->getIdSource());
+		NodePtr target = graph->getNode(newEdge->getIdTarget());
 
 		source->connectContainer(newEdge->getIdSource(), newEdge->getIdTarget());
 		target->connectContainer(newEdge->getIdSource(), newEdge->getIdTarget());
@@ -101,15 +101,15 @@ void ExecutableMachineGraph::printMachine(const std::string& path) {
 }
 
 ExecutableMachineGraph::FlowHeap ExecutableMachineGraph::getAvailableFlows(
-	const ContainerNodeType& tipoIni, const ContainerNodeType& tipofin, const ExecutableContainerNodeVector & subgraph) {
+	const ContainerNodeType& tipoIni, const ContainerNodeType& tipofin, const NodeVector & subgraph) {
 
 	FlowHeap flows;
-	ExecutableContainerNodeVector available = getAllCompatibleNodes(tipoIni, subgraph);
+	NodeVector available = getAllCompatibleNodes(tipoIni, subgraph);
 
 	for (auto it = available.begin(); it != available.end(); ++it) {
 		vector<int> visitados;
-		ExecutableContainerEdgeVector recorridos;
-		ExecutableContainerNodePtr actual = *it;
+		EdgeVector recorridos;
+		NodePtr actual = *it;
 		getAvailableFlows_recursive_type(actual->getContainerId(), visitados, recorridos, flows, actual, tipofin, false);
 	}
 	return flows;
@@ -120,8 +120,8 @@ ExecutableMachineGraph::FlowHeap ExecutableMachineGraph::getAvailableFlows(int i
 	FlowHeap flows;
 
 	vector<int> visitados;
-	ExecutableContainerEdgeVector recorridos;
-	ExecutableContainerNodePtr actual = graph->getNode(idConatinerInit);
+	EdgeVector recorridos;
+	NodePtr actual = graph->getNode(idConatinerInit);
 	getAvailableFlows_recursive_type(idConatinerInit, visitados, recorridos, flows, actual, tipofin, false);
 	return flows;
 }
@@ -131,8 +131,8 @@ ExecutableMachineGraph::FlowHeap ExecutableMachineGraph::getAvailableFlows(const
 	FlowHeap flows;
 
 	vector<int> visitados;
-	ExecutableContainerEdgeVector recorridos;
-	ExecutableContainerNodePtr actual = graph->getNode(idContainerFin);
+	EdgeVector recorridos;
+	NodePtr actual = graph->getNode(idContainerFin);
 	getAvailableFlows_recursive_type(idContainerFin, visitados, recorridos, flows,
 		actual, tipoIni, true);
 
@@ -144,8 +144,8 @@ ExecutableMachineGraph::FlowHeap ExecutableMachineGraph::getAvailableFlows(int i
 	FlowHeap flows;
 
 	vector<int> visitados;
-	ExecutableContainerEdgeVector recorridos;
-	ExecutableContainerNodePtr actual = graph->getNode(idInit);
+	EdgeVector recorridos;
+	NodePtr actual = graph->getNode(idInit);
 	getAvailableFlows_recursive_id(idInit, visitados, recorridos,
 		flows, actual, idFin);
 
@@ -160,7 +160,7 @@ void ExecutableMachineGraph::removeUsedEdge(int idSorce, int idTarget) {
 	usedEges->erase(std::tuple<int, int>(idSorce, idTarget));
 }
 
-bool ExecutableMachineGraph::isEdgeAvailable(ExecutableContainerEdgePtr edge) {
+bool ExecutableMachineGraph::isEdgeAvailable(EdgePtr edge) {
 	return (usedEges->find(
 		std::tuple<int, int>(edge->getIdSource(), edge->getIdTarget()))
 		== usedEges->end());
@@ -172,11 +172,11 @@ bool ExecutableMachineGraph::isEdgeAvailable(int idSource, int idTarget) {
 		== usedEges->end());
 }
 
-ExecutableMachineGraph::ExecutableContainerEdgeVector ExecutableMachineGraph::getAvailableEdges(
-	ExecutableContainerNodePtr actual, bool reversed) {
+ExecutableMachineGraph::EdgeVector ExecutableMachineGraph::getAvailableEdges(
+	NodePtr actual, bool reversed) {
 
-	ExecutableContainerEdgeVector available;
-	ExecutableContainerEdgeVectorPtr edges;
+	EdgeVector available;
+	EdgeVectorPtr edges;
 	if (reversed) {
 		edges = graph->getArrivingEdges(actual->getContainerId());
 	}
@@ -186,7 +186,7 @@ ExecutableMachineGraph::ExecutableContainerEdgeVector ExecutableMachineGraph::ge
 
 
 	for (auto it = edges->begin(); it != edges->end(); ++it) {
-		ExecutableContainerEdgePtr actualE = *it;
+		EdgePtr actualE = *it;
 		if (isEdgeAvailable(actualE)) {
 			available.push_back(actualE);
 		}
@@ -195,15 +195,15 @@ ExecutableMachineGraph::ExecutableContainerEdgeVector ExecutableMachineGraph::ge
 	return	available;
 }
 
-void ExecutableMachineGraph::getAvailableFlows_recursive_type(int idSource, vector<int> & visitados, ExecutableContainerEdgeVector & recorridos,
+void ExecutableMachineGraph::getAvailableFlows_recursive_type(int idSource, vector<int> & visitados, EdgeVector & recorridos,
 	FlowHeap & flows,
-	ExecutableContainerNodePtr actual, const ContainerNodeType & destinationType, bool reversed) {
+	NodePtr actual, const ContainerNodeType & destinationType, bool reversed) {
 
 	int idContainer = actual->getContainerId();
 	visitados.push_back(idContainer);
-	ExecutableContainerEdgeVector neighbors = getAvailableEdges(actual, reversed);
+	EdgeVector neighbors = getAvailableEdges(actual, reversed);
 	for (auto it = neighbors.begin(); it != neighbors.end(); ++it) {
-		ExecutableContainerEdgePtr actualNeig = *it;
+		EdgePtr actualNeig = *it;
 		int id;
 		if (reversed) {
 			id = actualNeig->getIdSource();
@@ -215,7 +215,7 @@ void ExecutableMachineGraph::getAvailableFlows_recursive_type(int idSource, vect
 			&& find(visitados.begin(), visitados.end(),
 				id) == visitados.end()) {
 			recorridos.push_back(actualNeig);
-			ExecutableContainerNodePtr nodeTarget = graph->getNode(id);
+			NodePtr nodeTarget = graph->getNode(id);
 			if (nodeTarget->getType()->isCompatible(destinationType)) {
 				if (reversed) {
                     flows.push(Flow<ConditionalFlowEdge>(id, idSource, recorridos));
@@ -231,14 +231,14 @@ void ExecutableMachineGraph::getAvailableFlows_recursive_type(int idSource, vect
 }
 
 void ExecutableMachineGraph::getAvailableFlows_recursive_id(int idSource,
-	vector<int>& visitados, ExecutableContainerEdgeVector & recorridos,
+	vector<int>& visitados, EdgeVector & recorridos,
 	FlowHeap & flows,
-	ExecutableContainerNodePtr actual, int idDestination) {
+	NodePtr actual, int idDestination) {
 
 	visitados.push_back(actual->getContainerId());
-	ExecutableContainerEdgeVector neighbors = getAvailableEdges(actual, false);
+	EdgeVector neighbors = getAvailableEdges(actual, false);
 	for (auto it = neighbors.begin(); it != neighbors.end(); ++it) {
-		ExecutableContainerEdgePtr actualNeig = *it;
+		EdgePtr actualNeig = *it;
 		int id = actualNeig->getIdTarget();
 
 		if (id == idDestination) {
@@ -251,7 +251,7 @@ void ExecutableMachineGraph::getAvailableFlows_recursive_id(int idSource,
 			== visitados.end()) {
 
 			recorridos.push_back(actualNeig);
-			ExecutableContainerNodePtr nodeTarget = graph->getNode(id);
+			NodePtr nodeTarget = graph->getNode(id);
 			getAvailableFlows_recursive_id(idSource, visitados, recorridos,
 				flows, nodeTarget, idDestination);
 			recorridos.pop_back();
@@ -259,12 +259,12 @@ void ExecutableMachineGraph::getAvailableFlows_recursive_id(int idSource,
 	}
 }
 
-ExecutableMachineGraph::ExecutableContainerNodeVector ExecutableMachineGraph::getAllCompatibleNodes(
-	const ContainerNodeType& type, const ExecutableContainerNodeVector & subgraph) {
-	ExecutableContainerNodeVector available;
+ExecutableMachineGraph::NodeVector ExecutableMachineGraph::getAllCompatibleNodes(
+	const ContainerNodeType& type, const NodeVector & subgraph) {
+	NodeVector available;
 
 	for (auto it = subgraph.begin(); it != subgraph.end(); ++it) {
-		ExecutableContainerNodePtr actual = *it;
+		NodePtr actual = *it;
 		if (isNodeAvailable(actual) && actual->getType()->isCompatible(type)) {
 			available.push_back(actual);
 		}
@@ -272,7 +272,7 @@ ExecutableMachineGraph::ExecutableContainerNodeVector ExecutableMachineGraph::ge
 	return available;
 }
 
-bool ExecutableMachineGraph::isNodeAvailable(ExecutableContainerNodePtr node) {
+bool ExecutableMachineGraph::isNodeAvailable(NodePtr node) {
 	return (usedNodes->find(node->getContainerId()) == usedNodes->end());
 }
 
@@ -288,7 +288,7 @@ void ExecutableMachineGraph::removeUsedNode(int nodeId) {
 	usedNodes->erase(nodeId);
 }
 
-ExecutableMachineGraph::ExecutableContainerEdgePtr ExecutableMachineGraph::makeEdge(int idSource, int idTarget, const ExecutableContainerEdgeVector & allowedEdges) {
+ExecutableMachineGraph::EdgePtr ExecutableMachineGraph::makeEdge(int idSource, int idTarget, const AllowedEdgesSet & allowedEdges) {
     return std::make_shared<EdgeType>(idSource, idTarget, allowedEdges);
 }
 
@@ -297,7 +297,7 @@ float ExecutableMachineGraph::getVolume(int idContainer) {
 }
 
 void ExecutableMachineGraph::addVolume(int idContainer, float volume) {
-	ExecutableContainerNodePtr actual = graph->getNode(idContainer);
+	NodePtr actual = graph->getNode(idContainer);
 	if (actual != NULL) {
 		double newVolume = actual->getVolume() + volume;
 		if (newVolume <= actual->getCapacity()) {
@@ -311,7 +311,7 @@ void ExecutableMachineGraph::addVolume(int idContainer, float volume) {
 }
 
 void ExecutableMachineGraph::substractVolume(int idContainer, float volume) {
-	ExecutableContainerNodePtr actual = graph->getNode(idContainer);
+	NodePtr actual = graph->getNode(idContainer);
 	if (actual != NULL) {
 		double newVolume = actual->getVolume() - volume;
 		if (newVolume >= 0) {
@@ -338,7 +338,7 @@ CommandSender* ExecutableMachineGraph::getExecCommunicationsPrototypeCopy() {
 }
 
 void ExecutableMachineGraph::updateCommunicationsInterface(int idCommunication) {
-	ExecutableContainerNodeVectorPtr nodes = graph->getAllNodes();
+	NodeVectorPtr nodes = graph->getAllNodes();
 
 	for (auto it = nodes->begin(); it != nodes->end(); ++it) {
         (*it)->reloadCommunicationInterface(idCommunication);
@@ -347,18 +347,18 @@ void ExecutableMachineGraph::updateCommunicationsInterface(int idCommunication) 
 
 void ExecutableMachineGraph::updateControlActuators()
 {
-    ExecutableContainerNodeVectorPtr nodes = graph->getAllNodes();
+    NodeVectorPtr nodes = graph->getAllNodes();
 	for (auto it = nodes->begin(); it != nodes->end(); ++it)
 	{
         (*it)->reloadActuatorsParams();
 	}
 }
 
-ExecutableMachineGraph::ExecutableContainerFlowVector ExecutableMachineGraph::getAllFlows(int idContainer, bool reverse) {
-	ExecutableContainerNodePtr actual = graph->getNode(idContainer);
+ExecutableMachineGraph::FlowVector ExecutableMachineGraph::getAllFlows(int idContainer, bool reverse) {
+	NodePtr actual = graph->getNode(idContainer);
 	unordered_set<int> visited;
-    ExecutableContainerFlowVector vuelta;
-    ExecutableContainerEdgeVector paths;
+    FlowVector vuelta;
+    EdgeVector paths;
 
 	getAllFlows_recursive(idContainer, actual, visited, vuelta, paths, reverse);
 
@@ -366,17 +366,17 @@ ExecutableMachineGraph::ExecutableContainerFlowVector ExecutableMachineGraph::ge
 }
 
 void ExecutableMachineGraph::getAllFlows_recursive(int idStart, 
-	ExecutableContainerNodePtr actual, 
+	NodePtr actual, 
 	unordered_set<int> visited, 
-    ExecutableContainerFlowVector & flows,
-    ExecutableContainerEdgeVector paths,
+    FlowVector & flows,
+    EdgeVector paths,
     bool reverse)
 {
 	
 	int idContainer = actual->getContainerId();
 	visited.insert(idContainer);
 
-	ExecutableContainerEdgeVectorPtr neighbors;
+	EdgeVectorPtr neighbors;
 	if (!reverse) {
 		neighbors = graph->getLeavingEdges(idContainer);
 	} else {
@@ -384,7 +384,7 @@ void ExecutableMachineGraph::getAllFlows_recursive(int idStart,
 	}
 
 	for	(auto it = neighbors->begin(); it != neighbors->end(); ++it) {
-		ExecutableContainerEdgePtr next = *it;
+		EdgePtr next = *it;
 
 		int nextId = 0;
 		if (!reverse) {
@@ -398,11 +398,11 @@ void ExecutableMachineGraph::getAllFlows_recursive(int idStart,
 			
 			if (!reverse) {
 				paths.push_back(next);
-                flows.push_back(make_shared<ExecutableContainerFlow>(idStart, nextId, paths));
+                flows.push_back(make_shared<FlowType>(idStart, nextId, paths));
 			}
 			else {
 				paths.insert(paths.begin(),next);
-                flows.push_back(make_shared<ExecutableContainerFlow>(nextId, idStart, paths));
+                flows.push_back(make_shared<FlowType>(nextId, idStart, paths));
 			}
 
 			getAllFlows_recursive(idStart, graph->getNode(nextId), visited, flows, paths, reverse);

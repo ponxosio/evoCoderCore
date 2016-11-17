@@ -21,9 +21,9 @@ bool SearcherIterator::hasNext()
 	return has;
 }
 
-ExecutableMachineGraph::ExecutableContainerFlowPtr SearcherIterator::next() throw(std::runtime_error)
+ExecutableMachineGraph::FlowPtr SearcherIterator::next() throw(std::runtime_error)
 {
-    ExecutableMachineGraph::ExecutableContainerFlowPtr next;
+    ExecutableMachineGraph::FlowPtr next;
 	if (lastPosition < engine->getAvialableFlows()->size()) {
 		next = engine->getAvialableFlows()->at(lastPosition);
 	}

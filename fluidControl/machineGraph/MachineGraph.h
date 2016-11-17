@@ -16,6 +16,7 @@
 //local
 #include "graph/Graph.h"
 #include "graph/Edge.h"
+#include "graph/Flow.h"
 #include "ContainerNode.h"
 #include "ContainerNodeType.h"
 
@@ -43,6 +44,10 @@ public:
 
     typedef Graph<NodeType, EdgeType>::NodeVectorPtr ContainerNodeVectorPtr;
     typedef Graph<NodeType, EdgeType>::EdgeVectorPtr ContainerEdgeVectorPtr;
+
+    typedef Flow<EdgeType> FlowType;
+    typedef std::shared_ptr<Flow<EdgeType>> FlowPtr;
+    typedef std::vector<FlowPtr> FlowVector;
 
     typedef Graph<NodeType, EdgeType>::SubGraphPtr ContainerSubGraphPtr;
 

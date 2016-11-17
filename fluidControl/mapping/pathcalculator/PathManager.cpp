@@ -82,7 +82,7 @@ std::shared_ptr<SearcherIterator> PathManager::getFlows(int idStart, std::shared
 	}
 	else {
 		try {
-			ExecutableMachineGraph::ExecutableContainerNodeVector pending;
+			ExecutableMachineGraph::NodeVector pending;
 			pending.push_back(machine->getContainer(idStart));
 
 			std::shared_ptr<SearcherInterface> newSearcher = std::make_shared<TypeSearcher>(pending, this, destinationType, machine, false);
@@ -106,7 +106,7 @@ std::shared_ptr<SearcherIterator> PathManager::getFlows(std::shared_ptr<Containe
 	}
 	else {
 		try {
-			ExecutableMachineGraph::ExecutableContainerNodeVector pending;
+			ExecutableMachineGraph::NodeVector pending;
 			pending.push_back(machine->getContainer(idFinish));
 
 			std::shared_ptr<SearcherInterface> newSearcher = std::make_shared<TypeSearcher>(pending, this, startType, machine, true);
@@ -132,7 +132,7 @@ std::shared_ptr<SearcherIterator> PathManager::getFlows(std::shared_ptr<Containe
 	}
 	else {
 		try {
-			ExecutableMachineGraph::ExecutableContainerNodeVector pending = machine->getAllCompatibleNodes(*(startType.get()), *(machine->getGraph()->getAllNodes().get()));
+			ExecutableMachineGraph::NodeVector pending = machine->getAllCompatibleNodes(*(startType.get()), *(machine->getGraph()->getAllNodes().get()));
 
 			std::shared_ptr<SearcherInterface> newSearcher = std::make_shared<TypeSearcher>(pending, this, destinationType, machine, false);
 

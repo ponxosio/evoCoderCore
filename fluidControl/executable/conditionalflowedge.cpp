@@ -9,14 +9,14 @@ ConditionalFlowEdge::ConditionalFlowEdge() :
 ConditionalFlowEdge::ConditionalFlowEdge(const ConditionalFlowEdge & edge) :
     Edge(edge)
 {
-    this->allowedPreviousEdge = std::vector<std::shared_ptr<ConditionalFlowEdge>>(edge.allowedPreviousEdge);
+    this->allowedPreviousEdge = AllowedEdgeSet(edge.allowedPreviousEdge);
 }
 
 //
-ConditionalFlowEdge::ConditionalFlowEdge(int idSource, int idTarget, const std::vector<std::shared_ptr<ConditionalFlowEdge>> & allowedPreviousEdge) :
+ConditionalFlowEdge::ConditionalFlowEdge(int idSource, int idTarget, const AllowedEdgeSet & allowedPreviousEdge) :
     Edge(idSource, idTarget)
 {
-    this->allowedPreviousEdge = allowedPreviousEdge;
+    this->allowedPreviousEdge = AllowedEdgeSet(allowedPreviousEdge);
 }
 
 ConditionalFlowEdge::~ConditionalFlowEdge() {
@@ -28,5 +28,5 @@ std::string ConditionalFlowEdge::toText() {
     for (std::shared_ptr<ConditionalFlowEdge> edge: allowedPreviousEdge) {
         allowedStr += patch::to_string(edge->idSource) + "->" + patch::to_string(edge->idTarget) + ";";
     }
-    return patch::to_string(idSource) + "->" + patch::to_string(idTarget) + "[label=\"" + allowedStr + "\"];";
+    return patch::to_string(idSource) + "->" + patch::to_string(idTarget) + (!allowedStr.empty() ? "[label=\"" + allowedStr + "\"];" : ";");
 }

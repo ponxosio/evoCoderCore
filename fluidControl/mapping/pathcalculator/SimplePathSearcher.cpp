@@ -8,7 +8,7 @@ SimplePathSearcher::SimplePathSearcher(int idStart, std::shared_ptr<ExecutableMa
 	this->reverse = reverse;
 
 	this->ended = false;
-    this->calculatedFlows = make_shared<ExecutableMachineGraph::ExecutableContainerFlowVector>();
+    this->calculatedFlows = make_shared<ExecutableMachineGraph::FlowVector>();
 }
 
 SimplePathSearcher::~SimplePathSearcher()
@@ -19,7 +19,7 @@ bool SimplePathSearcher::calculateNextFlow()
 {
 	bool finded = false;
 	if (!ended) {
-        this->calculatedFlows = make_shared<ExecutableMachineGraph::ExecutableContainerFlowVector>(machine->getAllFlows(idStart, reverse));
+        this->calculatedFlows = make_shared<ExecutableMachineGraph::FlowVector>(machine->getAllFlows(idStart, reverse));
         std::sort(calculatedFlows->begin(), calculatedFlows->end(), FlowPtrComparator<ExecutableMachineGraph::EdgeType>());
 		ended = true;
 		finded = true;

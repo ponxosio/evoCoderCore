@@ -20,7 +20,7 @@ public:
 
 	bool hasNext();
 
-    ExecutableMachineGraph::ExecutableContainerFlowPtr next() throw (std::runtime_error);
+    ExecutableMachineGraph::FlowPtr next() throw (std::runtime_error);
 
 	void begin();
 	bool hasEnded();

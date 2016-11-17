@@ -27,7 +27,7 @@
 #define UNKNOW_NAME "unknown"
 
 //PATH CONSTANTS
-#define PATH_TO_IMGS "\\Img\\"
+#define PATH_TO_IMGS ".\\Img\\"
 //movements
 #define CONTINUOUS_PREFIX "continuous_"
 #define DISCRETE_PREFIX "discrete_"

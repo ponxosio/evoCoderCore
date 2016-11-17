@@ -43,13 +43,14 @@ public:
 	typedef FlowEdgeVector* FlowEdgeVectorPtr;
 	//
 
-	Flow(const Flow & flow);
-	Flow(int idStar, int idFinish);
+    Flow();
+    Flow(const Flow & flow);
 	Flow(int idStar, int idFinish, const typename FlowEdgeVector & paths);
 	virtual ~Flow();
 
 	void prepend(typename FlowEdgePtr edge);
 	void append(typename FlowEdgePtr edge);
+    void append(const Flow & flow);
 	void removePath(typename FlowEdgePtr edge);
 
 	bool checkLoop();
@@ -96,9 +97,9 @@ Flow<EdgeType>::Flow(const Flow& flow) {
 }
 
 template<class EdgeType>
-Flow<EdgeType>::Flow(int idStar, int idFinish) {
-	this->idStart = idStar;
-	this->idFinish = idFinish;
+Flow<EdgeType>::Flow() {
+    this->idStart = -1;
+    this->idFinish = -1;
 }
 
 template<class EdgeType>
@@ -116,14 +117,30 @@ Flow<EdgeType>::Flow(int idStar, int idFinish,
 template<class EdgeType>
 Flow<EdgeType>::~Flow() {
 }
+
 template<class EdgeType>
 void Flow<EdgeType>::prepend(typename FlowEdgePtr edge) {
 	this->paths.insert(paths.begin(), edge);
+    this->idStart = edge->getIdSource();
+    if (this->idFinish == -1) {
+        this->idFinish = edge->getIdTarget();
+    }
 }
 
 template<class EdgeType>
 void Flow<EdgeType>::append(typename FlowEdgePtr edge) {
 	this->paths.push_back(edge);
+    this->idFinish = edge->getIdTarget();
+    if (this->idStart == -1) {
+        this->idStart = edge->getIdSource();
+    }
+}
+
+template<class EdgeType>
+void Flow<EdgeType>::append(const Flow & flow) {
+    for (typename FlowEdgePtr edge: flow.getPaths()) {
+        append(edge);
+    }
 }
 
 template<class EdgeType>

@@ -65,7 +65,7 @@ void Mapping::setAnalizeFlowInTime() {
 }
 
 void Mapping::doMapping() throw (std::invalid_argument) {
-	if (!engine->startMapping()) {
+    if (!engine->startMapping(existingFlowsSet)) {
 		throw(std::invalid_argument("mapping cannot be done"));
 	}
 }
@@ -507,14 +507,14 @@ void Mapping::exec_setContinuosFlow(int idSource, int idTarget, double rate) thr
 		<< ")";
 
     MachineGraph::ContainerEdgePtr edge = std::make_shared<MachineGraph::EdgeType>(idSource, idTarget);
-    ExecutableMachineGraph::ExecutableContainerFlow* flow = engine->getMappedEdge(edge);
+    ExecutableMachineGraph::FlowType* flow = engine->getMappedEdge(edge);
 
 	for (auto it = flow->getPaths().begin(); it != flow->getPaths().end();
 		++it) {
-		ExecutableMachineGraph::ExecutableContainerEdgePtr actual = *it;
-		ExecutableMachineGraph::ExecutableContainerNodePtr source = machine->getContainer(
+		ExecutableMachineGraph::EdgePtr actual = *it;
+		ExecutableMachineGraph::NodePtr source = machine->getContainer(
 			actual->getIdSource());
-		ExecutableMachineGraph::ExecutableContainerNodePtr target = machine->getContainer(
+		ExecutableMachineGraph::NodePtr target = machine->getContainer(
 			actual->getIdTarget());
 
 		if (source->getType()->hasMovementType(MovementType::continuous)) {
@@ -539,14 +539,14 @@ void Mapping::exec_transfer(int idSource, int idTarget, double volume) throw (st
 		<< ")";
 
 	Flow<Edge>::FlowEdgePtr edge = std::make_shared<Edge>(idSource, idTarget);
-    ExecutableMachineGraph::ExecutableContainerFlow* flow = engine->getMappedEdge(edge);
+    ExecutableMachineGraph::FlowType* flow = engine->getMappedEdge(edge);
 
 	for (auto it = flow->getPaths().begin(); it != flow->getPaths().end();
 		++it) {
-		ExecutableMachineGraph::ExecutableContainerEdgePtr actual = *it;
-		ExecutableMachineGraph::ExecutableContainerNodePtr source = machine->getContainer(
+		ExecutableMachineGraph::EdgePtr actual = *it;
+		ExecutableMachineGraph::NodePtr source = machine->getContainer(
 			actual->getIdSource());
-		ExecutableMachineGraph::ExecutableContainerNodePtr target = machine->getContainer(
+		ExecutableMachineGraph::NodePtr target = machine->getContainer(
 			actual->getIdTarget());
 
 		if (source->getType()->hasMovementType(MovementType::discrete)) {
@@ -575,7 +575,7 @@ void Mapping::exec_applyLight(int id, double wavelength, double intensity) throw
 		<< patch::to_string(wavelength) << ", " << patch::to_string(intensity)
 		<< ")";
 
-	ExecutableMachineGraph::ExecutableContainerNodePtr mappedContainer = machine->getContainer(engine->getMappedContainerId(id));
+	ExecutableMachineGraph::NodePtr mappedContainer = machine->getContainer(engine->getMappedContainerId(id));
 	std::shared_ptr<Light> light = mappedContainer->getLight();
 
 	if (light.get() != NULL) {
@@ -590,7 +590,7 @@ void Mapping::exec_applyTemperature(int id, double degres) throw (std::runtime_e
     LOG(INFO) << "exec applyTemperature(" << patch::to_string(id) << ", "
 		<< patch::to_string(degres) << ")";
 
-	ExecutableMachineGraph::ExecutableContainerNodePtr mappedContainer = machine->getContainer(
+	ExecutableMachineGraph::NodePtr mappedContainer = machine->getContainer(
 		engine->getMappedContainerId(id));
 	std::shared_ptr<Temperature> temp = mappedContainer->getTemperature();
 
@@ -608,7 +608,7 @@ double Mapping::exec_getVolume(int id) {
 
 double Mapping::exec_measureOD(int id) throw (std::runtime_error) {
 	double measureValued = -1;
-	ExecutableMachineGraph::ExecutableContainerNodePtr mappedContainer = machine->getContainer(
+	ExecutableMachineGraph::NodePtr mappedContainer = machine->getContainer(
 		engine->getMappedContainerId(id));
 	std::shared_ptr<ODSensor> od = mappedContainer->getOd();
 
@@ -626,14 +626,14 @@ void Mapping::exec_loadContainer(int containerID, double volume) {
     LOG(INFO) << "exec loadContainer(" << patch::to_string(containerID) << ", "
 		<< patch::to_string(volume)
 		<< ")";
-	ExecutableMachineGraph::ExecutableContainerNodePtr mappedContainer = machine->getContainer(
+	ExecutableMachineGraph::NodePtr mappedContainer = machine->getContainer(
 		engine->getMappedContainerId(containerID));
 	mappedContainer->setVolume(volume);
 }
 
 void Mapping::exec_stir(int id, double intensity) throw (std::runtime_error) {
     LOG(INFO) << "exec stir(" << patch::to_string(id) << "," << patch::to_string(intensity) << ")";
-	ExecutableMachineGraph::ExecutableContainerNodePtr mappedContainer = machine->getContainer(
+	ExecutableMachineGraph::NodePtr mappedContainer = machine->getContainer(
 		engine->getMappedContainerId(id));
 	std::shared_ptr<Mixer> mix = mappedContainer->getMix();
 

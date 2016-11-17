@@ -16,7 +16,7 @@ public:
 	virtual ~SearcherInterface() {}
 
 	virtual bool calculateNextFlow() = 0;
-    virtual std::shared_ptr<ExecutableMachineGraph::ExecutableContainerFlowVector> getAvialableFlows() = 0;
+    virtual std::shared_ptr<ExecutableMachineGraph::FlowVector> getAvialableFlows() = 0;
 	virtual bool hasEnded() = 0;
 
 	virtual int getIdStart() = 0;

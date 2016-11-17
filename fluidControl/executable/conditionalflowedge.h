@@ -1,34 +1,46 @@
 #ifndef CONDITIONALFLOWEDGE_H
 #define CONDITIONALFLOWEDGE_H
 
+#include "unordered_set"
+
+//local
 #include "graph/Edge.h"
+#include "graph/edgehash.h"
 #include "util/Patch.h"
+
+#include "evocodercore_global.h"
 
 //cereal
 #include <cereal/cereal.hpp>
-#include <cereal/types/vector.hpp>
+#include <cereal/types/unordered_set.hpp>
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/types/memory.hpp>
 
-class ConditionalFlowEdge : public Edge
+class CONDITIONALFLOWEDGE_EXPORT ConditionalFlowEdge : public Edge
 {
 public:
+    typedef std::unordered_set<std::shared_ptr<ConditionalFlowEdge>, EdgeHash<ConditionalFlowEdge>, EdgeHash<ConditionalFlowEdge>> AllowedEdgeSet;
+
     //derived of edge
     ConditionalFlowEdge();
     ConditionalFlowEdge(const ConditionalFlowEdge & edge);
     //
-    ConditionalFlowEdge(int idSource, int idTarget, const std::vector<std::shared_ptr<ConditionalFlowEdge>> & allowedPreviousEdge);
+    ConditionalFlowEdge(int idSource, int idTarget, const AllowedEdgeSet & allowedPreviousEdge);
 
     virtual ~ConditionalFlowEdge();
 
     virtual std::string toText();
+
+    inline const AllowedEdgeSet & getAllowedPreviousEdges() {
+        return allowedPreviousEdge;
+    }
 
     //SERIALIZATIoN
     template<class Archive>
     void serialize(Archive & ar, std::uint32_t const version);
 
 protected:
-    std::vector<std::shared_ptr<ConditionalFlowEdge>> allowedPreviousEdge;
+    AllowedEdgeSet allowedPreviousEdge;
 };
 
 template<class Archive>

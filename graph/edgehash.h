@@ -11,7 +11,7 @@
 
 template<class EdgeType> class EdgeHash {
     // Restrict this template for using only types derived from edge Interfaces
-    BOOST_STATIC_ASSERT((boost::is_base_of<Edge, EdgeType>::value));
+    //BOOST_STATIC_ASSERT((boost::is_base_of<Edge, EdgeType>::value));
 
 public:
     EdgeHash() {}

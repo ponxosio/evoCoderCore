@@ -41,9 +41,9 @@ int PathSearcherIterator::hasNext(std::unordered_set<int> visitados)
 	return has;
 }
 
-ExecutableMachineGraph::ExecutableContainerFlowPtr PathSearcherIterator::next() throw (std::runtime_error)
+ExecutableMachineGraph::FlowPtr PathSearcherIterator::next() throw (std::runtime_error)
 {
-    ExecutableMachineGraph::ExecutableContainerFlowPtr next;
+    ExecutableMachineGraph::FlowPtr next;
 	if (lastPosition < engine->getAvialableFlows()->size()) {
 		next = engine->getAvialableFlows()->at(lastPosition);
 	} else {
@@ -53,9 +53,9 @@ ExecutableMachineGraph::ExecutableContainerFlowPtr PathSearcherIterator::next() 
 	return next;
 }
 
-ExecutableMachineGraph::ExecutableContainerFlowPtr PathSearcherIterator::next(std::unordered_set<int> visitados) throw(std::runtime_error)
+ExecutableMachineGraph::FlowPtr PathSearcherIterator::next(std::unordered_set<int> visitados) throw(std::runtime_error)
 {
-    ExecutableMachineGraph::ExecutableContainerFlowPtr next;
+    ExecutableMachineGraph::FlowPtr next;
 	if (lastPosition < engine->getAvialableFlows()->size()) {
 		next = engine->getAvialableFlows()->at(lastPosition);
 	}
