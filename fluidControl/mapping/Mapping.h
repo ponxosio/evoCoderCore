@@ -71,6 +71,7 @@ public:
 
     //miscelaneous
     std::string printMappingTable();
+    void logMappingTable();
 
 	//operations
     void doMapping() throw (std::invalid_argument);

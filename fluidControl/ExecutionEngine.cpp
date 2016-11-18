@@ -104,12 +104,12 @@ bool ExecutionEngine::test() throw (std::runtime_error) {
 	try {
 		sketcher();
         analizeFlows();
-        LOG(INFO) << "printing minimal machine...";
+        LOG(DEBUG) << "printing minimal machine...";
         mapping->printSketch("sketch_protocol.graph");
 
 		mapping->doMapping();
 
-        LOG(INFO) << "mapping done " << mapping->printMappingTable();
+        mapping->logMappingTable();
 
 		table.get()->clear();
 		initilizeTime();

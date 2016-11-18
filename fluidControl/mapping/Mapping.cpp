@@ -502,7 +502,7 @@ void Mapping::sketching_setTimeStep(long sleepMs) {
 
 //EXEC
 void Mapping::exec_setContinuosFlow(int idSource, int idTarget, double rate) throw (std::runtime_error) {
-    LOG(INFO) << "exec setContinousFlow(" << patch::to_string(idSource) << ", "
+    LOG(DEBUG) << "exec setContinousFlow(" << patch::to_string(idSource) << ", "
 		<< patch::to_string(idTarget) << ", " + patch::to_string(rate)
 		<< ")";
 
@@ -534,7 +534,7 @@ void Mapping::exec_setContinuosFlow(int idSource, int idTarget, double rate) thr
 }
 
 void Mapping::exec_transfer(int idSource, int idTarget, double volume) throw (std::runtime_error) {
-    LOG(INFO) << "exec transfer(" << patch::to_string(idSource) << ", "
+    LOG(DEBUG) << "exec transfer(" << patch::to_string(idSource) << ", "
 		<< patch::to_string(idTarget) << ", " << patch::to_string(volume)
 		<< ")";
 
@@ -562,7 +562,7 @@ void Mapping::exec_transfer(int idSource, int idTarget, double volume) throw (st
 }
 
 void Mapping::exec_mix(int source1, int source2, int target, double volume1, double volume2) throw (std::runtime_error) {
-    LOG(INFO) << "exec mix(" << patch::to_string(source1) << ", " << patch::to_string(source2) << ", "
+    LOG(DEBUG) << "exec mix(" << patch::to_string(source1) << ", " << patch::to_string(source2) << ", "
 		<< patch::to_string(target) + ", " << patch::to_string(volume1) << ", " << patch::to_string(volume2)
 		<< ")";
 
@@ -571,7 +571,7 @@ void Mapping::exec_mix(int source1, int source2, int target, double volume1, dou
 }
 
 void Mapping::exec_applyLight(int id, double wavelength, double intensity) throw (std::runtime_error) {
-    LOG(INFO) << "exec applyLight(" << patch::to_string(id) << ", "
+    LOG(DEBUG) << "exec applyLight(" << patch::to_string(id) << ", "
 		<< patch::to_string(wavelength) << ", " << patch::to_string(intensity)
 		<< ")";
 
@@ -587,7 +587,7 @@ void Mapping::exec_applyLight(int id, double wavelength, double intensity) throw
 }
 
 void Mapping::exec_applyTemperature(int id, double degres) throw (std::runtime_error) {
-    LOG(INFO) << "exec applyTemperature(" << patch::to_string(id) << ", "
+    LOG(DEBUG) << "exec applyTemperature(" << patch::to_string(id) << ", "
 		<< patch::to_string(degres) << ")";
 
 	ExecutableMachineGraph::NodePtr mappedContainer = machine->getContainer(
@@ -614,7 +614,7 @@ double Mapping::exec_measureOD(int id) throw (std::runtime_error) {
 
 	if (od.get() != NULL) {
 		measureValued = od.get()->readOd();
-        LOG(INFO) << "exec measureOD(" << patch::to_string(id) << ") = " << patch::to_string(measureValued);
+        LOG(DEBUG) << "exec measureOD(" << patch::to_string(id) << ") = " << patch::to_string(measureValued);
 	}
 	else {
 		LOG(FATAL) << "trying to measure OD from a container without that add on, container id: " << patch::to_string(mappedContainer->getContainerId());
@@ -746,6 +746,21 @@ std::string Mapping::printMappingTable() {
         stream << " sketch : " << act->toText() << ", machine: " << engine->getMappedEdge(act)->toText();
     }
     return stream.str();
+}
+
+void Mapping::logMappingTable() {
+    const MachineGraph::ContainerEdgeVectorPtr edges = sketch->getGraph()->getEdgeList();
+    const MachineGraph::ContainerNodeVectorPtr nodes = sketch->getGraph()->getAllNodes();
+
+    for (auto it = nodes->begin(); it != nodes->end(); ++it) {
+        MachineGraph::ContainerNodePtr act = *it;
+        LOG(INFO) << " sketch : " << patch::to_string(act->getContainerId()) << ", machine: " << patch::to_string(engine->getMappedContainerId(act->getContainerId()));
+    }
+
+    for (auto it = edges->begin(); it != edges->end(); ++it) {
+        MachineGraph::ContainerEdgePtr act = *it;
+        LOG(INFO) << " sketch : " << act->toText() << ", machine: " << engine->getMappedEdge(act)->toText();
+    }
 }
 
 void Mapping::cleanUsedResources() {
