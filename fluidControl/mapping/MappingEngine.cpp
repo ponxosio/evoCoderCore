@@ -369,6 +369,7 @@ bool MappingEngine::checkMachineFlowAllowed(ExecutableMachineGraph::FlowPtr flow
             if (!allowedSet.empty()) {
                 allowed = (allowedSet.find(lastEdge) != allowedSet.end());
             }
+            lastEdge = actualEdge;
         }
     }
     return allowed;

@@ -153,15 +153,15 @@ typename MachineGraph::ContainerNodeGraphPtr MachineGraph::makeGraph() {
 
 typename MachineGraph::ContainerEdgePtr MachineGraph::getEdge(int idSource, int idTarget) throw (std::invalid_argument) {
     ContainerEdgePtr findedEdge;
-
     ContainerEdgeVectorPtr edges = machine->getLeavingEdges(idSource);
-    for (auto it = edges->begin(); !findedEdge && it != edges->end(); ++it) {
-        ContainerEdgePtr edge = *it;
-        if (edge->getIdTarget() == idTarget) {
-            findedEdge = edge;
+    if (edges) {
+        for (auto it = edges->begin(); !findedEdge && it != edges->end(); ++it) {
+            ContainerEdgePtr edge = *it;
+            if (edge->getIdTarget() == idTarget) {
+                findedEdge = edge;
+            }
         }
     }
-
     if (!findedEdge) {
         throw(std::invalid_argument("edge(" + patch::to_string(idSource) +
                                     "," + patch::to_string(idTarget) + ") not found"));

@@ -109,6 +109,10 @@ public:
         return existingFlowsSet;
     }
 
+    inline MappingEngine* getMappingEngine() {
+        return engine;
+    }
+
 protected:
     MappingOperation operation;
 	bool testing;

@@ -78,6 +78,26 @@ typename ExecutableMachineGraph::NodePtr ExecutableMachineGraph::getContainer(in
 	}
 }
 
+typename ExecutableMachineGraph::EdgePtr ExecutableMachineGraph::getEdge(int idSource, int idTarget) throw(std::invalid_argument) {
+    EdgePtr found;
+    EdgeVectorPtr edges = graph->getLeavingEdges(idSource);
+    if (edges) {
+        for(auto it = edges->begin(); !found && it != edges->end(); ++it ) {
+            EdgePtr actual = *it;
+            if (actual->getIdTarget() == idTarget) {
+                found = actual;
+            }
+        }
+    }
+    if (!found) {
+        throw(std::invalid_argument("imposible to get edge(" +
+                                    patch::to_string(idSource) + "," +
+                                    patch::to_string(idTarget) +
+                                    ")"));
+    }
+    return found;
+}
+
 bool ExecutableMachineGraph::connectExecutableContainer(int idSource, int idTarget, const AllowedEdgesSet & allowedEdges) {
 	bool vuelta = false;
 	if (existsContainer(idSource) && existsContainer(idTarget)

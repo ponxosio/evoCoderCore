@@ -94,6 +94,7 @@ public:
     void addContainer(NodePtr node, const std::string & alias = "");
     std::string getAlias(int id);
     NodePtr getContainer(int idConatiner) throw(std::invalid_argument);
+    EdgePtr getEdge(int idSource, int idTarget) throw(std::invalid_argument);
     bool connectExecutableContainer(int idSource, int idTarget, const AllowedEdgesSet & allowedEdges);
 	void printMachine(const std::string & path);
 

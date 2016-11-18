@@ -77,6 +77,11 @@ public:
     float parseVolume(const std::string & text);
     float parseTime(const std::string & text);
     float parseFlowRate(const std::string & text) throw (std::invalid_argument);
+
+    //for testing purposes
+    inline const std::unordered_map<std::string, int> & getContainerMap() {
+        return containerMap;
+    }
 protected:
     std::shared_ptr<ProtocolGraph> protocol;
     std::unordered_map<std::string, int> containerMap;
